@@ -1,0 +1,4 @@
+interface:
+  display_name: "GitHub Repository Search"
+  short_description: "Find and compare GitHub repositories"
+  default_prompt: "Use $github-repository-search to find and compare GitHub repositories for this requirement."

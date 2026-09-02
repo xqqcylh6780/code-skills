@@ -1,0 +1,4 @@
+interface:
+  display_name: "Shape Project"
+  short_description: "Turn requirements into an executable project plan"
+  default_prompt: "Use $shape-project to clarify this requirement, inspect the current project, and produce an execution-ready plan."

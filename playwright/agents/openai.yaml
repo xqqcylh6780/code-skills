@@ -1,0 +1,6 @@
+interface:
+  display_name: "Playwright Browser Automation"
+  short_description: "Automate and verify real browser workflows"
+  icon_small: "./assets/playwright-small.svg"
+  icon_large: "./assets/playwright.png"
+  default_prompt: "Use $playwright to automate and verify this browser workflow without installing dependencies or causing external side effects unless I approve them."

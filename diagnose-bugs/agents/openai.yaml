@@ -1,0 +1,4 @@
+interface:
+  display_name: "Diagnose Bugs"
+  short_description: "Reproduce, isolate, fix, and guard bugs"
+  default_prompt: "Use $diagnose-bugs to reproduce this failure, find its root cause, and verify a regression-safe fix."

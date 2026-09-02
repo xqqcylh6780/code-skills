@@ -1,0 +1,4 @@
+interface:
+  display_name: "Design Interfaces"
+  short_description: "Design stable contracts at system boundaries"
+  default_prompt: "Use $design-interfaces to design a stable contract for this API or module boundary."

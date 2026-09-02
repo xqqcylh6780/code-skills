@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test Behavior First"
+  short_description: "Drive changes through focused behavior tests"
+  default_prompt: "Use $test-behavior-first to implement this behavior with a red-green verification loop."

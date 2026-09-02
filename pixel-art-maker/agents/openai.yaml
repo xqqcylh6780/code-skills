@@ -1,0 +1,7 @@
+interface:
+  display_name: "像素图制作"
+  short_description: "制作像素游戏素材，支持 Aseprite 精确绘制、分层源文件与导出检查"
+  default_prompt: "使用 $pixel-art-maker 完成我指定的像素素材；按任务选择 Aseprite MCP 或图像生成路径，检查并交付实际文件，不扩大范围。"
+
+policy:
+  allow_implicit_invocation: true

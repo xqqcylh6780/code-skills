@@ -1,0 +1,4 @@
+interface:
+  display_name: "Secure Boundaries"
+  short_description: "Threat-model and harden trust boundaries"
+  default_prompt: "Use $secure-boundaries to identify trust boundaries, harden the implementation, and verify the controls."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Build Backends"
+  short_description: "Build reliable backend services and jobs"
+  default_prompt: "Use $build-backends to implement this backend behavior safely and verify it."

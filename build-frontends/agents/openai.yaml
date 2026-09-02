@@ -1,0 +1,4 @@
+interface:
+  display_name: "Build Frontends"
+  short_description: "Design, build, and verify polished frontends"
+  default_prompt: "Use $build-frontends to design, implement, and browser-verify this frontend."

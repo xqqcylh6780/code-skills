@@ -1,0 +1,10 @@
+Design-intelligence search engine and CSV data derived from:
+https://github.com/nextlevelbuilder/ui-ux-pro-max-skill
+
+Upstream revision integrated: abb7f2fd5a083fa1ff55c326a963ff0d95c33f99
+Copyright (c) 2024 Next Level Builder
+Licensed under the MIT License included in this directory.
+
+Local modification:
+- core.py resolves its bundled data directory beside the script files so the
+  engine can live inside the build-frontends Codex skill.
