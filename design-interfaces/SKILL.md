@@ -1,11 +1,10 @@
 ---
 name: design-interfaces
 description: >-
-  Define, change, or review a public or shared observable contract such as an HTTP or GraphQL API,
-  library or module boundary, reusable component API, command, configuration schema, event, job,
-  or third-party adapter. Use when callers depend on shapes, errors, state transitions, ordering,
-  compatibility, migration, or deprecation. Do not activate for private implementation details,
-  local-only props, or refactors that leave consumer-visible behavior unchanged.
+  Design or change a public/shared observable contract. Trigger for HTTP/GraphQL APIs, events,
+  jobs, CLI/config schemas, library/module APIs, reusable component APIs, adapters, errors,
+  pagination, compatibility, deprecation, or migration semantics. Do not use for private
+  implementation details alone.
 ---
 
 # Design Interfaces
@@ -153,11 +152,16 @@ Write representative examples for:
 
 Examples should be concrete enough to become contract tests. Derive them from the contract, not the implementation.
 
-### 10. Implement Behind Adapters
+### 10. Prepare the Implementation Boundary
 
-Keep domain behavior behind a stable internal capability. Let HTTP handlers, GraphQL resolvers, CLI parsers, queues, storage, and third-party SDKs translate into and out of that capability.
+Describe the stable internal capability that should sit behind the contract. HTTP handlers, GraphQL
+resolvers, CLI parsers, queues, storage, and third-party SDKs should translate into and out of that
+capability rather than leak transport or vendor types into domain behavior.
 
-Parse and validate external data once at the boundary. Validate third-party responses before use. Avoid scattering transport-specific errors or defensive parsing across domain code.
+Specify where external data is parsed and validated, where errors are translated, and which adapter
+owns third-party response validation. Do not modify private implementation merely to complete a
+contract-design-only request. When implementation is also requested, route the resulting contract
+to `build-backends`, `build-frontends`, `build-mobile-apps`, or `database-engineering` as appropriate.
 
 ### 11. Prove and Document the Contract
 
@@ -185,6 +189,11 @@ Update the authoritative contract artifact and lead with the consumer-visible ou
 only the relevant owners, inputs, guarantees, errors, state and side effects, authorization,
 compatibility classification, migration plan, examples, verification, and unresolved risks. Do
 not manufacture sections for concerns that do not apply.
+
+Route implementation deliberately: server behavior to `build-backends`, browser UI to
+`build-frontends`, mobile or uni-app behavior to `build-mobile-apps`, database-primary work to
+`database-engineering`, and changed trust boundaries to `secure-boundaries`. A design-only request
+ends after the contract and handoff are complete.
 
 ## Completion Criteria
 

@@ -1,17 +1,29 @@
 ---
 name: github-repository-search
 description: >-
-  Find, evaluate, or compare GitHub repositories for libraries, frameworks, templates, examples,
-  alternatives, or implementation references. Use when repository selection depends on fit,
-  maintenance, releases, license, compatibility, adoption, or project risk. Do not use for source
-  search inside a known repository or for pull-request and issue management. Keep discovery
-  read-only unless the user separately authorizes cloning, installing, forking, starring, or other
-  repository changes.
+  Find, compare, and evaluate GitHub repositories for libraries, frameworks, templates,
+  examples, tools, or alternatives. Trigger when current repository evidence, maintenance,
+  licensing, fit, or shortlist comparison matters. Do not use for implementing code in the
+  user's current repository.
 ---
 
 # GitHub Repository Search
 
 Find repositories that satisfy the actual technical requirement, verify the strongest candidates, and explain the recommendation with current evidence. Treat popularity as one signal rather than the decision.
+
+## Choose the Scope
+
+- **Single repository:** the user supplies a repository and asks what it is, whether it fits, or
+  whether it is worth adopting. Inspect that repository directly; skip broad search, candidate
+  quotas, and invented alternatives. Check its README, relevant examples, license, and activity
+  to the depth needed for the question, then stop.
+- **Supplied comparison:** compare the named repositories. Add candidates only when requested or
+  when a missing option is necessary to answer the stated selection question.
+- **Open discovery:** the user wants repositories found or alternatives explored. Use the broad
+  search workflow below, with breadth proportional to the decision.
+
+For known targets, use a suitable read-only GitHub fetch tool, API, CLI, or web page directly;
+repository search is not a prerequisite for reading a supplied URL.
 
 ## Establish the Search Brief
 
@@ -39,7 +51,7 @@ Follow the selected tool's current schema. Never claim broader coverage than the
 
 ## Search Broadly, Then Narrow
 
-Run two to four complementary queries that cover naming variants, topics, ecosystems, and important qualifiers. Prefer several legible searches over one over-constrained query. Exclude archived repositories and forks by default unless history or maintained forks are relevant.
+For Open discovery only, run two to four complementary queries that cover naming variants, topics, ecosystems, and important qualifiers. Prefer several legible searches over one over-constrained query. Exclude archived repositories and forks by default unless history or maintained forks are relevant.
 
 Review enough results to avoid ranking the first plausible hit. Build an initial pool of roughly 10–20 candidates when the backend permits, then shortlist three to five based on requirement fit. Adapt these numbers when the ecosystem is genuinely small.
 
@@ -63,7 +75,12 @@ Read [references/evaluation.md](references/evaluation.md) when comparing candida
 
 ## Report the Result
 
-Include:
+For a Single repository request, explain its purpose, actual contents, fit for the user's task,
+material limitations, and relevant source links. Include activity/license evidence when adoption
+is being evaluated and the date for time-sensitive observations. Do not force a comparison table
+or recommend alternatives just to fill a template.
+
+For Supplied comparison or Open discovery, include:
 
 1. the interpreted search brief and material assumptions;
 2. a compact comparison with repository links, fit, maintenance evidence, license, and risks;

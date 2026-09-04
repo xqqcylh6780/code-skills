@@ -1,0 +1,4 @@
+interface:
+  display_name: "Database Engineering"
+  short_description: "Design, migrate, analyze, and recover relational data"
+  default_prompt: "Use $database-engineering to design or change this database safely, verify the important invariants, and plan recovery."

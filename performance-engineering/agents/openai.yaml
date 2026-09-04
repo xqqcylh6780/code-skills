@@ -1,0 +1,4 @@
+interface:
+  display_name: "Performance Engineering"
+  short_description: "Measure, profile, optimize, and capacity-test systems"
+  default_prompt: "Use $performance-engineering to establish a baseline, localize the bottleneck, optimize the measured constraint, and prove the result."

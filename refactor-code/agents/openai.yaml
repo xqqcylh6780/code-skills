@@ -1,0 +1,4 @@
+interface:
+  display_name: "Refactor Code"
+  short_description: "Improve structure without changing behavior"
+  default_prompt: "Use $refactor-code to improve this code structure in small protected steps while preserving observable behavior."

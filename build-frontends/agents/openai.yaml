@@ -1,4 +1,6 @@
 interface:
   display_name: "Build Frontends"
-  short_description: "Design, build, and verify polished frontends"
-  default_prompt: "Use $build-frontends to design, implement, and browser-verify this frontend."
+  short_description: "Build, fix, polish, and verify browser UI"
+  default_prompt: "Use $build-frontends to implement this browser frontend change in the existing stack and verify it proportionately."
+policy:
+  allow_implicit_invocation: true

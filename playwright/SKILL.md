@@ -1,6 +1,10 @@
 ---
 name: "playwright"
-description: "Automate, inspect, and verify real browser workflows with Playwright across Windows, macOS, and Linux. Use for navigation, form interaction, screenshots, data extraction, responsive checks, UI-flow debugging, console or network inspection, and explicitly requested Playwright tests. Prefer an existing Playwright MCP, repository configuration, or installed CLI; do not install dependencies, submit consequential forms, or use credentials without authorization."
+description: >-
+  Automate, inspect, or verify real browser workflows with Playwright. Trigger for navigation,
+  forms, screenshots, responsive checks, interaction testing, browser reproduction, or explicit
+  Playwright tests. Do not use when source-only reasoning is sufficient or when a non-browser
+  runtime is the real target.
 ---
 
 # Playwright Browser Automation

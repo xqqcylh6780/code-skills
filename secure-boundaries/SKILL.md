@@ -1,16 +1,29 @@
 ---
 name: secure-boundaries
 description: >-
-  Design, implement, or review controls at a meaningful trust boundary. Use for authentication,
-  authorization, sessions, secrets, sensitive or regulated data, tenant isolation, uploads and
-  archives, server-side URL fetching, webhooks, payments, cryptography, privileged actions, or
-  untrusted content that can drive code, tools, queries, or external side effects. Do not activate
-  merely because ordinary code uses a database, browser, dependency, API, form, or external service.
+  Design, implement, or review controls at a meaningful trust boundary. Trigger for
+  authentication, authorization, tenancy, secrets, sensitive data, uploads, SSRF,
+  webhooks/payments, crypto, privileged effects, or untrusted/model output. Do not run a full
+  security workflow for ordinary low-risk code.
 ---
 
 # Secure Boundaries
 
 Secure the places where data, identity, privilege, and side effects cross trust boundaries. Start from assets and abuse cases, apply controls at the owning boundary, and prove both allowed and denied behavior.
+
+## Select the Requested Outcome
+
+- **Review/assessment:** inspect existing controls and available evidence without edits. Report
+  supported findings, proposed controls, and unverified risks. Do not add tests, change permissions,
+  rotate credentials, or repair configuration merely to complete a review.
+- **Design:** deliver invariants, control placement, tradeoffs, and a verification plan; do not
+  implement or mutate live state unless the user also requests it.
+- **Implementation:** make the authorized control changes and verify allowed and denied behavior
+  at the affected boundary. A security-related topic alone is not implementation authorization.
+
+Apply the implementation and test-creation steps below only in Implementation mode. In Review or
+Design mode, assess existing evidence or describe proposed checks instead. Runtime probes must
+stay within the task's execution and side-effect permissions in every mode.
 
 ## Activation Threshold
 
@@ -23,6 +36,16 @@ Do not load the full security workflow for routine persistence, display-only bro
 API consumption, dependency use, or internal refactoring with no changed trust boundary. Apply the
 repository's normal secure coding conventions in those tasks without turning them into a threat
 modeling exercise.
+
+### Focused-boundary fast path
+
+When the task changes one established control at one known boundary and introduces no new actor,
+data class, privilege, execution capability, or external effect, keep the work narrow: state the
+security invariant and inspect the existing control pattern. For implementation, make the smallest
+change and prove the allowed case and relevant denied case; for review/design, assess the evidence
+or propose the control without edits. Inspect runtime configuration only when it can alter that
+control. Do not produce a full threat model or abuse-case inventory unless the change creates
+a new trust relationship or materially broadens impact.
 
 ## Security Posture
 
@@ -201,12 +224,18 @@ Scope and assets:
 Trust boundaries and actors:
 Security invariants:
 Priority abuse cases:
-Controls implemented:
-Negative tests and runtime evidence:
+Controls assessed, proposed, or implemented (label which):
+Allowed/denied evidence and proposed or unrun checks:
 Operational detection and recovery:
 Residual risks and assumptions:
 ```
 
 ## Completion Criteria
 
-Completion requires the important trust boundaries and abuse cases to be explicit, controls enforced at the owning boundary, allowed and denied behavior tested, runtime configuration inspected where relevant, and residual risk stated without overclaiming.
+Review is complete with evidence-backed findings, control assessment, and explicit verification
+limits; design is complete with actionable invariants, control placement, and a verification plan.
+Neither mode requires fixes or new tests. Implementation requires controls enforced at the owning
+boundary, allowed and denied behavior tested where feasible, runtime configuration inspected where
+relevant, and residual risk stated without overclaiming. Keep boundary and abuse-case detail
+proportionate to the task. Route ordinary implementation back to the relevant build skill and release/runtime
+hardening to `deploy-and-operate` rather than expanding this skill beyond the trust boundary.

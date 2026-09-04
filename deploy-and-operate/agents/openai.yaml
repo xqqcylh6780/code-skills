@@ -1,0 +1,4 @@
+interface:
+  display_name: "Deploy and Operate"
+  short_description: "Release, verify, observe, and recover software"
+  default_prompt: "Use $deploy-and-operate to prepare and execute this release safely, verify the runtime, and keep rollback or recovery explicit."

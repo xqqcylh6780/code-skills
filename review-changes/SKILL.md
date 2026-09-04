@@ -1,11 +1,10 @@
 ---
 name: review-changes
 description: >-
-  Use when reviewing local changes, staged files, commits, branches, pull requests, completed
-  implementation, or a proposed patch for correctness, regressions, requirement alignment,
-  security, compatibility, maintainability, and test coverage. Covers evidence-backed, read-only
-  code review and pre-merge risk assessment. Do not use to implement fixes unless the user also
-  requests changes, or to diagnose a reported failure whose causal chain is still unknown.
+  Review diffs, commits, branches, PRs, or completed changes for concrete correctness and risk
+  issues. Trigger for code review, regression review, pre-merge review, or review-and-fix when
+  explicitly requested. Default to read-only findings; do not replace implementation or
+  unknown-cause debugging.
 ---
 
 # Review Changes
@@ -28,6 +27,13 @@ an implementer can act without repeating the investigation.
   pre-existing issue only when it directly blocks the change or makes its claimed behavior false.
 - Distinguish verified defects, unresolved questions, and untested risks. Do not convert uncertainty
   into a confident finding.
+
+### Focused review fast path
+
+For a small, clearly scoped diff with an established requirement and no public, data, security,
+concurrency, migration, or deployment boundary, inspect the exact diff plus only the nearest
+consumer/test context. Report actionable findings or `No actionable findings.` and stop. Do not
+expand a tiny review into a repository-wide architecture audit.
 
 ## Workflow
 

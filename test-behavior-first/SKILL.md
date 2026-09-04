@@ -1,11 +1,10 @@
 ---
 name: test-behavior-first
 description: >-
-  Implement behavior with a witnessed red-green-refactor loop. Use when the user requests TDD,
-  when a reproduced defect needs a regression test, or when a high-value domain rule, public
-  contract, state transition, authorization outcome, concurrency rule, or other material invariant
-  has a practical automated seam. Do not activate for every ordinary code change, or for open-ended
-  diagnosis, static styling, copy, pure configuration, generated artifacts, or low-value tests.
+  Implement behavior with a witnessed red-green-refactor loop. Trigger when the user requests
+  TDD, a reproduced defect needs a regression test, a material invariant has a practical test
+  seam, or repository policy requires test-first work. Do not force TDD onto every ordinary code
+  change or pure refactor.
 ---
 
 # Test Behavior First
@@ -24,7 +23,9 @@ Use this strict workflow only when at least one condition holds:
 
 Do not invoke it solely because deterministic behavior is being edited or because a test could be
 written. Ordinary implementation can still include focused tests without requiring a witnessed
-RED or the full red-green-refactor ceremony.
+RED or the full red-green-refactor ceremony. For a behavior-preserving refactor, use
+`refactor-code`; tests may provide the safety net without manufacturing a new RED for unchanged
+behavior.
 
 ## Core Rules
 
@@ -203,4 +204,10 @@ Exceptions: tests not run, skipped paths, or residual risk
 
 ## Completion Criteria
 
-Completion requires a witnessed meaningful RED for new behavior or regression, passing focused tests after implementation, directly affected checks, and no silently skipped or disabled coverage.
+The normal path requires a witnessed meaningful RED for new behavior or regression, passing
+focused tests after implementation, directly affected checks, and no silently skipped or disabled
+coverage. When the exception path above is necessary, state why RED is impractical, identify the
+strongest feasible substitute and evidence actually obtained, and disclose the unverified behavior
+and next check. Do not claim strict TDD was completed or fabricate a RED. If the user or repository
+makes witnessed RED an explicit acceptance gate, an exception does not waive it; report the blocker
+and request direction before crossing that gate. Do not mark an unmet gate as accepted.

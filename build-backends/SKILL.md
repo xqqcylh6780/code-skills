@@ -1,11 +1,10 @@
 ---
 name: build-backends
 description: >-
-  Implement or modify server-side product behavior across request handlers, services, domain
-  logic, persistence adapters, transactions, jobs, queues, caching, integrations, errors,
-  observability, concurrency, and idempotency. Use for an actual backend change or focused
-  operational hardening, not for generic code review, contract design alone, unexplained defects,
-  frontend-only work, or pure database administration.
+  Build or modify server-side product behavior in Python, Java, or the repository's existing
+  backend stack. Trigger for handlers, services, jobs, persistence, transactions, queues,
+  caching, integrations, retries, idempotency, concurrency, or observability. Use database-
+  engineering when the database itself is the primary task.
 ---
 
 # Build Backends
@@ -35,10 +34,21 @@ because another task mentions an API, database, or service. Route review-only wo
 Route adjacent work deliberately:
 
 - Use `design-interfaces` before changing a public HTTP, GraphQL, event, job, or module contract.
+- Use `database-engineering` when schema modeling, indexes, query plans, large migrations, database
+  integrity, backup/restore, or database-level operations are themselves the task.
 - Use `diagnose-bugs` when the causal chain of an existing failure is unknown or disputed.
 - Use `secure-boundaries` for authentication, authorization, sensitive data, untrusted input,
   uploads, webhooks, or privileged effects.
-- Use `test-behavior-first` when the requested behavior has a practical automated test seam.
+- Use `test-behavior-first` for requested TDD, a reproduced defect's regression guard, a material
+  invariant with a practical test seam, or repository-required test-first proof. Ordinary feature
+  tests do not by themselves require strict RED/GREEN routing.
+- Use `deploy-and-operate` when release artifacts, deployment configuration, rollout, target-runtime
+  operations, rollback, or recovery are the requested deliverable or a necessary authorized change.
+  A local build or focused runtime check used only to verify a feature stays in this skill.
+- Use `refactor-code` when the primary goal is internal structural improvement with unchanged
+  observable behavior.
+- Use `performance-engineering` when measurement, profiling, throughput, latency, resource, or
+  capacity improvement is itself the primary outcome.
 
 ## Workflow
 
@@ -96,7 +106,29 @@ failure, diagnose it before editing.
 Read [references/backend-quality.md](references/backend-quality.md) for layering, error and
 integration patterns, observability, and verification seams. Read
 [references/data-and-operations.md](references/data-and-operations.md) for persistence,
-transactions, schema changes, queues, caching, concurrency, idempotency, and recovery.
+transactions, application-owned schema changes, queues, caching, concurrency, idempotency, and
+recovery.
+
+Detect the repository's existing backend language and stack before loading framework guidance. Preserve
+that stack unless the user explicitly requests a migration.
+
+For Python backends, start with [Python backend](references/stacks/python-backend.md), then load only
+the relevant narrower references such as [FastAPI](references/stacks/fastapi.md),
+[Pydantic](references/stacks/pydantic.md), [SQLAlchemy](references/stacks/sqlalchemy.md), or
+[Alembic](references/stacks/alembic.md).
+
+For Java backends, start with [Java backend](references/stacks/java-backend.md), then load only the
+technologies actually present: [Spring Boot](references/stacks/spring-boot.md),
+[Spring Security](references/stacks/spring-security.md),
+[JPA/Hibernate](references/stacks/jpa-hibernate.md), [MyBatis](references/stacks/mybatis.md),
+[Flyway/Liquibase](references/stacks/flyway-liquibase.md),
+[Maven/Gradle](references/stacks/maven-gradle.md), and
+[JUnit/Testcontainers](references/stacks/junit-testcontainers.md).
+
+Cross-stack references such as [relational databases](references/stacks/relational-databases.md),
+[Redis](references/stacks/redis.md), and [WebSockets](references/stacks/websocket.md) remain available.
+Do not load every reference for a task, and do not migrate Python to Java or Java to Python merely because
+another reference is available.
 
 ### 4. Verify in widening rings
 

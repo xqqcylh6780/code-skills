@@ -1,11 +1,10 @@
 ---
 name: shape-project
 description: >-
-  Turn a product idea or materially ambiguous project or feature into an execution-ready brief.
-  Use when the user asks how to begin, requests a plan or specification, wants alternatives
-  compared, or when unresolved scope, acceptance criteria, architecture, risk, or sequencing would
-  materially change implementation. Do not use merely because work is new; skip it when the user
-  asks for implementation and the next safe slice is already clear.
+  Turn a materially ambiguous product, project, or feature into an execution-ready brief.
+  Trigger for vague scope, competing approaches, unclear requirements, acceptance criteria,
+  staged delivery, or work that needs a first vertical slice. Do not invoke for small,
+  already-specific implementation tasks.
 ---
 
 # Shape Project
@@ -25,6 +24,17 @@ Shape the work before building it. Convert what the user knows into a shared, ve
 - Treat planning as the current deliverable when the user requests a plan, specification, or
   approach. When the user requests implementation, use only enough shaping to resolve material
   blockers, then continue into the authorized work unless a user decision is genuinely required.
+
+### Focused shaping fast path
+
+For a small or already well-specified change, do not run the full discovery workflow. Inspect the
+nearest repository evidence, confirm the observable outcome, material constraint, and verification
+path, then stop shaping as soon as the next safe vertical slice is unambiguous. Do not create a
+requirements ledger, alternatives analysis, readiness report, or standalone brief when those
+artifacts would not change the implementation decision.
+
+Use the full workflow only when uncertainty, blast radius, migration, security, architecture, or
+sequencing makes those steps decision-relevant.
 
 ## Workflow
 
@@ -211,10 +221,16 @@ Route downstream work deliberately:
 | Need | Next skill |
 |---|---|
 | Public API, schema, command, event, configuration, or shared boundary | `design-interfaces` |
-| User-facing page, component, workflow, responsiveness, or visual system | `build-frontends` |
+| Browser-only web page, component, workflow, responsiveness, or visual system | `build-frontends` |
+| Mobile/uni-app page, app lifecycle, device API, or cross-platform application flow | `build-mobile-apps` |
+| Server-side service, domain, job, persistence, or integration behavior | `build-backends` |
+| Database schema, indexes, query plans, migration, integrity, or recovery as the primary task | `database-engineering` |
 | Authentication, authorization, untrusted input, sensitive data, or privileged effects | `secure-boundaries` |
-| Deterministic behavior with a practical test seam | `test-behavior-first` |
+| Deterministic high-value behavior with a practical test seam | `test-behavior-first` |
 | Existing failure whose causal chain is unknown | `diagnose-bugs` |
+| Behavior-preserving structural improvement | `refactor-code` |
+| Performance measurement, profiling, optimization, or capacity target | `performance-engineering` |
+| Build artifact, release, rollout, runtime verification, rollback, or recovery | `deploy-and-operate` |
 
 Recommend only the skills required by the shaped work. State whether the next action is a decision, research spike, contract design, first implementation slice, prototype, migration preparation, or defect investigation.
 
