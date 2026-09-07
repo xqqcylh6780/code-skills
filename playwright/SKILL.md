@@ -13,10 +13,11 @@ Use Playwright when the result must be reproducible, browser-backed, or expressi
 
 ## Select the execution path
 
-Choose the first available path that fits the request:
+Choose by the requested outcome, then availability:
 
-1. Use a connected Playwright MCP for interactive exploration and screenshots.
-2. Use the repository's existing Playwright configuration and package-manager scripts for project tests.
+1. For existing or requested automated project tests, use the repository's Playwright configuration,
+   fixtures, and package-manager scripts. A connected MCP does not replace running those tests.
+2. For interactive exploration and screenshots, use a connected Playwright MCP when available.
 3. Use an installed `playwright-cli` for terminal-driven automation.
 4. Use the bundled wrapper only after the user authorizes any required `npx` download.
 
@@ -37,13 +38,18 @@ Identify the viewport, authentication state, and whether the task is exploration
 ## Core interaction loop
 
 1. Open the target page.
-2. Capture a fresh accessibility or DOM snapshot.
+2. For snapshot-reference tools, capture a fresh accessibility or DOM snapshot. In repository tests,
+   use locators based on inspected markup and web-first assertions; do not add snapshot artifacts by habit.
 3. Interact through stable element references or user-facing locators.
-4. Capture another snapshot after navigation or meaningful DOM changes.
+4. Refresh snapshot references after navigation or meaningful DOM changes when the tool uses them.
+   For locator-based tests, wait for the expected state with an assertion.
 5. Verify the visible result, URL, and relevant console or network state.
 6. Save only the artifacts needed to support the result.
 
-Element references become stale after navigation, modal changes, tab switches, or major rerenders. Snapshot again instead of guessing a selector or bypassing the snapshot with arbitrary code.
+Snapshot element references can become stale after navigation, modal changes, tab switches, or major
+rerenders. Refresh those references instead of guessing. Playwright locators resolve elements when
+used; do not confuse them with cached element handles or snapshot IDs. Follow the active browser
+tool's evidence and interaction requirements.
 
 ## Platform wrappers
 
@@ -54,7 +60,9 @@ Resolve the wrapper relative to this skill directory.
 
 The wrappers first use an installed `playwright-cli`. They refuse to download through `npx` unless `PLAYWRIGHT_ALLOW_NPX_DOWNLOAD=1` is set after user authorization.
 
-Read `references/cli.md` for platform-specific invocation and the command reference. Read `references/workflows.md` for interaction, extraction, tracing, sessions, and troubleshooting patterns.
+Read `references/cli.md` only when using the CLI or wrapper. Read `references/workflows.md` when
+extraction, tracing, session management, or troubleshooting needs its guidance. Neither is a
+prerequisite for ordinary repository tests or a self-contained MCP check.
 
 ## Test generation
 

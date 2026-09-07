@@ -21,3 +21,8 @@
 - “Add login to a uni-app client and the backend.” → `design-interfaces` if the contract changes, `secure-boundaries`, `build-mobile-apps`, and `build-backends` for their owned surfaces.
 - “A Wot form works in H5 but fails in the mini program for an unknown reason.” → `diagnose-bugs` first; return to `build-mobile-apps` after the failing boundary is localized.
 - “Refactor several uni-app pages into shared composables without changing behavior.” → `refactor-code`, with `build-mobile-apps` references as needed for platform semantics.
+
+## Focused workflow regression scenarios
+
+- **Copy-only mobile edit:** Change a uni-app button label in an existing component. Pass: inspect and edit the owner, preserve target behavior, and avoid unrelated SDK, lifecycle, and simulator work.
+- **Small patch with native risk:** Fix an Android keyboard overlap caused by one style declaration. Pass: investigate keyboard/safe-area behavior and verify the relevant target when available; do not classify risk by line count or claim H5 proves Android.

@@ -21,3 +21,8 @@
 - “设计新支付功能并实现。” → use `shape-project` only long enough to resolve material product/architecture uncertainty, then route to contract, security, and build skills.
 - “我已经给了完整 acceptance criteria，直接实现。” → skip shaping unless repository evidence reveals a material blocker.
 - “计划一个大表迁移。” → `shape-project` only for broader project sequencing; database mechanics belong to `database-engineering`.
+
+## Focused workflow regression scenarios
+
+- **Shape and implement:** The user requests a small feature with one unresolved behavior; repository evidence resolves it. Pass: continue into implementation, report actual changes and checks, and do not end with only a READY brief.
+- **Ordinary feature checks:** A planned feature needs a local build and ordinary tests but no release work, explicit TDD, or special invariant. Pass: keep verification with its build skill rather than requiring deployment or a strict RED gate.

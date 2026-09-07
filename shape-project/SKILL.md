@@ -214,7 +214,10 @@ deliverable. Continue immediately when the first slice is clear and no material 
 
 ### 11. Produce the Brief and Handoff
 
-Read [references/project-brief-template.md](references/project-brief-template.md) and produce the sections appropriate to the project. Keep verified current-state evidence and decisions close to the claims they support.
+For a requested planning deliverable, read [references/project-brief-template.md](references/project-brief-template.md)
+when a structured brief is useful and produce only the relevant sections. For an implementation request,
+keep the resolved decisions in working context and continue implementing; do not require a separate brief.
+Keep verified current-state evidence and decisions close to the claims they support.
 
 Route downstream work deliberately:
 
@@ -226,13 +229,16 @@ Route downstream work deliberately:
 | Server-side service, domain, job, persistence, or integration behavior | `build-backends` |
 | Database schema, indexes, query plans, migration, integrity, or recovery as the primary task | `database-engineering` |
 | Authentication, authorization, untrusted input, sensitive data, or privileged effects | `secure-boundaries` |
-| Deterministic high-value behavior with a practical test seam | `test-behavior-first` |
+| Requested TDD, a reproduced defect's regression guard, a material invariant with a practical test seam, or repository-required test-first work | `test-behavior-first` |
 | Existing failure whose causal chain is unknown | `diagnose-bugs` |
 | Behavior-preserving structural improvement | `refactor-code` |
 | Performance measurement, profiling, optimization, or capacity target | `performance-engineering` |
-| Build artifact, release, rollout, runtime verification, rollback, or recovery | `deploy-and-operate` |
+| Release artifacts, deployment configuration, rollout, operational health, rollback, or recovery | `deploy-and-operate` |
 
-Recommend only the skills required by the shaped work. State whether the next action is a decision, research spike, contract design, first implementation slice, prototype, migration preparation, or defect investigation.
+Recommend only the skills required by the shaped work. Ordinary local builds and runtime checks stay
+with the implementation skill; testable code alone does not require strict TDD. State whether the next
+action is a decision, research spike, contract design, first implementation slice, prototype, migration
+preparation, or defect investigation.
 
 ## Quality Gates
 
@@ -249,7 +255,9 @@ Do not hand off a plan that:
 
 ## Output Format
 
-Return the brief, then finish with:
+For a planning deliverable, use the following fields when they help communicate readiness; omit
+empty or irrelevant fields. For implementation requests, report the implemented outcome and actual
+verification instead of stopping at this planning format.
 
 ```text
 Status: READY | READY WITH DECISIONS | NEEDS CONTEXT | NOT READY

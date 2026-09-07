@@ -25,6 +25,16 @@ This skill is framework-neutral at the workflow level. The bundled stack referen
 - Unknown runtime/build/device failure → `diagnose-bugs`.
 - Browser/H5 flow automation → `playwright` where it faithfully covers the target; do not claim H5 proves native App behavior.
 
+## Choose the work size
+
+For an isolated copy, spacing, color, icon, or template change with no lifecycle or platform-API
+impact, inspect the owning component and nearby conventions, make the edit, and use a focused
+check only when it adds evidence. Do not load platform references or require a simulator by habit.
+Safe-area, keyboard, navigation, permission, or lifecycle changes still require the relevant
+platform guidance and verification even when the patch is only one line.
+
+Use the workflow below for a new page, flow, material layout change, or platform behavior.
+
 ## Workflow
 
 ### 1. Recover the app contract
@@ -70,7 +80,7 @@ Build the primary user path end to end:
 - use platform APIs behind a narrow adapter when behavior differs by target;
 - prefer conditional compilation only for real platform differences, not as a substitute for reusable design.
 
-Read [references/mobile-engineering.md](references/mobile-engineering.md) for state, networking, permissions, offline/retry, and lifecycle guidance.
+Read [references/mobile-engineering.md](references/mobile-engineering.md) when the change affects state, networking, permissions, offline/retry, or lifecycle behavior.
 
 ### 4. Preserve the component system
 

@@ -2,6 +2,10 @@
 
 Use for any material frontend change. The goal is to observe the real product, compare it with the intended design, and iterate until visible and interactive defects are resolved.
 
+For an audit or verification-only request, observe and report concrete findings without editing
+source, fixtures, or configuration. The correction steps below apply only when fixes are authorized.
+Known defects are valid audit findings, not permission to repair them or a reason to withhold the report.
+
 ## Table of contents
 
 - Prepare the runtime
@@ -45,8 +49,8 @@ Iterate in short passes:
 4. Exercise one primary workflow.
 5. Inspect layout, content, interaction, accessibility, console, and network evidence.
 6. Record concrete mismatches.
-7. Fix the smallest responsible source.
-8. Repeat the affected scenario and viewport.
+7. When fixes are authorized, fix the smallest responsible source; otherwise report the mismatch.
+8. Repeat the affected scenario and viewport after a fix or when needed to confirm a finding.
 
 Do not wait until the entire page is implemented before inspecting it. For long pages or complex applications, verify by section, state, or workflow slice.
 
@@ -80,6 +84,9 @@ a JSON smoke-test verdict detects contrast, overlap, or visual quality without i
 
 Use widths that expose structural transitions rather than testing only named device presets:
 
+Select from the following according to the affected layout; this is not a mandatory four-viewport
+matrix for every task. Add cases only when they exercise a distinct risk or an explicit requirement.
+
 - Narrow phone-sized viewport.
 - Intermediate width near column, navigation, or sidebar collapse.
 - Common laptop/desktop viewport.
@@ -87,7 +94,7 @@ Use widths that expose structural transitions rather than testing only named dev
 
 Add specific dimensions from supplied screenshots or project requirements. Match the reference's native viewport when performing fidelity comparison if practical.
 
-Scenarios should include:
+Select affected scenarios from:
 
 - First load and primary content.
 - Core action or transaction.
@@ -193,7 +200,8 @@ Do not silently reinterpret a reference. Explain intentional deviations that a u
 
 ## Hard failure gates
 
-Do not hand off while the changed surface has:
+For authorized implementation, resolve these introduced or in-scope failures before claiming success.
+For read-only audits, report them with observed evidence and impact:
 
 - Clipped primary text or controls.
 - Accidental horizontal scrolling.

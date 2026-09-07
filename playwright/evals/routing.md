@@ -21,3 +21,9 @@
 - “实现并浏览器验证一个 Web 页面。” → `build-frontends` owns implementation; `playwright` supplies browser-backed verification.
 - “页面流程失败且原因未知。” → `diagnose-bugs` owns causal investigation; use Playwright as evidence-gathering tooling.
 - “登录流程涉及真实账号。” → use Playwright only with authorized credentials/actions and combine `secure-boundaries` when security behavior changes.
+
+## Focused workflow regression scenarios
+
+- **Existing regression test:** A repository has Playwright fixtures and an affected test; a Playwright MCP is also connected. Pass: use the repository runner for test evidence rather than substituting an interactive click or loading CLI wrapper instructions.
+- **Locator-based test:** Implement a requested test using role locators and web-first assertions. Pass: verify post-action state without requiring a DOM snapshot after every action; distinguish locators from stale snapshot IDs.
+- **Snapshot-reference interaction:** An MCP uses snapshot IDs and navigation invalidates them. Pass: refresh the relevant snapshot before acting; do not reuse stale IDs based on the locator exception.

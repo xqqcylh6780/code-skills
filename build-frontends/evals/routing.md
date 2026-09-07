@@ -44,3 +44,8 @@
   the affected viewport until the material mismatch is resolved or a concrete blocker is reported.
   Fail: stop because one correction has been used, claim fidelity without reinspection, or keep
   redesigning after the requested match is achieved.
+
+## Focused workflow regression scenarios
+
+- **Read-only visual audit:** The user asks to review a running page without edits; a primary button overlaps at a narrow width. Pass: report the observed viewport, defect, and impact without changing CSS, fixtures, or configuration, even when following browser-qa.md.
+- **Scoped rendered check:** A change affects only a dialog at a specified viewport. Pass: exercise its affected states and add a second width only for a distinct responsive risk; do not require all four widths and every listed state by habit.
