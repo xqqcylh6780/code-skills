@@ -1,462 +1,506 @@
 ---
 name: photoshop-game-art-prep
 description: >
-  Prepare AI-generated 2D / 2.5D game characters and pets in Photoshop for later animation.
-  Focus on clean cutout, layer separation, reconstruction of hidden body areas, transparent background,
-  consistent layer naming, overlap-safe joints, and PSD organization suitable for later skeletal animation.
+  Prepare an existing non-pixel 2D / 2.5D game character for later Spine-style skeletal animation.
+  Default to a minimal body-part breakdown: one complete character plus only the essential movable body parts.
+  Preserve the source character exactly and never add expression sheets, turnarounds, animation frames, or unnecessary accessory breakdowns unless explicitly requested.
 ---
 
 # Photoshop Game Art Prep
 
-## Scope
+## Purpose
 
-This skill ONLY handles Photoshop preparation of already-generated 2D / 2.5D game characters or pets.
+This skill has one job:
 
-Use it for:
+> Turn one approved character image into a minimal, clean body-part breakdown suitable for later Photoshop layer preparation and Spine rigging.
 
-- removing the background
-- cleaning edges
-- separating body parts into layers
-- rebuilding hidden areas behind overlapping parts
-- preparing overlap-safe joints
-- organizing a clean PSD
-- naming layers consistently
-- preserving the original character design
-- preparing artwork for later animation software
+The default output is NOT a full character design sheet.
 
-This skill does NOT handle:
+The default output contains only:
 
-- generating new character designs
-- changing the visual style
-- creating animation in Spine
-- Godot / Unity integration
-- sprite-sheet packing
-- game-engine export pipelines
+1. One complete reference character.
+2. The essential separated body parts required for skeletal animation.
 
-The goal is simple:
-
-> Turn one finished character image into a clean, editable, animation-ready Photoshop document.
+Do not add unrelated content.
 
 ---
 
-# Highest Priority
+# DEFAULT MODE — MINIMAL_SPINE_PARTS
 
-Preserve the original character.
+If the user says any of the following:
 
-Do not redesign:
+- Spine 拆分
+- Spine 拆分图
+- 最简拆分
+- 身体部件拆分
+- 拆开给 Spine 用
+- 动画拆件
+- 角色拆件
 
-- face
-- body proportions
-- colors
-- armor
-- clothing
-- accessories
-- gems / emblems
-- wings
-- tail
-- silhouette
+use `MINIMAL_SPINE_PARTS` by default.
 
-Photoshop work should separate and reconstruct the existing design, not invent a new one.
-
-Priority order:
-
-1. Preserve character identity
-2. Clean separation of body parts
-3. Reconstruct hidden areas correctly
-4. Maintain enough overlap around joints
-5. Clean transparent edges
-6. Clear layer organization
-7. Non-destructive editing where practical
+This mode is strict.
 
 ---
 
-# Default Workflow
+# Output Must Contain Only
 
-Use this sequence:
+## A. Complete character
 
-1. Open the original character image.
-2. Duplicate the original as a locked backup layer.
-3. Remove the background.
-4. Identify the minimum useful animation parts.
-5. Separate those parts into independent layers.
-6. Reconstruct body areas that were hidden by overlapping parts.
-7. Add extra overlap around joints.
-8. Clean masks and edges.
-9. Name and group layers consistently.
-10. Save the master PSD.
+Include exactly one complete character as the assembly reference.
 
-Do not over-split the character unless the intended animation requires it.
+Requirements:
 
----
+- same character as source
+- same pose unless user requests otherwise
+- same proportions
+- same costume
+- same colors
+- same view
+- full body visible
+- no cropping
 
-# Recommended Part Strategy
+## B. Essential body parts
 
-For a simple pet or mascot, start with:
+For a humanoid character, default to:
 
 - head
-- body
-- left arm / wing
-- right arm / wing
-- left leg
-- right leg
+- torso / body
+
+- left upper arm
+- left forearm
+- left hand
+
+- right upper arm
+- right forearm
+- right hand
+
+- left thigh
+- left shin
 - left foot
+
+- right thigh
+- right shin
 - right foot
-- tail
 
-Optional separate parts:
+Optional only when clearly needed for independent motion:
 
-- mouth / beak
-- eyes
-- eyelids
-- ears
-- hair
-- helmet
-- chest armor
-- gems
+- scarf
 - cape
-- weapon
-- floating ornament
+- tail
+- long hair mass
+- wing_L
+- wing_R
+
+Do not split fixed clothing, belts, pouches, armor ornaments, gems, badges, or small decorations unless the user explicitly asks.
+
+---
+
+# What Must NOT Appear
+
+In `MINIMAL_SPINE_PARTS`, do NOT generate:
+
+- expression sheet
+- extra facial expressions
+- separate eyes
+- separate eyebrows
+- separate mouth
+- separate ears
+- separate hair strands
+- front / side / back turnaround
+- 3/4 turnaround
+- walk-cycle frames
+- run-cycle frames
+- action references
+- pose references
+- extra full-body poses
+- animation timeline
+- weapon variants
+- accessory inventory
+- color palette
+- labels
+- captions
+- explanatory text
+- decorative panels
+- UI framing
+- unrelated props
+
+Unless explicitly requested by the user, these are forbidden.
+
+---
+
+# Canonical Source Rule
+
+The provided character image is the ONLY canonical source.
+
+All separated parts must look as though they were physically taken from that exact character.
+
+Preserve exactly:
+
+- face
+- hairstyle
+- hair color
+- eye style
+- skin tone
+- body proportions
+- head-to-body ratio
+- clothing
+- armor
+- scarf
+- cape
+- gloves
+- boots
+- belts
+- pouches
+- decorative motifs
+- colors
+- line style
+- shading style
+- camera angle
 
 Rule:
 
-> Split only parts that need to move independently.
+> Separate the character. Do not redesign the character.
 
-A simple character should not become 50 unnecessary layers.
-
----
-
-# Layer Naming
-
-Use clear stable names.
-
-Recommended naming:
-
-```text
-00_REFERENCE
-
-HEAD
-  head_base
-  eye_L
-  eye_R
-  mouth
-  head_armor
-
-BODY
-  body_base
-  chest_armor
-  chest_gem
-
-ARM_L
-  arm_L
-
-ARM_R
-  arm_R
-
-LEG_L
-  leg_L
-  foot_L
-
-LEG_R
-  leg_R
-  foot_R
-
-TAIL
-  tail
-```
-
-For animals, replace `arm` with the actual anatomy where useful:
-
-- wing_L
-- wing_R
-- paw_L
-- paw_R
-
-Use `_L` and `_R` consistently.
+Do not invent alternate clothing.
+Do not simplify the costume into a new costume.
+Do not recolor.
+Do not change the art style.
+Do not change the character's age or body type.
 
 ---
 
-# Background Removal
+# Part Integrity
 
-For isolated assets:
+Every separated part must be complete enough to animate.
 
-- remove all background pixels
-- preserve antialiased contour edges
-- avoid white halos
-- avoid dark halos
-- keep semi-transparent edge pixels where needed
-- inspect at 100% and 200% zoom
+A body part must NOT look like a random visible crop from the source.
 
-Do not paint a fake checkerboard background.
+Examples:
 
-The PSD should contain real transparency.
+- upper arm should include enough hidden shoulder area to rotate under the torso
+- forearm should include enough elbow overlap
+- hand should include enough wrist overlap
+- thigh should continue under the torso
+- shin should continue under the thigh
+- foot should overlap the shin
+- neck should continue under the head
+- cape/scarf attachment area should include enough hidden artwork for rotation
 
----
+Principle:
 
-# Separating Parts
-
-Each moving body part should become its own layer.
-
-When separating:
-
-- preserve the original silhouette
-- avoid deleting pixels needed by neighboring parts
-- use masks before destructive erasing when possible
-- keep the original layer untouched as backup
-- check the separated result against the source image
-
-After separation, temporarily move each part away from the body to verify that it is complete.
+> Hidden overlap is better than exposed holes.
 
 ---
 
 # Hidden Area Reconstruction
 
-This is the most important step.
-
-When one body part covers another in the original image, the hidden part must be reconstructed before animation.
+When the source image contains overlapping parts, reconstruct what is hidden.
 
 Examples:
 
-- wing covers torso
-- arm covers chest
-- leg overlaps body
-- tail sits behind body
-- head covers neck
-- armor covers body
+- arm covers torso
+- cape covers shoulder
+- scarf covers chest
+- thigh overlaps coat
+- hand overlaps clothing
+- hair covers neck
 
-If a wing is raised later, the torso behind it must already exist.
+The reconstructed area must match the original style and color.
 
-Rule:
+Do not leave:
 
-> Every moving part should reveal complete artwork behind it.
-
-Do not leave empty holes hidden under limbs.
-
----
-
-# Joint Overlap
-
-Do not cut exactly at visible joint boundaries.
-
-Leave extra artwork under the neighboring part.
-
-Examples:
-
-- shoulder should extend under torso / arm overlap
-- thigh should continue under body
-- foot should overlap leg
-- neck should extend under head
-- tail root should continue behind body
-
-Recommended principle:
-
-> Hidden overlap is better than exposed gaps.
-
-The overlap should be large enough to support moderate rotation without revealing holes.
+- holes
+- transparent gaps
+- hard cut edges
+- duplicated outlines
+- broken clothing shapes
 
 ---
 
-# Cleaning Seams
+# Outline Rule
 
-After separating and reconstructing:
+For stylized art with dark outlines:
 
-- move parts through small test rotations
-- test ±15°
-- test ±30° where reasonable
-- inspect for gaps
-- inspect for duplicated outlines
-- inspect for sudden contour breaks
+- preserve the original line weight
+- avoid double outlines at joints
+- do not place a visible hard outline inside a hidden joint unless it should really be visible
+- reconstruct clean hidden contours
 
-If a seam appears:
-
-- extend the hidden artwork
-- soften or remove duplicated contour lines
-- repaint the joint transition
+The assembled parts should visually match the original complete character.
 
 ---
 
-# Outline Handling
+# Layout Rule
 
-For stylized characters with dark outlines:
+When generating a breakdown sheet:
 
-Avoid double outlines at joints.
+- put the complete character on one side
+- put separated parts on the other side
+- keep every separated part isolated
+- do not overlap separated parts
+- leave generous spacing
+- keep parts large enough to inspect
+- use a plain or transparent background
+- do not add text unless requested
+
+Recommended structure:
+
+```text
+┌─────────────────┬──────────────────────────────┐
+│                 │ head                         │
+│                 │ torso                        │
+│                 │ arm_L_upper / forearm / hand │
+│ COMPLETE        │ arm_R_upper / forearm / hand │
+│ CHARACTER       │ thigh_L / shin_L / foot_L    │
+│                 │ thigh_R / shin_R / foot_R    │
+│                 │ scarf / cape if needed       │
+│                 │                              │
+└─────────────────┴──────────────────────────────┘
+```
+
+This is a body-part sheet, not a design presentation board.
+
+---
+
+# Do Not Over-Split
+
+The default goal is the MINIMUM useful number of parts.
+
+Bad:
+
+```text
+eye_L
+eye_R
+mouth
+eyebrow_L
+eyebrow_R
+hair_01
+hair_02
+hair_03
+belt_buckle
+gem
+badge
+pouch_strap
+boot_buckle
+...
+```
+
+Good:
+
+```text
+head
+torso
+
+arm_L_upper
+arm_L_lower
+hand_L
+
+arm_R_upper
+arm_R_lower
+hand_R
+
+thigh_L
+shin_L
+foot_L
+
+thigh_R
+shin_R
+foot_R
+
+scarf
+cape
+```
+
+Only split something further if the user explicitly wants that part to animate independently.
+
+---
+
+# Pets / Creatures
+
+For pets or non-humanoid characters, use the same minimal philosophy.
 
 Example:
 
-A wing resting on the torso may have an outline on both layers.
-When the wing rotates, the torso outline hidden underneath may become visible unnaturally.
+- complete character
+- head
+- body
+- left front limb / wing
+- right front limb / wing
+- left rear leg
+- right rear leg
+- left foot if needed
+- right foot if needed
+- tail
+- optional movable accessory
 
-Solution:
-
-- keep the visible contour on the foreground part
-- reconstruct the hidden base shape without unnecessary internal outline
-- paint only the contour that should appear when exposed
-
-Maintain the same line weight as the source art.
-
----
-
-# Eyes and Facial Parts
-
-Separate facial features only when needed.
-
-For simple animation:
-
-- head can remain one layer
-
-For blinking / expression:
-
-- eye_L
-- eye_R
-- eyelid_L
-- eyelid_R
-- mouth / beak
-
-Do not separate facial features unnecessarily if no facial animation is planned.
+Do not force humanoid anatomy onto animals.
 
 ---
 
-# Armor and Accessories
+# Photoshop Layer Preparation
 
-Separate armor only if it needs independent movement.
+If the user asks how to build the PSD after receiving the breakdown:
 
-Keep fixed armor merged with its parent body part when practical.
+Use one PSD per character.
 
-Examples:
-
-- helmet fixed to head -> may stay with head
-- chest plate fixed to torso -> may stay with body
-- dangling charm -> separate
-- cape -> separate
-- floating crystal -> separate
-
-Avoid excessive fragmentation.
-
----
-
-# Non-Destructive Editing
-
-Prefer:
-
-- layer masks
-- smart objects when useful
-- grouped layers
-- backup source layer
-- adjustment layers for global corrections
-
-Avoid destroying the only copy of the source image.
-
-Always keep a locked original reference layer.
-
----
-
-# Canvas and Resolution
-
-Do not resize unnecessarily.
-
-Keep the source resolution unless there is a clear production reason to change it.
-
-Ensure:
-
-- enough empty canvas around moving parts
-- no cropped ears / feet / wings / tails
-- transparent outer area
-- character remains centered enough for easy later use
-
----
-
-# Final PSD Structure
-
-Recommended final document:
+Suggested layer structure:
 
 ```text
 00_REFERENCE
   original_locked
 
 01_HEAD
-  head_base
-  eye_L
-  eye_R
-  mouth
+  head
 
 02_BODY
-  body_base
-  chest_armor
+  torso
 
-03_LEFT
-  wing_L
-  leg_L
+03_ARM_L
+  upper_arm_L
+  forearm_L
+  hand_L
+
+04_ARM_R
+  upper_arm_R
+  forearm_R
+  hand_R
+
+05_LEG_L
+  thigh_L
+  shin_L
   foot_L
 
-04_RIGHT
-  wing_R
-  leg_R
+06_LEG_R
+  thigh_R
+  shin_R
   foot_R
 
-05_OTHER
-  tail
+07_CLOTH
+  scarf
   cape
-  accessory
 ```
 
-Not every character needs every folder.
-
-Keep the structure simple.
+Do not create extra layers without a functional reason.
 
 ---
 
-# Quality Check
+# Background
 
-Before considering the Photoshop preparation complete, verify:
+For separated parts:
 
-- background is truly transparent
-- no white / dark halo
-- no important part is cropped
-- each moving part is on its own layer
-- hidden body areas are filled
-- joints have enough overlap
-- no accidental holes appear when moving limbs
-- no double outlines appear at joints
-- layer names are clear
-- left / right naming is consistent
-- the original reference is preserved
-- the character still matches the source exactly
+- prefer true transparency
+- never imitate transparency with a checkerboard pattern
+- no scenery
+- no decorative background
+- no glow
+- no shadow plate unless explicitly requested
 
 ---
 
-# User Guidance Behavior
+# Prompt Construction for Minimal Breakdown
 
-If the user provides a character image and asks how to split it:
+When generating a minimal breakdown, internally enforce:
 
-1. Identify the minimum useful parts.
-2. Explain which parts should remain merged.
-3. Explain which hidden areas must be reconstructed.
-4. Provide a recommended PSD layer tree.
-5. Avoid unnecessary complexity.
+```text
+Use the provided character as the sole canonical reference.
 
-If the user asks about a specific action, tailor the split to that action.
+Create a minimal Spine body-part breakdown sheet.
 
-Example:
-
-For only "raise wing":
-
-- body
-- wing_L
-- wing_R
+Show exactly:
+- one complete character
 - head
-- legs
+- torso
+- left upper arm
+- left forearm
+- left hand
+- right upper arm
+- right forearm
+- right hand
+- left thigh
+- left shin
+- left foot
+- right thigh
+- right shin
+- right foot
+- scarf and cape only if they need independent motion
 
-may be enough.
+Every separated part must preserve the exact original design, colors,
+proportions, clothing, outline style, and shading.
 
-For "walk + run + jump":
+Reconstruct hidden joint areas so each part can rotate without exposing holes.
 
-separate legs and feet individually.
+No expressions.
+No turnaround views.
+No walk or run frames.
+No action poses.
+No extra accessories.
+No labels.
+No text.
+No redesign.
+No extra character.
+```
+
+Do not expose this internal prompt unless the user asks for the prompt.
+
+---
+
+# Quality Checklist
+
+Before considering the result acceptable, verify:
+
+- exactly one complete reference character
+- only essential body parts are present
+- no expression sheet
+- no turnaround sheet
+- no animation frames
+- no extra poses
+- no extra accessories
+- source identity is preserved
+- costume is unchanged
+- colors are unchanged
+- body proportions are unchanged
+- view is unchanged
+- parts are not cropped
+- hidden joint areas are reconstructed
+- parts do not overlap one another on the sheet
+- no obvious holes
+- no duplicated joint outlines
+- no unnecessary micro-parts
+
+If any forbidden extra content appears, regenerate with stricter constraints.
+
+---
+
+# Response Behavior
+
+If the user explicitly asks to generate a breakdown image:
+
+- use the current source character image
+- generate only the minimal body-part sheet
+- do not add explanatory sections
+- do not add labels unless requested
+
+If the user only asks how to split the character:
+
+- answer in text
+- do not generate an image
+
+If the user asks for a more detailed facial or cloth rig later:
+
+- add only the explicitly requested extra parts
 
 ---
 
 # Final Rule
 
-This skill does one job:
+Default behavior:
 
-> Prepare a finished 2D / 2.5D character image in Photoshop so its parts can move later without gaps, broken outlines, or design drift.
+> COMPLETE CHARACTER + ESSENTIAL BODY PARTS ONLY.
 
-Do not expand this skill into image generation, Spine animation, or game-engine work.
+No design sheet.
+No expression sheet.
+No turnaround.
+No action sheet.
+No animation frames.
+No unnecessary micro-parts.
