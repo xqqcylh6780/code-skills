@@ -1,0 +1,4 @@
+interface:
+  display_name: "Manage Spec Changes"
+  short_description: "Coordinate complex changes with traceable specifications"
+  default_prompt: "Use $manage-spec-changes to coordinate this complex change from proposal through verified completion."

@@ -219,10 +219,18 @@ when a structured brief is useful and produce only the relevant sections. For an
 keep the resolved decisions in working context and continue implementing; do not require a separate brief.
 Keep verified current-state evidence and decisions close to the claims they support.
 
+When shaping is performed for an already active `manage-spec-changes` lifecycle, return the
+resolved scope, decisions, acceptance criteria, and first slice to that change. Do not start a
+second lifecycle or duplicate its artifacts. When no lifecycle is active, route to
+`manage-spec-changes` only when the shaped work needs durable proposal, specification, task,
+decision, and evidence tracking across sessions or owners; ordinary plans should continue directly
+to the relevant specialist skill.
+
 Route downstream work deliberately:
 
 | Need | Next skill |
 |---|---|
+| Consequential change requiring durable proposal, specification, task, decision, and evidence tracking across sessions or owners | `manage-spec-changes` |
 | Public API, schema, command, event, configuration, or shared boundary | `design-interfaces` |
 | Browser-only web page, component, workflow, responsiveness, or visual system | `build-frontends` |
 | Mobile/uni-app page, app lifecycle, device API, or cross-platform application flow | `build-mobile-apps` |

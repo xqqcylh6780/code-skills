@@ -221,4 +221,3 @@ Java
 
 Rule: **detect first, preserve the existing stack, then load only relevant references**.
 Do not drift Python into Java or Java into Python unless the user explicitly requests a migration.
-
