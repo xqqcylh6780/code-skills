@@ -23,6 +23,8 @@ an implementer can act without repeating the investigation.
   review into a repository-wide audit.
 - Validate each candidate finding against the actual code path, existing guards, tests, and
   supported environments before reporting it.
+- Use deterministic bookkeeping for broad reviews so every changed file is routed, reviewed,
+  intentionally skipped, or reported as blocked.
 - Report only actionable findings introduced or exposed by the reviewed change. Mention a
   pre-existing issue only when it directly blocks the change or makes its claimed behavior false.
 - Distinguish verified defects, unresolved questions, and untested risks. Do not convert uncertainty
@@ -68,6 +70,12 @@ Check for:
 Record the files, observable behaviors, public boundaries, stored state, privileged effects, and
 direct consumers touched by the change.
 
+For a multi-file, multi-component, high-risk, or explicitly comprehensive review, read
+[references/deterministic-review-pipeline.md](references/deterministic-review-pipeline.md). Use its
+read-only manifest helper when Git is the authoritative source, then correct its heuristic review
+units and lenses using actual behavioral coupling. Maintain a coverage ledger and disclose skipped
+or blocked units. Do not force this pipeline onto the focused fast path.
+
 ### 3. Review in Risk-Ordered Passes
 
 Review the highest-consequence paths first:
@@ -87,6 +95,11 @@ Read [references/review-checklist.md](references/review-checklist.md) when the c
 data, security, concurrency, deployment, or multi-component boundaries, or when a comprehensive
 pre-merge review is requested.
 
+For broad reviews, work review unit by review unit. Route each unit by behavior and file
+characteristics, keep coupled implementation/tests/configuration/generated outputs together, and
+mark its coverage state before moving on. Treat generated, vendored, binary, and lock files as
+explicit review decisions rather than silently ignoring them.
+
 ### 4. Validate Every Candidate Finding
 
 Before reporting a problem, establish:
@@ -103,6 +116,10 @@ Evidence: code path, test, specification, or reproducible reasoning that disting
 Search for an existing caller, guard, fallback, feature flag, migration, or test that may invalidate
 the finding. If evidence remains incomplete, report it as an open question or residual risk instead
 of a defect.
+
+After the initial pass, reflect on all candidates together: re-open the final code and diff, reject
+false positives, merge duplicate symptoms under the earliest actionable root cause, and confirm the
+issue was introduced or newly exposed by the selected range.
 
 ### 5. Calibrate Severity
 
@@ -132,10 +149,13 @@ Suggested direction: include only when not obvious
 ```
 
 Keep the cited line range tight and place the explanation on the changed line that causes the
-problem, not merely where the symptom appears. Combine duplicate symptoms with one root finding.
+problem, not merely where the symptom appears. Recalibrate paths and line numbers against the final
+review artifact; do not reuse positions from a stale diff. Combine duplicate symptoms with one root
+finding.
 
 After findings, state:
 
+- Coverage gaps for comprehensive reviews, including skipped or blocked units and reasons.
 - Open questions or assumptions that materially affect the verdict.
 - Verification inspected and material checks not run.
 - Residual risks that are not proven defects.
@@ -181,6 +201,7 @@ Findings:
   Suggested direction:
 
 Open questions or assumptions:
+Coverage gaps:
 Verification inspected:
 Checks not run:
 Residual risks:
@@ -194,5 +215,5 @@ Omit empty subsections inside an individual finding. When no findings exist, beg
 
 Complete the review only when the exact change range and requirements are known or explicitly
 bounded, every reported finding has a plausible trigger and tight location, severity reflects
-actual impact, requirement coverage and relevant boundaries were checked, and verification limits
-are visible.
+actual impact, requirement coverage and relevant boundaries were checked, broad-review coverage is
+reconciled with the exact file set, and verification limits are visible.

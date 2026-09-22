@@ -1,92 +1,102 @@
 ---
 name: pixel-art-maker
-description: 制作、修改或指导制作像素游戏素材，包括瓦片、角色、轮廓、动画和精灵表；支持通过 Aseprite MCP 精确绘制、保存分层源文件并检查导出结果。适用于像素美术制作、分步教学和素材规格统一；不用于普通插画或游戏逻辑编程。
+description: >
+  Create, modify, or guide the creation of pixel game assets, including tiles,
+  characters, outlines, animations, and sprite sheets. Supports precision drawing,
+  layered source files, and export verification via Aseprite MCP. Suitable for
+  pixel art production, step-by-step tutorials, and asset specification alignment;
+  not for general illustration or game logic programming.
 ---
 
-# 像素图制作
+# Pixel Art Maker
 
-把用户的描述转成清楚、可编辑、可直接用于游戏的像素素材。优先保证像素结构和阶段对应关系，不要把普通插画套一层“像素化”滤镜当作像素图。
+Transform user descriptions into clean, editable, game-ready pixel assets. Prioritize authentic pixel structure, deliberate cluster design, and clear development stages. Never apply a generic "pixelate" filter over a smooth illustration and call it pixel art.
 
-## 先判断任务类型
+## 1. Identify the Task Type
 
-- **瓦片**：地面、草、泥土、水面、植物、道路、墙体、边缘、内外角或过渡块。
-- **初始轮廓图**：只表现外形、主要结构和必要的内部线，不提前加入完整颜色与纹理。
-- **最终效果图**：沿用已确认的轮廓，在同一画布、比例、视角和姿态上完成配色、阴影、高光与少量材质细节。
-- **阶段对照**：用户明确需要比较时，制作“轮廓 → 基础色 → 最终效果”的对照预览；同时保留每个阶段的独立文件。
-- **游戏素材集**：先确定整个项目的瓦片尺寸、角色单帧尺寸、锚点、动画方向、图层、色板和导出规则，再逐个制作资产。
+- **Tiles**: Ground, grass, dirt, water, foliage, paths, walls, borders, corners, and terrain transitions.
+- **Initial Outline**: Focus strictly on exterior silhouette, primary volumes, and essential internal structural lines. Do not add full color or micro-textures prematurely.
+- **Final Render**: Build directly upon the confirmed outline using the identical canvas size, scale, perspective, and pose. Complete the palette, shadows, highlights, and selective material textures.
+- **Stage Comparison**: When the user requests a progression review, provide an aligned preview showing "Outline → Base Colors → Final Render", while retaining independent files for each phase.
+- **Game Asset Set**: Establish project-wide baselines (tile size, character frame size, pivot/anchor points, animation directions, layer structure, palette, and export rules) before mass-producing individual assets.
 
-单个简单素材未指定规格时，默认 32×32 像素、透明背景、有限色板、硬边缘和无抗锯齿，选择能清楚辨认主体的视角并直接完成。例如“画一只猫”不需要先确认轮廓或扩展成素材集。正交俯视角色可暂用 32×48；沿用用户已经确认的规格，不重复询问。只有缺失信息会显著改变结果或造成大批返工时，才问最关键的一个问题。
+### Default Baseline
+When individual asset specifications are not specified, default to **32×32 pixels**, **transparent background**, **limited palette**, **crisp hard edges**, and **no anti-aliasing**, choosing a clear perspective that best identifies the subject. For example, "draw a cat" should be executed directly without asking the user to confirm an outline first. Top-down orthographic characters may default to **32×48**. Reuse previously confirmed project specs without re-asking. Only ask a clarifying question if missing details would fundamentally break production or cause major rework.
 
-## 选择制作路径
+## 2. Choose the Production Path
 
-- 用户指定 Aseprite、要求在已打开的窗口中绘制，或任务已约定使用 Aseprite MCP 时，使用原生画布、图层和像素工具。精确尺寸、可编辑分层、动画及瓦片制作优先考虑此路径；先读取 [Aseprite MCP 制作与验证](references/aseprite-workflow.md)。
-- 概念探索或用户明确要求图像生成时，按当前环境的图像工具规则使用图像生成能力，读取 [生成与编辑模板](references/generation-patterns.md)。生成图不能仅凭提示词就被视为已满足精确像素规格。
-- 用户只问思路、软件操作或技能评估时，只解释，不创建图片或编辑文档。
-- 先确认实际可调用的工具及其参数，不把项目源码中的函数当作已经连接的工具。缺少能力时说明限制，不虚构执行或暗中替换用户指定的制作方式。
+- **Aseprite MCP**: Use native canvas, layers, and pixel tools when the user specifies Aseprite, requests drawing inside an active window, or when the task environment provides Aseprite MCP. Prioritize this path for exact dimensions, editable layers, animations, and tiles. Read [Aseprite MCP Workflow](references/aseprite-workflow.md) first.
+- **Image Generation**: When exploring concepts or when the user explicitly requests image generation, use the environment's image tools following [Generation & Editing Patterns](references/generation-patterns.md). Generated images cannot be assumed to meet strict pixel-grid specifications without verification and post-processing.
+- **Explanation & Tutorial**: When the user asks about techniques, software operations, or art theory, explain clearly without generating files or modifying documents.
+- **Tool Grounding**: Verify available tools and parameters beforehand. Never assume functions from workspace source code are active tools. If a tool is unavailable, explain limitations truthfully rather than faking execution.
 
-当用户或当前项目已经明确采用 Aseprite Live 工作流时，默认让绘制过程在当前窗口可见，除非本次明确要求批处理或只看成品。将剪影、基础色、光影和细节拆成独立调用；动画先画关键姿势，再逐帧补充，每次结束显示当前修改帧。不得用一次长脚本生成整张成品或全部动画帧，也不得先生成成品再逐层显示来冒充绘制过程。阶段之间刷新并简短说明，连续完成，不等待逐步确认；具体执行见 Aseprite MCP 参考中的“实时可见绘制”。
+### Live Visible Drawing
+When the user or project has configured an **Aseprite Live** workflow, keep the drawing process visible in the active window by default (unless batch processing or end-result only is explicitly requested):
+- Break drawing into small, discrete, visible calls: Silhouette/Blockout → Base Colors → Shading/Volume → Detailing & Cleanup.
+- For animations, draw key poses first, then in-between frames sequentially, refreshing the view to display each newly drawn frame.
+- Do not generate the entire piece in a single monolithic script, and never generate the final result in secret only to toggle layers on and off to simulate drawing.
+- Provide brief progress notes between phases and continue without pausing for unnecessary confirmations. See [Aseprite MCP Workflow](references/aseprite-workflow.md) for execution details.
 
-## 像素游戏项目
+## 3. Pixel Game Projects
 
-用户要制作完整像素游戏、角色动画、精灵表或成套场景素材时，读取 [游戏素材规范](references/game-asset-spec.md)。复用现有项目规格；新项目缺少关键规格时，先形成简短基准，只确认会影响批量制作的未决事项。单个素材不走整套项目审批流程。
+When working on a complete pixel game, character animations, sprite sheets, or cohesive environment sets, refer to [Game Asset Specifications](references/game-asset-spec.md).
+- Reuse existing project specs whenever available.
+- For new projects lacking specs, propose a concise baseline table and confirm only decisions that block mass production.
+- **Scope Boundary**: This skill is strictly responsible for visual assets, animation frames, naming, slicing layout, and import parameters. Engine scripting (character controllers, movement physics, event handlers, tilemap loaders, combat logic) belongs to game development workflows, not this skill.
 
-只负责可视素材、动画帧、命名、切片和导入参数。角色控制、事件系统、地图加载、战斗逻辑等引擎代码不属于本技能；需要时建议单独使用游戏开发工作流。
+## 4. Production Pipeline
 
-## 制作流程
+When actively drawing or demonstrating Aseprite operations, refer to [Artist Workflow & Operations](references/artist-workflow.md), following the standard order: **Silhouette/Structure → Values/Lighting → Materials → Pixel Cleanup**.
 
-实际绘制或讲解 Aseprite 操作时，读取 [画师工作流与软件操作](references/artist-workflow.md)，按“造型 → 明暗 → 材质 → 像素整理”的顺序推进。该参考说明每阶段如何操作、如何判断和返工；连接、保存和超时问题仍按 Aseprite MCP 参考处理。教学请求用当前素材解释操作目的，不仅罗列菜单或快捷键。
+1. **Deconstruct Subject**: Extract core subject, camera perspective, pixel dimensions, color palette, primary light source direction, background requirements, and delivery format.
+2. **Silhouette & Footprint**: Establish ground footprint and exterior silhouette first, placing the largest masses before adding any internal details.
+3. **Values & Base Color**: Verify silhouette readability at 100% scale, apply base flat colors, and sculpt form with grouped value steps (shadows and highlights). Only halt for review if the user explicitly requested phased approvals; otherwise, treat the confirmed outline as a rigid constraint and proceed.
+4. **Consistency**: The final render must strictly preserve the verified outline's geometry, proportions, perspective, and orientation. If an outline is flawed, fix the structural silhouette before adding polish.
+5. **Tool Execution**: Draw directly at the target pixel resolution in Aseprite. When utilizing generated reference images, only perform integer nearest-neighbor downscaling if pixels are uniformly aligned to the logical grid. Scaling is never a substitute for manual pixel cleanup and must not introduce blurring or anti-aliasing.
+6. **Export & Verify**: Export original-resolution PNGs along with an integer-scaled preview (e.g., 4× or 8× nearest neighbor). Inspect the rendered images visually, correct defects, and run quality checks before delivery. For Aseprite workflows, save the actual layered `.aseprite` file.
 
-1. 从主题中提取主体、视角、像素尺寸、色板、光源方向、背景和交付方式。
-2. 先确定占地范围和外轮廓，再放置最大形状；不要一开始堆细节。
-3. 自检轮廓可读性后加入基础色，再用成组色阶增加阴影、高光和材质。只有用户要求分阶段确认时才停下等待；用户已确认的轮廓作为约束保留。
-4. 最终图必须与轮廓图保持相同的外形、位置、比例、视角和朝向。若轮廓不适合继续细化，先指出问题并修正轮廓。
-5. 按选定路径制作；Aseprite 中直接使用目标像素尺寸。生成参考图只有像素网格明确且对齐时才做整数比例最近邻缩放；缩放不能代替像素整理，不得引入平滑、模糊或抗锯齿。
-6. 导出原尺寸 PNG 和必要的放大预览，实际查看图片并修正，再按“质量检查”交付。Aseprite 路径同时保存真实的分层 `.aseprite` 文件；用户要求源文件时，不用结构建议代替成品文件。
+*Phased execution rule*: If the user requests "step by step" or "one at a time", deliver only the requested stage without jumping ahead.
 
-用户要求“先做第一步、第二步”或“一张一张来”时，只交付当前要求的内容，不提前生成后续阶段。
+## 5. Tile Rules
 
-使用图像生成工具且已有轮廓图时，必须把轮廓作为参考图编辑，不能仅凭文字重新生成最终图。使用 Aseprite 时保留原轮廓层或将参考图导入独立层，在同一坐标系中继续绘制。
+For tile-related tasks, follow the "Tile Design" section in [Pixel Specs & Quality Checklist](references/pixel-spec.md).
 
-## 瓦片规则
+- **Isolated Output by Default**: Deliver each tile type as an independent image; do not pack grass, dirt, props, and walls into a single unsliced sheet unless requested.
+- **Tileset Sheets**: Create packed tilesets or overview sheets only when explicitly requested, while keeping individual source tiles available.
+- **Seamless Continuity**: Verify top-to-bottom and left-to-right edges for seamless ground tiles. For terrain transitions, provide clear sets (centers, edges, outer corners, inner corners, and variations).
+- **Layer Separation**: Separate decorative overlays (grass clumps, flowers, rocks, tree stumps) onto transparent background layers rather than baking them permanently into base terrain.
+- **Consistency**: Maintain uniform light angle, palette, pixel density, outline thickness, and viewing angle across the entire tile set.
 
-瓦片任务需读取 [像素规格与质量检查](references/pixel-spec.md) 中的“瓦片设计”部分。
+## 6. Outline Rules
 
-- 默认每种瓦片单独输出，不把草、土地、植物、房屋等全部挤进一张图。
-- 只有用户明确要求 tileset、图集或总览时，才组合成瓦片表；组合时仍保留独立瓦片。
-- 无缝地面必须检查上下、左右边缘；过渡块需区分中心、直边、外角、内角和必要变体。
-- 装饰物与地面分层：草丛、花、石头、树桩等通常输出透明背景覆盖层，避免把它们永久焊死在基础地面上。
-- 同一套瓦片统一光源、色板、像素密度、描边粗细和观察角度。
+- Use clean, 1-pixel hard edges. On small canvases, avoid mechanically outlining every internal crease in black.
+- Ensure the silhouette is immediately recognizable at 100% native zoom before drawing internal details.
+- Strictly avoid anti-aliasing, semi-transparent feathered edges, blur, smooth gradients, or stray single-pixel noise.
+- Use a transparent background for formal game assets. If an outline is difficult to see against a transparent canvas, provide an optional checkerboard preview without replacing the transparent master.
+- When animating character movement, ground contacts and torso/pelvis weight shifts should move coherently; never shift half a sprite mechanically to simulate walking.
 
-## 轮廓图规则
+## 7. Final Art Rules
 
-- 使用 1 像素为主的清晰硬边线；小画布上不要机械地给每个内部结构都描黑边。
-- 先保证剪影在原始尺寸下可辨认，再补必要的内部结构线。
-- 不使用抗锯齿、半透明软边、模糊、渐变或细碎噪点。
-- 透明背景用于正式素材；若透明轮廓难以查看，可额外提供棋盘格预览，但不能用预览替代透明原件。
-- 角色正面动作中，身体起伏应按骨盆、肩膀和重心处理；不要简单把身体一半整体下移造成断裂。
+- Place flat base colors beneath the outline layer, then build depth with limited shading and highlight ramps.
+- Stick to a single consistent light source. Most materials require 3 value steps (base, shadow, highlight), with a 4th step only when necessary for extreme reflections or deep cavities.
+- Sculpt form with cohesive **pixel clusters**; avoid single-pixel noise (salt-and-pepper dithering) and photographic micro-textures.
+- Avoid **banding** (parallel lines hugging outlines) and **pillow shading** (shading edges inwards regardless of lighting).
+- Polish readability without silently altering the approved outline design. If shape adjustments are unavoidable, update the outline and clarify the change.
 
-## 最终效果图规则
+## 8. Delivery Format
 
-- 在轮廓层下面放基础色，在其上用有限色阶表现阴影和高光。
-- 默认固定单一光源方向；同一材质一般使用基础色、阴影色、高光色三档，必要时再增加一档。
-- 通过像素簇塑造体积，避免逐像素撒点和照片式细纹。
-- 最终图可以增强可读性，但不得偷偷改变已经确认的轮廓设计。确需改形时，同时更新轮廓稿并说明变化。
-- 若用户给了参考图，先保留其轮廓、比例、配色关系和关键识别点，再做像素化取舍。
+Default deliverables:
+- Standalone transparent PNG(s);
+- Original native pixel resolution;
+- Layered `.aseprite` source file (when using Aseprite MCP; if using other tools that cannot produce native source files, state this clearly—never rename a flat PNG to `.aseprite`);
+- An integer-scaled (nearest neighbor) enlarged preview for easy viewing;
+- Clear, descriptive filenames (e.g., `grass_center_32.png`, `farmer_outline_32.png`, `farmer_final_32.png`).
 
-## 交付格式
+Do not substitute a textual description or mockup diagram for an actual image. When the user asks for graphics, provide the actual files. If the user asks "no text" or "images only", generate assets without in-canvas labels, banners, or titles, and keep chat responses strictly minimal.
 
-默认交付：
+## 9. Quality Verification
 
-- 独立透明 PNG；
-- 原始像素尺寸版本；
-- Aseprite 路径下实际保存的分层 `.aseprite` 源文件；其他路径不能提供真实源文件时明确说明，不把平面 PNG 改扩展名冒充源文件；
-- 必要时附一个按整数倍最近邻放大的预览；
-- 清晰文件名，例如 `grass_center_32.png`、`farmer_outline_32.png`、`farmer_final_32.png`。
-
-不要只给带文字说明的示意图。用户要求图片时，直接提供图片；用户明确只问思路或软件操作时，不要擅自生成图片。
-
-如果用户说“不要文字”“只给图”，生成图内不得出现标题、标签、尺寸说明或步骤文字，回复中也只保留交付所必需的简短说明。
-
-## 质量检查
-
-交付前读取并执行 [像素规格与质量检查](references/pixel-spec.md) 中与当前任务有关的检查项。尺寸、色数和透明度用数据核对，轮廓、像素簇和接缝用导出预览检查；工具返回成功不等于美术质量合格。报告实际完成的检查，不把尚未查看的图片或未运行的游戏内验证称为已通过。
+Before delivering assets, review and execute the checklist in [Pixel Specs & Quality Checklist](references/pixel-spec.md).
+- Validate dimensions, color count, and alpha channels programmatically or via file metadata.
+- Visually inspect exported previews for silhouettes, cluster coherence, double-pixels ("doubles"), jaggies, and seamless wrapping.
+- A tool execution returning `success` does not guarantee artistic or technical correctness. Only report checks that were genuinely performed.

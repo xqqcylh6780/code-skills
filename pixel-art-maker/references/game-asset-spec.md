@@ -1,170 +1,203 @@
-# 游戏素材规范
+# Game Asset Specifications
 
-用户要制作完整像素游戏、动画角色、精灵表或成套瓦片时使用本规范。现有项目的美术规格优先；只有新项目缺少规格时才采用建议默认值。
+This specification governs the creation of complete pixel games, animated characters, sprite sheets, and environment tile collections. Existing project art direction always takes precedence; adopt recommended defaults only when starting a new project lacking formal specifications.
 
-## 开始前的项目基准
+---
 
-批量绘制前核对以下内容，并用一个简短规格块记录。已有规格直接复用；只向用户确认缺失且会显著影响批量制作的选择，不重复索要已给出的信息：
+## 1. Project Art Baseline
 
-```text
-游戏视角：正交俯视 / 侧视 / 3/4俯视
-游戏原生分辨率：[宽]×[高] px
-瓦片尺寸：[宽]×[高] px
-角色单帧：[宽]×[高] px
-移动方向：2 / 4 / 8方向
-缩放：整数倍最近邻
-色板：[名称或颜色数量]
-光源：[方向]
-```
-
-适合中等细节新项目的起点可以是：32×32 瓦片、32×48 正交俯视角色、四方向移动、每个方向四帧、8 FPS。它只是起点，不应覆盖用户已经选定的规格。
-
-游戏原生分辨率应能按整数倍放大到目标窗口。例如 640×360 可无损放大至 1280×720 或 1920×1080。不要在不同页面或关卡中改变像素缩放倍率。
-
-## Aseprite画布与图层
-
-Aseprite 的图层共享同一个文件画布，不能也不需要给每层分别设置宽和高。需要明确的是文件画布、动画单帧、瓦片网格和图集尺寸。
-
-静态素材建议图层顺序，以下按 Aseprite 面板从上到下排列，高编号在上：
+Before commencing bulk asset production, align on key technical metrics and record them in a concise specification block. Reuse existing specifications without re-prompting the user for details already provided:
 
 ```text
-05_outline     轮廓
-04_highlight   高光
-03_detail      纹理与小细节
-02_shadow      阴影
-01_base        基础色
-00_reference   参考图，可隐藏且不导出
+Camera Perspective: Top-down orthographic / Side-view / 3/4 Isometric
+Target Native Resolution: [Width] × [Height] px (e.g., 320×180 or 640×360)
+Tile Size: [Width] × [Height] px (e.g., 16×16 or 32×32)
+Character Frame Size: [Width] × [Height] px (e.g., 32×32 or 32×48)
+Movement Directions: 2 / 4 / 8 directions
+Scaling Mode: Integer Nearest-Neighbor
+Palette: [Palette Name or maximum color count]
+Light Direction: [e.g., Top-Left 45°]
 ```
 
-如果轮廓不需要压在全部颜色上方，可按具体风格局部调整，但同一项目保持一致。背景、阴影覆盖层和主体需要分别导出时，使用独立图层或图层组。
+### Recommended Starting Point
+For medium-detail top-down projects, a standard baseline is:
+- **32×32 px** tiles
+- **32×48 px** top-down orthographic character frames
+- **4-direction movement** (Down, Left, Right, Up)
+- **4 frames per direction** at **8 FPS**
+- **640×360 px** native viewport (scales cleanly to 720p at 2×, 1080p at 3×, and 1440p at 4×). Never mix different pixel scale ratios across scenes or UI elements.
 
-正式制作前写明：
+---
 
-- 文件画布宽高；
-- 单帧或单瓦片宽高；
-- 网格宽高；
-- 主体可占用范围；
-- 锚点坐标；
-- 是否允许越出单格。
+## 2. Canvas & Layer Organization in Aseprite
 
-## 角色与动画
+In Aseprite, layers span the entire document canvas. Standardize layer names and ordering across the project.
 
-所有帧使用相同单帧画布。角色脚底锚点固定在底部中心附近，躯干、头部和装备的相对位置围绕该锚点变化，避免播放时整个人左右抖动或上下漂移。
+### Recommended Layer Stack (Top to Bottom)
+```text
+05_outline     Outer contours & key structural ink lines
+04_highlight   Specular highlights & bounce light
+03_detail      Surface textures, patterns, and micro-features
+02_shadow      Form shadows & ambient occlusion
+01_base        Flat base midtone colors
+00_reference   Sketches & scale references (hidden, excluded from export)
+```
 
-建议先完成以下最小动画集：
+If specific art styles do not use an overlying outline, adjust layer order accordingly, but maintain strict consistency across all assets in the same category. For assets requiring separate in-game depth sorting (e.g., drop shadows, separate equipment, tree canopies), isolate components onto dedicated layers or layer groups.
 
-| 动画 | 建议帧数 | 建议速度 | 关键要求 |
-| --- | ---: | ---: | --- |
-| Idle | 2–4 | 4–6 FPS | 呼吸轻微，脚底不移动 |
-| Walk | 每方向4 | 6–10 FPS | 接触、下沉、经过、抬起 |
-| Run | 每方向6 | 8–12 FPS | 重心变化大于走路 |
-| Use/Interact | 3–6 | 6–10 FPS | 手部动作清楚 |
-| Hurt | 2–3 | 8–12 FPS | 剪影清楚、时间短 |
-| Death | 4–8 | 6–10 FPS | 最后一帧可停留 |
+Define and record before drawing:
+- Master canvas width and height;
+- Sub-cell / single-frame width and height;
+- Grid overlay dimensions;
+- Bounding box limits for the subject;
+- Anchor / pivot point coordinates;
+- Rules for whether weapon swings or effects may overflow standard cell bounds.
 
-帧数和 FPS 是可调建议，不应强迫所有风格使用同一节奏。农场或生活模拟游戏通常先制作 Idle、Walk 和 Use/Interact。
+---
 
-正面行走时，肩膀、骨盆和手臂可有交替起伏，但不要把身体一半整体下移形成断层。身体垂直起伏通常控制在 0–1 像素，具体取决于单帧尺寸。
+## 3. Character Animation Standards
 
-## 精灵表尺寸与排列
+All frames within an animation set must share identical single-frame canvas dimensions. Fix the character's ground contact anchor near the bottom-center of the canvas. The head, torso, and gear articulate relative to this stable anchor, preventing unwanted foot slipping or erratic visual jitter during playback.
 
-精灵表尺寸按单帧尺寸计算：
+### Core Animation Table
+
+| Animation | Suggested Frames | Target Speed | Core Invariants & Mechanics |
+| :--- | :---: | :---: | :--- |
+| **Idle** | 2–4 frames | 4–6 FPS | Subtle breathing rhythm; feet remain strictly planted. |
+| **Walk** | 4 frames / dir | 6–10 FPS | Classic 4-step loop: Contact → Down → Passing → Up. |
+| **Run** | 6 frames / dir | 8–12 FPS | Pronounced forward lean and exaggerated arm swing. |
+| **Use / Action** | 3–6 frames | 6–10 FPS | Clear anticipation, crisp impact frame, deliberate recovery. |
+| **Hurt** | 2–3 frames | 8–12 FPS | Immediate readable knockback silhouette; short duration. |
+| **Death** | 4–8 frames | 6–10 FPS | Collapse onto ground; final frame designed to remain stationary. |
+
+*Note*: Frame counts and FPS are guidelines. Top-down farming and life-sim games typically prioritize **Idle**, **Walk**, and **Use/Interact** first.
+
+For front-facing walking cycles, articulate pelvis, shoulders, and arms rhythmically. Never displace half the sprite's torso vertically as a rigid flat chunk. Vertical bounce should generally not exceed 0–1 pixel at 32px or 48px character scale.
+
+---
+
+## 4. Sprite Sheet Layout & Calculations
+
+Calculate total sprite sheet dimensions strictly from cell dimensions:
 
 ```text
-图集宽度 = 单帧宽度 × 列数
-图集高度 = 单帧高度 × 行数
+Sheet Width  = Frame Width  × Column Count
+Sheet Height = Frame Height × Row Count
 ```
 
-示例：单帧 32×48，四列动画帧、四行方向，完整精灵表是 128×192。
+*Example*: Single frame `32×48 px`, 4 animation columns, 4 directional rows → Total sprite sheet is `128×192 px`.
 
-默认方向行顺序使用 `down, left, right, up`，但引擎或既有项目有其他约定时跟随项目。交付时必须同时写明：
+### Directional Row Ordering
+Default convention:
+- **Row 0 (Top)**: Walk Down (Facing South)
+- **Row 1**: Walk Left (Facing West)
+- **Row 2**: Walk Right (Facing East)
+- **Row 3 (Bottom)**: Walk Up (Facing North)
 
-- 每行对应方向或动画；
-- 每列对应帧序号；
-- 单帧尺寸；
-- 总图集尺寸；
-- FPS；
-- 循环与否；
-- 锚点或 pivot。
+*(Follow existing project conventions if the engine expects a different sequence).*
 
-不同动画尺寸不一致时优先保持统一单帧画布，通过留透明空间容纳武器和动作。确实需要不同画布时，分别输出精灵表并提供元数据，不要让引擎猜测切片。
+Always provide complete metadata alongside the sheet:
+- Mapping of rows to actions/directions;
+- Mapping of columns to frame indices;
+- Native frame dimensions (`W × H`);
+- Total sheet dimensions;
+- Frame rate (FPS) and per-frame durations in milliseconds;
+- Looping behavior (Looping vs. One-shot);
+- Anchor / Pivot coordinates (e.g., `(X: 16, Y: 44)`).
 
-## 瓦片地图
+If distinct actions require different canvas sizes (e.g., a massive greatsword sweep), either size the uniform frame canvas to accommodate the largest swing with transparent padding, or export separate action sheets with explicit per-sheet slicing metadata.
 
-可见地图层建议拆分为：
+---
+
+## 5. Tilemap Layer Architecture
+
+Structure 2D tilemaps into logical depth layers:
 
 ```text
-05_foreground   玩家前方遮挡物
-04_structures   建筑与大型植物
-03_decorations  花、石头、草丛等覆盖层
-02_ground       草地、土地、道路、水面
-01_shadow       独立阴影，可选
+05_foreground   Canopies, roofs, archways that occlude the player
+04_structures   Buildings, large trees, cliffs, impassable obstacles
+03_decorations  Transparent overlays: flower patches, pebbles, path trim
+02_ground       Base terrain: continuous grass, dirt, sand, water
+01_shadow       Independent ground drop shadows (optional)
 ```
 
-碰撞层、导航层、交互区和出生点属于逻辑数据，不应画进可见 PNG。可以提供同网格的参考遮罩或命名约定，具体逻辑由游戏引擎配置。
+Collision shapes, navigation meshes, interaction triggers, and spawn points are engine logic—never bake collision color masks into production visual PNGs.
 
-每个瓦片记录：单格尺寸、占用格数、锚点、是否可通行、是否遮挡角色，以及需要的中心、直边、内角、外角和变体。多格建筑必须以一个稳定格点作为原点。
+For each tile, document:
+- Grid dimensions (e.g., 32×32);
+- Cell footprint (e.g., 1×1, 2×3);
+- Pivot point;
+- Passability (walkable vs. solid);
+- Y-sorting / depth occlusion flags;
+- Autotile role (center, straight edges, inner/outer corners, variants).
 
-自动瓦片方案由目标引擎决定。在用户没有说明 Godot、GDevelop、Unity 或其他引擎前，不要擅自承诺固定的 16、47 或 48 块布局。
+*Autotiling Rules*: Autotile layout schemes (e.g., 16-tile minimal, 47-tile Wang, or 48-tile Godot/RPG Maker formats) depend strictly on the target engine. Do not assume a specific layout until the target engine or convention is confirmed.
 
-## 场景统一性
+---
 
-- 同一项目固定色板或受控扩展色板。
-- 所有素材采用同一光源方向、投影角度和阴影长度规则。
-- 先制作人物、门、床、桌子、树和瓦片的尺寸对照，再大量画建筑与家具。
-- 同类物体使用一致的描边粗细、像素密度和材质色阶。
-- UI 像素密度与游戏世界分开定义，但都只能使用整数倍缩放。
+## 6. Environmental Cohesion
 
-## 导出与引擎导入
+- **Unified Palette**: Adhere to a defined color palette across all environment assets to maintain harmony.
+- **Lighting & Shadows**: Enforce a single universal light source angle, cast shadow angle, and shadow depth across all tiles, props, and characters.
+- **Scale Harmony**: Build a benchmark scale lineup early (Character vs. Doorway vs. Bed vs. Tree vs. 1-tile block) before mass-producing buildings and furniture.
+- **Pixel Density (Texel Ratio)**: Outlines, detail frequency, and pixel scale must remain 1:1 across all assets. Never mix high-density 16px assets scaled 2× with native 32px assets.
+- **UI Decoupling**: Game world pixel density and UI pixel density may differ, but both must strictly scale via integer nearest-neighbor multiples.
 
-默认导出原始尺寸 RGBA PNG；动画可同时提供精灵表和按帧 PNG。Aseprite 路径同时保存含实际图层、帧和标签的 `.aseprite` 源文件；确认文件存在且元数据符合规格。不要把放大预览图当作引擎原件，也不要用一份图层结构建议代替用户要求的源文件。
+---
 
-引擎导入时应明确建议：
+## 7. Engine Import Configuration
 
-- 纹理过滤使用 nearest/point；
-- 关闭平滑、抗锯齿和有损压缩；
-- 通常关闭 mipmap，除非像素素材会显著缩小显示；
-- 按准确单帧或瓦片网格切片；
-- pivot 使用约定锚点；
-- 图集出现采样串色时增加透明间距或使用引擎的 extrude/padding，而不是模糊边缘。
+Export assets as native-resolution 32-bit RGBA PNG files. When using Aseprite, retain the source `.aseprite` files with intact layers and tags.
 
-引擎设置名称因版本不同会变化。用户指定引擎后再给出精确菜单路径，必要时查询该引擎当前官方文档。
+Standard engine import parameters to advise users:
+- **Texture Filter**: Nearest / Point (disable Bilinear / Trilinear / Bicubic).
+- **Compression**: Lossless (disable lossy texture compression, e.g., ASTC/DXT artifacts on sharp pixel edges).
+- **Mipmaps**: Disabled (unless pixel assets are explicitly downscaled dynamically at runtime).
+- **Slicing**: Grid by Cell Size, using exact integer dimensions.
+- **Pivot**: Custom anchor matching the asset specification (e.g., Bottom-Center).
+- **Extrude / Bleed**: When rendering tilesets in 3D-accelerated 2D engines (Unity/Godot), enable 1-pixel edge padding or extrude margins to prevent sub-pixel texture bleeding / seams across tile seams.
 
-## 文件结构与命名
+---
 
-推荐按用途组织：
+## 8. Directory Structure & File Naming
+
+Organize asset repositories logically:
 
 ```text
 art/
   characters/
+    player/
+    enemies/
+    npc/
   tiles/
-  buildings/
+    terrain/
+    walls/
+    water/
   props/
-  effects/
+    foliage/
+    furniture/
+    items/
   ui/
-  palettes/
+    icons/
+    fonts/
+    dialogue/
 ```
 
-文件名使用可排序的英文小写形式，例如：
+Use lowercase, hyphen- or underscore-separated, sortable filenames:
+- `char_farmer_walk_down_32x48.png`
+- `tile_grass_center_32.png`
+- `tile_soil_grass_corner_ne_32.png`
+- `prop_chest_open_32x32.png`
 
-```text
-farmer_walk_down_32x48.png
-grass_center_32.png
-soil_grass_outer_corner_ne_32.png
-house_small_final_96x96.png
-```
+Store master `.aseprite` files in a dedicated `source/` or `art_src/` folder to prevent game engines from redundantly importing raw project binaries.
 
-源文件与导出文件分开保存，避免游戏引擎误导入 `.aseprite`、参考图或放大预览。
+---
 
-## 游戏内检查
+## 9. In-Engine Quality Verification
 
-素材通过静态检查后，还必须在目标引擎或最小测试场景中检查：
-
-- 动画播放时脚底是否固定、轮廓是否抖动；
-- 人物与门、树、家具的比例是否合理；
-- 瓦片是否出现接缝和明显重复图案；
-- 前景遮挡与排序是否正确；
-- 碰撞区域是否与可见形状一致；
-- 不同窗口尺寸下是否保持整数缩放和清晰像素。
-
-无法运行目标引擎时，明确说明尚未完成游戏内验证，不要仅凭图片预览宣称可直接上线。
+Passing a static pixel art review is only the first step. Verify assets inside the game engine:
+1. **Animation Anchoring**: Verify that feet stay planted during idle and walk cycles without ground slipping.
+2. **Proportion Harmony**: Test characters next to interactive props (doors, chests, stairs) for natural scale.
+3. **Tilemap Seaming**: Inspect wide camera pans across tiled maps at varying resolutions; confirm zero visible seams or shimmering lines.
+4. **Y-Sorting & Occlusion**: Confirm that characters correctly walk behind tree canopies and in front of tree trunks based on their Y-position.
+5. **Integer Viewport Scaling**: Ensure the game camera renders cleanly at target monitor resolutions without non-uniform pixel stretching ("pixel distortion").

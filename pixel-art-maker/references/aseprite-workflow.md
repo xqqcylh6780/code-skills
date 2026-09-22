@@ -1,52 +1,77 @@
-# Aseprite MCP 制作与验证
+# Aseprite MCP Workflow & Verification
 
-用于精确像素绘制、分层源文件、动画及在 Aseprite 窗口中的制作。下面是能力名称示例；以当前可调用工具的实际签名为准，不要求特定仓库路径或硬编码软件版本。
+This reference governs precision pixel art creation, layered master files, animations, and active Aseprite editor sessions via MCP. Tool names below represent standard interface signatures; dynamically verify active tool parameters rather than assuming hardcoded environment paths.
 
-## 连接与目标文件
+---
 
-1. 发现 Aseprite MCP 工具；有 `live_session_status` 时先检查连接、版本和能力。此检查不需要创建测试画布。
-2. 用户要求窗口内绘制时，只在 Live 连接正常后修改。断线或协议不匹配时说明需要打开编辑器、更新插件或重启服务；技能本身不授权安装插件、重启软件或修改客户端配置。不要悄悄切到 Batch。
-3. 用户未要求实时窗口且已允许本地批处理时，可使用可用的 Batch 路径，并说明不会在打开的窗口中逐步显示。没有 MCP 时不要假称已通过 MCP 绘制。
-4. 使用项目约定的素材目录；没有约定时可用工作区的 `output/`。给目标文件使用完整路径。新素材先检查文件是否存在，冲突时选择新名称；修改现有作品时只操作用户指定的文件，不用 `create_canvas` 覆盖它，也不凭当前活动标签猜测目标。
+## 1. Connection & Target Files
 
-## 从画布到成品
+1. **Tool Discovery**: Discover available Aseprite MCP tools. If `live_session_status` is available, verify connection health, version, and capabilities before performing canvas operations.
+2. **Interactive Live Window**: When the user requests drawing inside the active GUI window, only proceed if the Live connection is verified. If disconnected or protocol-mismatched, notify the user that Aseprite needs to be opened, updated, or restarted. Never silently fallback to background Batch mode when Live was requested.
+3. **Batch Fallback**: When the user does not require an active window session and permits local batch execution, use available Batch tools and clarify that drawing will not be displayed step-by-step in an open GUI. If MCP is absent, state this limitation clearly—never fabricate MCP execution.
+4. **File Targeting**: Use the project's designated asset directory (or `output/` within the current workspace if unspecified). Always pass absolute file paths. Check if target files exist; pick a non-conflicting filename for new assets. When editing existing artwork, modify only the specified file without overwriting via `create_canvas` or guessing targets from active tabs.
 
-- 创建目标尺寸画布，如 `create_canvas`；设置有限色板，如 `set_palette` 或已有预设。单个小素材可先用约 6–12 个颜色，按设计需要调整，不为了凑色数加色。
-- 用有意义的图层名拆分轮廓、基础色和必要的光影。顺序从上到下为：轮廓 → 细节/高光 → 阴影 → 基础色 → 隐藏参考层。简单素材可合并不必要的层；现有项目的图层约定优先。
-- 先安排主体占地、剪影和主要部件，再添加色块与细节。优先使用带明确 `filename`、`layer_name`、`frame_index` 的工具，例如 `draw_pixels_at`，不要让每一步依赖不可见的活动层状态。
-- 导入轮廓或参考图时保持画布尺寸和坐标对齐，避免拉伸。参考层默认不参与成品导出；已经确认的轮廓不要重画成另一种姿态。
-- 少量操作用专用绘图工具。需要合并很多普通栅格操作且工具可用时，可用 `run_lua_batch` 减少逐操作保存；实时绘制时只合并当前可见小步骤，不把整个制作过程打包。它只适用于不含 tileset 的普通栅格文档。脚本只修改目标文档，不自行保存、开关文档、切换文档或执行 undo/redo。不要把外部文件操作放进“可回滚”的承诺中。
-- 使用原始 Lua 时，核对所用 API。`Image:putPixel()` 和像素迭代器直接写图像，不自动生成撤销记录；不要仅凭外层有 `app.transaction()` 就宣称可回滚。需要先通过可撤销的 cel 图像替换建立副本，或使用已实现这种保护的批量工具。原始脚本的保存行为以工具说明为准。
+---
 
-## 实时可见绘制
+## 2. Canvas Setup to Production Render
 
-本用户默认需要观看 Aseprite Live 绘制，不能把“Live 已连接”等同于“过程可见”。只有用户本次明确要求批处理或只看成品时，才可省略分步显示。
+- **Initialize Canvas & Palette**: Create the canvas at target dimensions (e.g., `create_canvas`). Establish a restricted palette (e.g., `set_palette` or existing presets). Standalone small assets typically start with 6–12 colors; expand as lighting demands rather than adding colors arbitrarily.
+- **Layer Organization**: Structure layers logically with descriptive names. Standard top-to-bottom layer stack:
+  `Outline → Highlight/Detail → Shadow → Base Color → Reference (Hidden)`.
+  Simple assets may consolidate layers; existing project layer naming takes precedence.
+- **Explicit Parameter Targeting**: Establish the subject's footprint, silhouette, and primary components before adding micro-details. Prefer tools with explicit `filename`, `layer_name`, and `frame_index` arguments (e.g., `draw_pixels_at`) instead of relying on invisible active layer state.
+- **Reference Management**: When importing outlines or sketches, ensure identical canvas dimensions and coordinate alignment to avoid unintended distortion. Reference layers must be hidden and excluded from final sprite exports. Never redraw a confirmed outline into an unrelated pose.
+- **Batch Raster Operations**: For heavy raster operations, `run_lua_batch` can minimize redundant per-pixel saves. In Live drawing mode, batch only the current visible sub-step, not the entire illustration. `run_lua_batch` applies strictly to standard raster documents (not tilesets). Scripts must only modify the targeted document without closing, switching, or triggering arbitrary undo/redo.
+- **Lua API Caveats**: Raw calls like `Image:putPixel()` write directly to the image buffer and do not automatically generate standard undo history; do not assume wrapping in `app.transaction()` guarantees clean rollbacks without cel image duplication or native tool support.
 
-1. 开始前确认 Live 在线，并简短说明接下来画什么。若当前为可能自动回退 Batch 的模式，使用实际支持的每次请求 Live 限定或会话级 Live 模式，避免掉线后静默转入后台；不能保证时先说明限制，不宣称实时完成。不要为此改持久客户端配置或重启软件。
-2. 静态素材按大形/剪影、结构修正、基础色、光影、细节分别提交。复杂阶段继续按部位或色块拆分；一次调用只完成一个能看清变化的小步骤。简单修补可直接完成，不必虚构多余阶段。
-3. 动画先展示首个关键姿势的绘制，再按关键姿势、过渡帧推进。每次只编辑当前一帧的一个阶段，不用跨帧循环一次性画完全部动作。允许单独创建空帧或统一时长等不绘画的准备操作。
-4. 各绘制调用严格串行，等待明确完成后再提交下一步。让目标文档、当前修改层及帧可见；用实际支持的活动帧设置选中该帧，调用 `app.refresh()` 或工具自带刷新，然后结束此次脚本，让控制权回到编辑器。后续写入仍明确定位文档、图层和帧，不依赖活动状态猜测。
-5. 在主要阶段返回后用简短进度说明或导出检查留出观察机会，再继续绘制，不等待用户回复。不要在一段 Lua 循环中插入刷新或阻塞 sleep 冒充逐步呈现，也不要并发提交绘制请求。若用户仍觉得太快，继续缩小每次绘制范围。
-6. 这里承诺的是小步骤之间可见的实际绘制进展，不是鼠标逐笔轨迹回放。需要更细过程时按笔画或短线组拆成独立调用；不能保证的显示节奏如实说明。禁止预先完成整图后靠图层显隐伪装过程。
+---
 
-分步显示不要求额外交付阶段图或素材变体，不扩大原请求范围。保存、撤销和超时规则仍然适用；实时观察不能代替最终导出检查。
+## 3. Live Visible Drawing Protocol
 
-## 错误与超时
+*By default, the user expects to watch the drawing progression unfold inside the active Aseprite window.* "Live Connected" does not automatically mean "Progression Visible" unless operations are dispatched properly.
 
-- 每次查看实际返回结果。报错后先查明影响范围，再继续，不把输入参数复述为成功证明。
-- Live 超时不代表脚本没有执行或已停止。若返回请求 ID，使用 `get_live_request_status` 查询；`running` 或 `unknown` 时不重复绘制、不切到 Batch 重做。
-- 若脚本工具支持显式 `request_id`，同一操作的后续查询/等待复用相同 ID 和完全相同的内容。不要通过新 ID 绕过未决状态。失败脚本可能留下部分修改，修复前先检查文档。
-- 未提供请求查询能力时，停止重复提交并报告不确定性；不要猜测结果或自动重启编辑器来“恢复”。
+1. **Confirm Live Status**: Verify the Live connection is active and provide a brief status line describing the current step. If the environment supports auto-fallback to Batch, enforce strict Live-only request mode to prevent silent background execution. Never alter persistent client configurations or restart external processes unilaterally.
+2. **Discrete Phased Submissions**: Break static illustrations into visible milestones:
+   `Silhouette/Blockout → Structural Adjustments → Base Flat Colors → Shading/Volumes → Details & Cleanup`.
+   Complex assets should be subdivided further by body part or color zone. Each tool call must render a clearly discernible visual increment. Simple bug fixes or tweaks can be completed directly without artificial micro-stages.
+3. **Frame-by-Frame Animation**: For animations, illustrate the first key pose completely, then advance pose-by-pose and in-between frames sequentially. Modify only the current frame per operation; avoid sweeping multi-frame loops that draw an entire action invisibly in one shot.
+4. **Serial Execution & View Refresh**: Tool calls must run strictly in serial. After updating pixels, ensure the target document, layer, and frame are active/visible, call `app.refresh()` (or tool-specific viewport refresh), and conclude the script so the editor regains UI control. Subsequent tool calls must specify explicit document, layer, and frame targets.
+5. **Pacing & Continuous Execution**: After completing a major phase, provide a concise note and immediately proceed to the next phase without pausing to wait for user replies. Do not simulate progress by inserting blocking sleep delays into a single long Lua script, and never dispatch parallel draw calls.
+6. **Integrity Rule**: What is shown must be actual progress between steps, not mouse cursor replays. Strictly forbidden: generating the completed illustration upfront in secret and toggling layer visibility on and off to fake a drawing process.
 
-## 导出、观察、修正
+Live display does not require extra intermediate files or variants, nor does it expand the requested scope. Live visual monitoring does not replace formal export verification.
 
-1. 保存 `.aseprite`；用 `get_sprite_info` 等检查画布、图层和帧数。保留编辑结构，不为取色或预览永久扁平化原文件。
-2. 导出原尺寸 PNG；另用 `export_frame` 等生成 4×或 8×整数倍最近邻预览。原尺寸文件用于游戏，放大图只用于查看。
-3. 实际打开并查看导出图片，检查剪影、姿态、眼睛等识别点、像素簇、光源和边缘。发现问题就回到对应图层修改并重新导出，不仅看工具是否返回成功。
-4. 用 `get_color_stats`、`get_composite_rect` 或可用的本地只读图片检查核对色数、尺寸、透明通道。判断最终画面用合成读取；检查某一图层时才用单 cel 读取。只读取必要区域，避免为看一张图返回大量像素 JSON。
-5. 瓦片检查 3×3 平铺预览；动画检查帧尺寸、时长、锚点和播放连贯性，可用洋葱皮或帧差异辅助。预览通过不等于已在游戏引擎中验证。
-6. 交付实际存在的源文件、原尺寸 PNG 和预览。回复中直接显示图片，并提供文件链接；不要只返回一个文件路径或绘制脚本。无法显示、读取或验证的部分明确标注。
+---
 
-## 单个素材的默认范围
+## 4. Errors & Timeouts
 
-“画一只猫”可以直接执行为：32×32、透明背景、清晰可辨的坐姿小猫、有限色板、分层 Aseprite 源文件、原尺寸 PNG 和放大预览。颜色与具体造型可自主选择。不要扩展为走路动画、四方向素材集、游戏场景，也不要先要求用户批准三个绘画阶段。
+- **Inspect Returned Payloads**: Check the actual response after every call. If an error occurs, inspect the document state to diagnose root cause before continuing.
+- **Live Timeout Handling**: A timeout in a Live request does *not* imply the script failed or stopped. If a request ID is returned, poll via `get_live_request_status`. While status is `running` or `unknown`, do not resubmit the draw command or fall back to Batch mode.
+- **Idempotency**: If the scripting tool accepts explicit `request_id` parameters, use the identical ID and payload for retries. Never generate a new ID to bypass an unresolved operation. Inspect canvas cel state before attempting repairs.
+- **Uncertain State**: If status queries are unavailable, pause further submissions and report the ambiguity to the user rather than guessing or force-restarting Aseprite.
+
+---
+
+## 5. Export, Verification, and Delivery
+
+1. **Master File Preservation**: Save the layered `.aseprite` file. Use `get_sprite_info` to verify canvas size, layer stack, and frame count. Retain editable layers; never flatten master files permanently.
+2. **Export Files**: Export the native 1:1 resolution PNG. Generate an integer-scaled preview (e.g., 4× or 8× nearest neighbor) via `export_frame` for visual inspection. The 1:1 image is the game asset; the enlarged image is only for preview.
+3. **Visual Inspection**: Open and inspect the exported image. Verify silhouette balance, facial features, cluster clarity, lighting consistency, and border cleanliness. Correct issues directly on the corresponding layer and re-export.
+4. **Technical Data Check**: Use `get_color_stats`, `get_composite_rect`, or native image inspection to confirm color count, dimensions, and alpha channels. Use composite reads for overall art checks and single-cel reads for layer-specific audits.
+5. **Tiles & Animation**: Inspect tiles via a 3×3 tiling grid. Check animations for consistent frame dimensions, durations, anchor stability, and fluid motion arcs.
+6. **Delivery**: Deliver the actual files (master `.aseprite`, 1:1 PNG, and preview). Embed or link the image directly in the response—never output an isolated script or file path without delivering the generated assets.
+
+---
+
+## 6. Standalone Asset Baseline Scope
+
+A request like "Draw a cat" must be executed immediately as:
+- **32×32 pixels**
+- Transparent background
+- Clearly identifiable sitting cat silhouette
+- Restricted cohesive palette
+- Layered `.aseprite` master file
+- Native 1:1 PNG export
+- 4× or 8× nearest-neighbor preview
+
+Do not unilaterally expand scope into walk cycles, 4-directional sprite sheets, or full scenes, and do not stall the user with multi-stage approval checkpoints unless explicitly asked.

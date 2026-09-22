@@ -1,57 +1,99 @@
-# 生成与编辑模板
+# Generation & Editing Patterns
 
-这些模板用于已选定的图像生成路径，不是所有像素任务的强制工具路由，也不是要原样展示给用户的固定文案。Aseprite 制作走 [MCP 制作与验证](aseprite-workflow.md)。只使用当前模式需要的模板，并把方括号字段替换成用户要求或合理默认值。
+These prompt patterns apply specifically when the image generation path is selected. They are not a mandatory routing for all pixel art tasks, nor are they rigid boilerplate to be repeated verbatim to users. For Aseprite native drawing, follow [Aseprite MCP Workflow](aseprite-workflow.md). Substitute bracketed fields `[...]` with user requirements or sensible project defaults.
 
-## 调用判断
+---
 
-| 用户意图 | 动作 |
-| --- | --- |
-| “怎么画”“这个思路对吗”“Aseprite 怎么操作” | 只解释或分步指导，不生成图片 |
-| “给我画”“创建图片”“只给图” | 按主技能选择制作路径，直接完成当前素材；本参考仅描述其中的图像生成路径 |
-| “按照这个轮廓上色”“继续做最终效果” | 把轮廓图作为参考图编辑，保持像素级对齐 |
-| “先做第一步、第二步” | 只完成指定阶段，不顺带生成最终图 |
-| “一个一个给” | 每次只生成一个主体或一类瓦片，不做合集 |
+## 1. Intent-to-Action Routing
 
-## 通用像素约束
+| User Intent | Execution Action |
+| :--- | :--- |
+| *"How do I draw...?", "Is this approach correct?", "How does this tool work in Aseprite?"* | Explain technique or provide step-by-step guidance; **do not** generate images or create files. |
+| *"Draw this for me", "Create an image", "Images only"* | Select production path and create the asset directly. (This reference governs the image generation path). |
+| *"Color in this outline", "Proceed with final render"* | Treat the existing outline as an aligned reference image; maintain strict pixel grid alignment. |
+| *"Do step 1 and step 2 first"* | Deliver only the requested preliminary phases without jumping ahead to the final render. |
+| *"Give them to me one by one"* | Generate one asset/tile per step; do not package multiple assets into a single sheet. |
 
-每个生成或编辑请求都应明确包含：
+---
 
-- 原始画布尺寸 `[宽]×[高]`；
-- `[正面 / 侧面 / 正交俯视 / 3/4 俯视]`；
-- 真正的手工像素画表现，硬边像素簇；
-- 有限色板、无抗锯齿、无模糊、无平滑渐变；
-- 单个主体完整位于画布内，不裁切；
-- `[透明背景 / 可无缝平铺的满画布地面]`；
-- 无文字、无水印、无 UI 边框、无展示底座。
+## 2. Universal Pixel Art Prompt Constraints
 
-不要只写“pixel art”。应同时说明尺寸、视角、用途、轮廓粗细、色阶数量和背景规则。
+Every generation or editing prompt must explicitly enforce:
 
-## 独立瓦片模板
+- **Target Canvas Dimensions**: `[Width] × [Height] px`;
+- **Perspective**: `[Frontal / Side-profile / Top-down orthographic / 3/4 Isometric]`;
+- **Style Invariants**: Authentic hand-crafted retro pixel art, clean hard-edged pixel clusters;
+- **Technical Restrictions**: Strictly limited palette, **no anti-aliasing**, **no Gaussian blur**, **no smooth gradients**, **no photographic textures**;
+- **Framing**: Single subject fully framed within canvas bounds with healthy margins, no cutoff/clipping;
+- **Background**: `[Clean transparent background / Seamless full-bleed ground texture]`;
+- **Clean Output**: No text, no typography, no watermarks, no decorative UI frames, no display pedestals/bases.
 
-目标：`[主题]` 的单个 `[尺寸]` 游戏瓦片，`[正交俯视]`。只生成 `[中心 / 直边 / 外角 / 内角 / 装饰覆盖层]` 这一种瓦片。保持统一像素密度和固定光源方向。若为基础地面，图案必须跨上下左右边缘自然连续并可无缝平铺；若为装饰物，使用透明背景并保留明确锚点。不要生成瓦片表、地图场景、文字或其他素材。
+*Rule*: Never simply request "pixel art". Always define exact resolution, camera perspective, functional role, line weight, palette constraints, and background rules.
 
-生成后应做 3×3 平铺检查。若接缝明显，优先修边，不要用模糊隐藏接缝。
+---
 
-## 初始轮廓模板
+## 3. Standalone Tile Template
 
-目标：`[主体]` 的 `[尺寸]` 初始像素轮廓，`[视角和姿态]`。使用 1 像素为主的深色硬边线，仅保留清晰外轮廓和必要结构线；不加入完整配色、光影、纹理和背景。主体完整、居中、不裁切，透明背景，无抗锯齿、无半透明软边、无文字。
+> **Target**: A single `[Size, e.g., 32×32]` game tile representing `[Theme, e.g., cobblestone path]`, viewed in `[Perspective, e.g., top-down orthographic]`.
+> Generate exclusively the `[Center / Straight edge / Outer corner / Inner corner / Decorative overlay]` tile variant.
+> Maintain uniform pixel density and a fixed directional light source from `[Direction, e.g., top-left]`.
+> *For base ground*: The pattern must align and repeat seamlessly across top-to-bottom and left-to-right edges.
+> *For props/foliage*: Place on a pure transparent background with a clear base footprint.
+> Do NOT produce a packed tileset sheet, full map scene, borders, or text.
 
-轮廓用于用户在 Aseprite 中继续绘制，因此应强调结构清楚，而不是做成剪影海报或精细线稿插画。
+*Post-check*: Validate via 3×3 tiling. If seams are visible, repair edge pixels directly; never apply a blur filter to hide seams.
 
-## 基础色模板
+---
 
-以提供的轮廓图为唯一结构依据。在同一画布、相同坐标、比例、视角和姿态上，为 `[主体]` 加入干净的基础色。保留原轮廓，不添加完整阴影、高光和纹理，不改变任何外形。透明背景，无抗锯齿、无文字。
+## 4. Initial Outline Template
 
-## 最终效果编辑模板
+> **Target**: Initial `[Size, e.g., 32×32]` pixel art structural outline of `[Subject, e.g., blacksmith NPC]`, in `[Perspective & Pose, e.g., front-facing standing pose]`.
+> Render using clean 1-pixel dark hard-edged lines, capturing only the exterior silhouette and essential internal anatomical/clothing planes.
+> Do NOT include full flat colors, shading, specular highlights, textures, or background elements.
+> Subject must be completely contained, centered, and unclipped on a pure transparent background.
+> Zero anti-aliasing, no semi-transparent feathering, no text labels.
 
-编辑提供的 `[轮廓图 / 基础色图]`，不要重新设计主体。保持画布、外轮廓、位置、比例、视角、姿态和朝向精确一致。使用 `[色板或配色描述]`，固定光源来自 `[方向]`，为每种主要材质加入成组的基础色、阴影色和高光色，以清晰像素簇表现体积；细节服从原始像素密度。透明背景，无抗锯齿、无模糊、无照片纹理、无文字。
+*Intent*: This outline serves as a structural foundation for subsequent coloring in Aseprite; focus on anatomical readability and clean negative space rather than creating a fine-line poster illustration.
 
-如果工具无法确保轮廓严格一致，先输出需要修正的轮廓版本，再继续上色；不要把外形明显不同的新图称为“同一轮廓的最终效果”。
+---
 
-## 阶段对照模板
+## 5. Flat Base Color Template
 
-仅在用户明确需要对照图时使用。把已经完成并对齐的 `outline`、`base-color`、`final` 放在同一预览中，阶段之间留相等空白，不额外改变缩放和内容。默认不在图内写字；若用户需要标签，再添加简短阶段名。独立 PNG 仍是正式交付物。
+> **Target**: Flat color blockout for the provided outline of `[Subject]`.
+> Use the supplied outline as the strict structural foundation.
+> On the exact same canvas resolution, maintaining 1:1 coordinate alignment, proportions, perspective, and pose, apply clean solid base midtones to `[Subject]`.
+> Preserve the existing outline intact. Do NOT add lighting, shading ramps, highlights, or surface noise.
+> Pure transparent background, no anti-aliasing, no text.
 
-## 精确尺寸后处理
+---
 
-图像生成结果大于目标画布时，应先确认主体像素格的逻辑分辨率、格点对齐和整数缩放关系，再按整数比例使用最近邻缩小。不得为了凑尺寸使用非整数缩放。裁切只能移除空白边缘，不能切到主体或破坏瓦片边缘。最近邻不会自动清除已有抗锯齿、统一不规则像素格或保证轮廓正确；没有稳定像素网格时，按允许的编辑路径在目标分辨率重新整理，不能宣称缩小就已达标。后处理遵守当前工具的编辑限制，输出后重新检查透明通道和半透明边缘。
+## 6. Final Render Editing Template
+
+> **Target**: Final shaded render of the provided `[Outline / Base Color art]`, without redesigning the subject.
+> Maintain exact canvas bounds, outer silhouette, coordinates, proportions, camera angle, and pose.
+> Apply the `[Palette or color description]`, with consistent directional lighting from `[Direction, e.g., top-left]`.
+> Sculpt form using grouped base, shadow, and highlight values in cohesive pixel clusters. Detail density must strictly match the native pixel grid.
+> Pure transparent background, no anti-aliasing, no photographic textures, no blur, no text.
+
+*Integrity Check*: If the generative tool cannot preserve the exact silhouette, output the corrected outline first before coloring. Never present an altered character design as the "final render of the same outline."
+
+---
+
+## 7. Stage Comparison Template
+
+*(Use only when the user explicitly requests a side-by-side progression preview).*
+
+> Arrange the verified and aligned `Outline`, `Base Colors`, and `Final Render` horizontally within a single preview canvas, separated by equal margins.
+> Retain 1:1 scale and identical vertical alignment.
+> Do NOT add decorative text inside the artwork unless the user specifically requested step labels.
+> The standalone PNG files remain the official deliverable assets.
+
+---
+
+## 8. Resolution Downscaling & Grid Realignment
+
+When image generation produces an oversized output that must be brought to target dimensions:
+1. **Analyze Logical Resolution**: Inspect the image to confirm if a true logical pixel grid exists.
+2. **Integer Scaling**: If the underlying pixel grid is sharp and uniform, scale down strictly by an integer factor using Nearest-Neighbor interpolation (e.g., downscale 4× from 128×128 to 32×32). Never use fractional scaling ratios (e.g., 2.3×) which destroy pixel art grids.
+3. **Bounding Crops**: Cropping is only permitted to remove outer empty padding; never crop into the subject or alter tile boundaries.
+4. **Limits of Resampling**: Nearest-neighbor downscaling cannot magically fix anti-aliasing, uneven pixel widths ("fat pixels"), or messy clusters generated at high resolution. When no clean logical grid exists, manually rebuild the sprite at native target resolution rather than pretending a downscaled smooth illustration is genuine pixel art.

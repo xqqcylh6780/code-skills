@@ -2,22 +2,23 @@
 
 ## Should trigger
 
-- “做一个 32×32 农田瓦片，只给轮廓。”
-- “在 Aseprite 里画一个角色并保存分层源文件。”
-- “制作四方向走路精灵表。”
-- “检查这套像素瓦片能不能无缝拼接。”
-- “告诉我怎么画像素草丛，不要生成图片。”
+- "Create a 32x32 farmland tile, outline only."
+- "Draw a character in Aseprite and save the layered source file."
+- "Create a 4-direction walking sprite sheet."
+- "Check whether this set of pixel tiles can tile seamlessly."
+- "Explain how to draw pixel art grass tufts without generating an image."
+- "Make a 16x16 potion bottle icon in retro pixel style."
 
 ## Should not trigger
 
-- “写角色移动代码。” → game implementation workflow, not pixel art.
-- “做普通高清插画。” → general image creation, not this skill.
-- “写 FastAPI 服务。” → `build-backends`.
-- “搜索 Aseprite 开源替代品。” → `github-repository-search`.
-- “只问 Godot 场景脚本逻辑。” → game/code workflow.
+- "Write player movement code in GDScript." → game implementation workflow, not pixel art.
+- "Create a high-resolution concept art illustration." → general image creation (`game-art-maker` or general image tools).
+- "Build a FastAPI backend endpoint." → `build-backends`.
+- "Search for open-source Aseprite alternatives." → `github-repository-search`.
+- "How do I setup tilemap collisions in Godot 4?" → game engine/code workflow.
 
 ## Conflict cases
 
-- “做像素角色并导入游戏。” → this skill owns art assets and import parameters; game runtime logic remains separate.
-- “用户只问 Aseprite 快捷键。” → explain the operation only; do not generate an image.
-- “已有轮廓，做最终上色。” → edit from the confirmed outline; do not regenerate an unrelated design.
+- "Create a pixel character and integrate it into the game engine." → this skill produces the visual assets, sprite sheets, and import parameters; engine runtime logic is delegated to game development skills.
+- "User only asks about Aseprite shortcuts or menu options." → explain the tool/operation only; do not generate an image or create canvas files.
+- "I already have an outline, do the final coloring." → edit and build upon the existing confirmed outline; do not regenerate a completely unrelated design.

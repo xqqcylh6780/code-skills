@@ -1,113 +1,150 @@
-# 画师工作流与 Aseprite 操作
+# Artist Workflow & Aseprite Operations
 
-用于实际制作与软件教学。这里的专业流程是逐层解决画面问题，不要求每张图都使用所有功能，也不把每阶段变成用户审批。用户只问怎么画时讲解操作，不擅自创建文件；要求绘制时连贯执行、自检并交付。
+This reference guides hands-on drawing and educational software walkthroughs. A professional pixel art workflow solves visual problems layer-by-layer: silhouette → values → materials → cleanup. It does not require every tool for every sprite, nor should it turn every step into an unnecessary user approval checkpoint. If the user only asks how to draw or how a tool works, explain the technique without arbitrarily creating files; when asked to draw, execute cohesively, self-inspect, and deliver.
 
-菜单名称和快捷键受版本、语言及用户设置影响；以当前软件为准。MCP 的连接、明确文档定位、安全写入、保存与导出遵循 [Aseprite MCP 制作与验证](aseprite-workflow.md)，不要假设源码中的功能已经连接。
+Tool names and keyboard shortcuts can vary with Aseprite versions, languages, and user configurations; refer to standard terms. For MCP connectivity, document targeting, safe writes, and export procedures, adhere strictly to [Aseprite MCP Workflow](aseprite-workflow.md).
 
-本用户默认观看 Live 绘制：下面各绘画阶段要拆成独立、可见的小步骤，动画逐帧推进，执行该参考中的“实时可见绘制”规则。阶段连续进行，无需逐步确认；不要将本流程压成一次生成成品的脚本。
+*Live Visible Drawing Protocol*: When Aseprite Live is active, drawing stages must be split into small, visible, discrete steps, advancing animation frame-by-frame per the "Live Visible Drawing" section in the MCP reference. Proceed smoothly through stages without stopping for intermediate user approvals; do not collapse the entire piece into a single opaque batch script.
 
-## 1. 定义画面要表达什么
+---
 
-先明确主体的识别点、用途、视角、尺寸、姿态和光源。沿用项目已确认的规格；单个小素材可以采用主技能默认值，不为所有参数提问。
+## 1. Define Subject & Visual Intent
 
-- 看参考时提取大形、比例和关键特征，不直接照搬全部纹理。例如猫的识别点可以是尖耳、脸颊、坐姿和尾巴，而不是每根毛。
-- 预估主体在画布中的占地，给耳尖、尾巴、武器或动作留空间。游戏角色先定脚底锚点，再安排头身比例。
-- 选择画法：有描边的角色可从线稿开始；地面、岩石、植物和无描边角色可先画实心剪影。不要强迫每个题材经过封闭黑线稿。
+Clarify key recognition cues, intended game role, camera perspective, pixel dimensions, pose, and light source. Reuse established project specifications; for standalone simple assets, adopt default settings without interrogating the user on every parameter.
 
-**判断：** 用一句话说清主体和动作；最大形状能放进目标画布。若关键特征在这个尺寸无法表达，先简化设计，不擅自扩大已约定尺寸。
+- **Extract Essentials from Reference**: Identify primary silhouettes, proportions, and iconic traits rather than tracing every realistic texture. (e.g., A cat's recognition cues are pointed ears, muzzle shape, sitting posture, and tail—not individual hairs).
+- **Canvas Footprint**: Estimate the subject's bounds on the target canvas, reserving headroom for ear tips, tails, weapons, or action overshoot. For game characters, establish the ground contact/foot anchor first, followed by head-to-body proportions.
+- **Render Style**: Outlined characters typically start with a structural line sketch; terrain, rocks, foliage, and un-outlined characters often start with solid silhouettes. Do not force every subject through a heavy black outline.
 
-## 2. 设置画布与工作区
+**Self-Check**: Describe the subject and action in one sentence. Confirm the largest volume fits comfortably within the target canvas. If essential features cannot fit at this scale, simplify the design rather than unilaterally enlarging agreed-upon canvas dimensions.
 
-在 Aseprite 新建目标尺寸的透明画布。没有索引色约束时可用 RGB 模式配合有限色板；已有项目要求 Indexed 时沿用，留意透明索引和调色板变化。
+---
 
-- 显示图层与时间轴，先建基础色层；按需要再加轮廓、阴影和细节层。参考放单独层，降低不透明度用于观察，最终隐藏；手动操作时锁定不应修改的层。
-- 用铅笔工具绘制硬边。细节用 1 像素笔刷，大形可用较大的硬边笔刷；不使用软笔刷或模糊。普通实体素材优先使用正常混合和完全不透明颜色。
-- Pixel-perfect 可辅助铅笔笔迹的像素转折，但不会自动修正比例、曲线或色块设计。仍需手工检查。
-- 放大以便落笔，并频繁切回 100% 查看。放大倍率不是画布尺寸，不要通过缩放素材来放大工作视图。
-- 先放少量主色和明暗色到色板，后续按画面需要增加。不要把固定色数或每种材质三档色当成硬性指标。
+## 2. Canvas & Workspace Setup
 
-**判断：** 画布、目标图层和帧正确，落笔是硬边像素，参考没有混进正式内容。编辑已有素材先保留可恢复版本，不覆盖唯一原件。
+Initialize a transparent canvas at the target resolution in Aseprite. Use RGB color mode with a restricted palette unless an Indexed color mode constraint is specifically required by the project (if Indexed is requested, monitor palette indexes and the transparent index carefully).
 
-## 3. 剪影与构图：先让主体站得住
+- **Layers & Timeline**: Display the Timeline (`Tab`). Create a base color layer; add outline, shadow, and detail layers as needed. Place references on a dedicated top layer with reduced opacity, locking it during manual edits and hiding it before export.
+- **Pencil & Brush**: Draw with hard edges using the Pencil tool (`B`). Use a 1-pixel brush for contours and details; use larger hard-edged square or round brushes for blocking in masses. Never use soft brushes, airbrushes, or blur tools. Normal blending mode with 100% opacity is the standard for solid pixel assets.
+- **Pixel-Perfect Mode**: Enable Pixel-perfect on the Pencil tool when drawing freehand lines to automatically eliminate unwanted double pixels ("doubles" / L-shapes), but note that it does not replace manual correction of curves, proportions, or cluster shapes.
+- **Zoom & Viewports**: Zoom in for precise pixel placement, but frequently check the canvas at 100% scale (actual size) or keep a secondary preview window open at 100% (`View → Preview`). Zoom level is not canvas resolution—never enlarge canvas pixels just to inspect them.
+- **Initial Palette**: Seed the palette with key midtones and basic shadow/highlight swatches, expanding organically as lighting demands.
 
-在基础层或临时草稿层，用单色画出头、躯干、四肢等大形。矩形、椭圆和多边形可用于搭骨架，随后必须调整连接、转折和外轮廓；几何图形堆叠不等于完成造型。
+**Self-Check**: Verify canvas dimensions, target layer, and frame index. Ensure marks are crisp, opaque pixels with no anti-aliasing, and reference art is isolated. When modifying existing art, retain a backup layer or document.
 
-- 暂时不画眼睛、纹理和高光，先看长宽比例、重心和动作方向。
-- 检查负形：手臂与身体之间、双腿之间、尾巴与躯干之间的空隙，是否让结构容易分辨。
-- 手动可用矩形选区或套索选中局部，按整数像素移动修正头身、肢体和尾巴位置；修改后补齐断口。区分移动像素与移动选区边界，避免操作对象错误。
-- 对称工具适合正面结构起稿；三分之二视角、透视或动作姿态不应机械镜像。收尾检查对称是否削弱姿态。
+---
 
-**判断：** 在 100% 下只看剪影，能认出主体和动作，主体没有意外贴边或被裁切。若不能识别，回到大形和比例，不用增加五官来掩盖问题。
+## 3. Silhouette & Composition: Solid Foundation
 
-## 4. 结构与基础色：建立清晰分区
+On a base or temporary rough layer, block out the largest masses (head, torso, limbs) in a single flat color. Basic geometric primitives (rectangles, ellipses) can rough out the armature, but you must immediately carve and refine joints, contours, and silhouettes; stacked geometric shapes are not finished art.
 
-根据剪影分出前后关系和材质区。需要描边时在上层整理轮廓，在下层铺基础色；无描边风格用相邻色块的明度差分离部件。
+- **Check Readability**: Defer eyes, textures, and highlights. Evaluate head-to-body ratio, center of gravity, and gesture line first.
+- **Negative Space**: Inspect the negative space between arms and torso, between legs, and around tails or props. Clear negative space makes poses instantly readable at tiny scales.
+- **Adjusting Masses**: Select parts with the Marquee or Lasso tool and nudge by integer pixels to tune limb placements or proportions, patching any gaps immediately. Distinguish between translating pixel content versus moving a selection boundary.
+- **Symmetry Tool Caveats**: Symmetry is helpful for roughing in front-facing props or static frontal poses, but strict symmetry can make 3/4 perspectives, dynamic actions, or natural anatomy look stiff and robotic. Break symmetry in the secondary pass.
 
-- 大面积先铺平色。油漆桶填充前检查当前层、封闭边界、容差及是否连续填充；轮廓在另一个层时，确认填充工具实际参考哪些层，不能默认会读取轮廓层。
-- 用吸管复用已有颜色，避免反复凭感觉选出几乎相同的新色。需要精确图层色时不要误采合成后的颜色。
-- 把脸、手、衣物、腹部等部件视为成块区域，先检查遮挡和连接。必要的内部线表达结构，不给每块颜色围一圈黑边。
-- 已批准的轮廓不能在上色时悄悄改动；若必须调整，同步更新轮廓稿并说明原因。
+**Self-Check**: View the silhouette at 100% zoom with all details hidden. The subject, posture, and action should be immediately recognizable. If not, refine the silhouette masses—never add facial features to disguise a broken silhouette.
 
-**判断：** 不加阴影也能读清主体的主要部件；相邻部件没有无意粘连，透视和比例一致。此时的问题回到结构或配色处理。
+---
 
-## 5. 明暗与体积：按面受光
+## 4. Structure & Base Colors: Clear Partitioning
 
-选定一个主光源，把头、躯干、四肢看成有朝向的体块，先铺最大的暗面，再处理遮挡阴影，最后加少量亮面。
+Carve the silhouette into clear overlapping depth planes and material zones. In outlined styles, refine lines on an upper layer while laying flat colors below; in lineless styles, separate limbs and garments via value contrast between adjacent color blocks.
 
-- 暗部应解释背光面、凹陷和遮挡。不要沿所有边缘等距涂暗、中心涂亮，造成不服从光源的枕头式阴影。
-- 阴影与高光可单独分层，方便调整；它们必须限制在主体区域。手动可通过主体不透明区域建立选区后再画。
-- Lock Alpha（锁定透明度）约束的是当前绘制目标已有的不透明区域；在空白阴影层启用它，不会自动得到基础色层的剪贴遮罩。分层绘制应明确使用选区或实际支持的遮罩方案。
-- 自动化写入像素未必遵守 GUI 的选区、图层锁或绘画墨水设置。MCP/Lua 绘制时按工具实现显式限制坐标与主体掩码，不能只打开界面开关就认为受到保护。
-- 调色先保证明度关系；可小幅调整色相和饱和度形成色阶，但不把“阴影一律变蓝”当规则。默认不用连续渐变代替有限色块。
+- **Flat Color Blocking**: Block in large flat color masses first. When using the Paint Bucket (`G`), check the active layer, closed boundary tolerance, and contiguous settings. If outlining on a separate layer, ensure fill referencing is configured correctly.
+- **Eyedropper Reuse**: Sample existing colors (`Alt` + click) to preserve palette cohesion rather than picking near-identical random swatches.
+- **Anatomy & Overlap**: Treat limbs, clothing, face, and accessories as distinct interlocking planes. Use clean structural internal lines where necessary, but avoid outlining every single color transition in black.
+- **Preserve Approved Silhouettes**: Do not silently alter approved shapes during flat coloring. If a shape change is mandatory, adjust the silhouette/outline accordingly and note the revision.
 
-**判断：** 隐藏细节后体积仍成立，各部件的受光方向一致，最亮最暗的位置有理由。如果体积不清，先改明暗形状，不增加纹理。
+**Self-Check**: The subject's anatomy and outfit should be clearly readable even without shading. Adjacent parts should not merge unintentionally, and perspective must remain consistent.
 
-## 6. 材质与视觉重点：有选择地加细节
+---
 
-把对比度和最有辨识度的细节留给重点区域，例如角色脸部或道具功能部位。次要区域留出安静的大色块。
+## 5. Values & Volume: Shading by Planes
 
-- 毛发用少量方向明确的边缘和色簇，石头用转折面，金属用较集中且对比明确的反光；材质差别来自形状和明暗组织，不是随机撒点。
-- 五官先确认位置和表情，再增加一个像素的高光。32×32 素材中一个像素就可能改变朝向或情绪。
-- 抖色仅在需要中间调或特定风格时使用，并检查原尺寸效果；它不是默认收尾步骤。
-- 有意的眼睛、纽扣、亮点可以是单像素。要清理的是无功能的孤立噪点，而不是删除所有孤立像素。
+Define a single primary directional light source (e.g., top-left). Treat head, torso, and limbs as 3D geometric volumes, establishing major shadow planes first, cast shadows next, and specular highlights last.
 
-**判断：** 第一眼看到的是主体和重点，细节没有破坏剪影、体积或有限色板。去掉一个细节反而更清楚时，优先删掉它。
+- **Form Light vs. Pillow Shading**: Shadows must represent planes turned away from the light, recesses, and cast shadows. Never apply uniform dark rings around all edges with a bright center (pillow shading).
+- **Layer Isolation**: Shading and highlights can be isolated on dedicated layers for non-destructive tuning, clipped strictly to the subject's silhouette.
+- **Lock Alpha Caveats**: Locking alpha (`Lock Alpha`) constrains drawing only to existing opaque pixels on the *current* layer. Enabling it on a blank shadow layer will prevent drawing altogether; use explicit selections, clipping groups, or verified masking.
+- **Automation / Lua Constraints**: Direct pixel writes via scripts or MCP might bypass GUI selection masks or layer locks. When writing pixels via scripts/MCP, explicitly clamp coordinates to the subject's mask bounds.
+- **Hue Shifting**: Shift hue and saturation across the value ramp rather than simply darkening with black or lightening with white (e.g., warm highlights with cooler shadows). Avoid continuous gradient ramps; stick to distinct value steps.
 
-## 7. 像素整理与整体检查
+**Self-Check**: Hide detail layers and inspect the shaded volume. Lighting direction must be consistent across all components. If volume feels ambiguous, adjust shadow shapes before adding surface texture.
 
-在放大视图用 1 像素铅笔和橡皮处理边缘，再回到 100% 判断。每轮优先修最影响识别的问题，不在错误的大形上反复抛光。
+---
 
-- 清理无意的双粗线、断线、粘连和突起；曲线阶梯应随曲率自然变化，不必让所有台阶长度相同。
-- 检查相切：耳朵、尾巴、手脚与其他边缘是否恰好接触而难分。适当留出空隙或明确遮挡，避免模棱两可。
-- 检查色带贴边（banding）：几条明暗边缘是否机械地平行跟随轮廓。调整色块形状来描述体积，不只是逐圈描边。
-- 可临时换深浅预览背景发现脏边；背景用于查看，不能烘焙进透明素材。必要时在可恢复的副本或预览中镜像检查造型，正式方向仍保持用户约定。
-- 检查合成后的实际颜色与 alpha；层透明度或混合方式可能引入色板之外的颜色和半透明边缘。
+## 6. Material & Focal Points: Selective Detailing
 
-**返工顺序：** 识别与剪影 → 比例与透视 → 结构分离 → 明暗与光源 → 材质细节 → 单像素清理。大问题先修，技术导出检查单独执行。
+Reserve the highest contrast and most distinct details for the primary focal point (e.g., character face or tool blade). Keep secondary areas composed of calm, readable color fields.
 
-## 8. 只在需要时进入动画或瓦片流程
+- **Material Textures**:
+  - *Fur/Hair*: Directional edge clusters and chunky tufts; not individual strands.
+  - *Rock/Stone*: Crisp planar facets, angular edges, and hard highlights.
+  - *Metal*: Concentrated, high-contrast reflection bands and bright specular points.
+- **Facial Features**: Settle eye and mouth placement first before adding a 1-pixel highlight. At 32×32 or 16×16, a single pixel shifts facial expression or gaze direction dramatically.
+- **Dithering Guidelines**: Use dithering (checkered color transitions) sparingly, primarily when a middle tone is unavailable or for retro console aesthetics. Avoid noisy, indiscriminate dithering that creates visual clutter.
+- **Single Pixels**: Intentional 1-pixel details (eyes, belt buckles, sparkles) are valuable. Clean up *accidental, orphaned noise pixels*, not deliberate micro-details.
 
-**动画：** 先完成关键姿势，再补过渡帧。在时间轴管理帧，开启洋葱皮比较相邻姿势，结合实际播放检查节奏。保持画布和约定锚点稳定；站立动作的接地脚不应无意滑动。身体起伏要协调骨盆、肩膀和四肢，不用整张平移冒充所有动作。设置帧时长及动作标签后检查循环首尾；只有导出图集时才安排切片布局。详细交付遵循 [游戏素材规范](game-asset-spec.md)。
+**Self-Check**: Does the eye naturally track to the intended focal point? Do micro-details degrade silhouette readability or break the palette? If removing a cluster makes the sprite clearer, remove it.
 
-**瓦片：** 使用 View 下的 Tiled Mode 查看双轴平铺，或制作仅供检查的 3×3 预览。先检查边缘连续，再看大面积重复节奏；无缝不等于没有明显重复花纹。过渡块还要与目标邻接块组合检查。装饰和地面分开，只有请求变体或素材集时扩展数量。
+---
 
-## 9. 保存、导出与教学表达
+## 7. Pixel Cleanup & Refinement
 
-保存可编辑 `.aseprite`，隐藏参考和临时检查层后导出原尺寸 PNG。需要放大预览时单独导出整数倍最近邻版本；导出缩放不应改变源画布。重新查看真实导出文件，按 [像素规格与质量检查](pixel-spec.md) 核对尺寸、透明度、视觉效果及动画信息，不以保存成功代替检查。
+Zoom in to clean up edges with a 1-pixel Pencil and Eraser, then zoom out to 100% to evaluate overall clarity. Address the most disruptive artifacts first:
 
-教学时每阶段按“为什么这样画 → 在软件里怎么做 → 应看到什么 → 不对时改哪里”说明。第一次介绍工具可同时写中文与英文名称，不依赖未经核对的快捷键。对单个素材保持连续讲解；用户要求逐步教学时才停在指定阶段。
+- **Jaggies & Doubles**: Remove unintentional double pixels (L-shapes/corners where a 1px line abruptly doubles in thickness). Ensure line step intervals change progressively (e.g., `3-2-1-1-2-3`, not chaotic jumps like `3-1-3-1-2`).
+- **Tangents**: Resolve accidental edge-to-edge tangents where two separate elements barely touch, making spatial depth ambiguous. Either overlap them decisively or open up clear negative space.
+- **Banding**: Eliminate banding—stair-stepped lines of shading that hug outline pixels identically, creating harsh artificial borders instead of curved volumes. Sculpt shading into natural clusters.
+- **Color Bleed & Alpha Leaks**: Toggle a dark and light temporary background to expose stray translucent pixels or dirty edges. Ensure the final export retains true binary transparency (alpha 0 or 255) for standard pixel art.
+- **Rework Priority Order**:
+  1. Silhouette & Readability
+  2. Proportions & Perspective
+  3. Structural Separation
+  4. Light Source & Shading Masses
+  5. Material Clusters
+  6. Single-Pixel Edge Cleanup
 
-## MCP 如何对应画师操作
+---
 
-以下名称只是本项目工具示例；实际调用前发现工具并核对参数、坐标、图层、帧和保存语义。缺少工具时不虚构替代能力。
+## 8. Animation & Tile Workflows
 
-| 画师操作 | MCP 对应与限制 |
-| --- | --- |
-| 铅笔铺色、修边 | `draw_pixels_at`、线段、矩形或多边形工具；优先明确文档、层和帧。几何工具完成草稿后仍需按轮廓修形。 |
-| 吸管与调色板 | `get_palette`、`set_palette` 和可用像素读取工具；区分单层原色与合成色，避免无意改变其他帧共享的色板。 |
-| 选区移动局部 | `move_region`、`copy_region` 等按实际矩形能力使用；不能当作任意套索。移动前检查源区、目标边界与覆盖行为。 |
-| 分层调整 | 创建、重命名、排序、可见性及不透明度工具；参数语义以 schema 为准。保留可编辑层，别为方便直接合并唯一源稿。 |
-| 批量塑形与阴影 | 安全的 `run_lua_batch` 可按明确坐标和掩码绘制；遵守事务与超时约束。按有意义的绘画阶段分批，便于查看结果和修正。 |
-| 动画检查 | 复制帧、设置帧时长、标签和 `set_onion_skin` 等能力；启用洋葱皮或生成帧不等于已看过播放效果。 |
+### Character Animation
+1. **Key Poses First**: Complete extreme poses (e.g., Contact and Passing poses in a walk cycle) before drawing in-betweens.
+2. **Onion Skinning**: Enable Onion Skin (`Alt + O`) to track motion arcs and volume consistency across adjacent frames.
+3. **Anchor Stability**: Keep character feet anchored to a consistent ground baseline; avoid unintentional foot slipping or vertical jittering.
+4. **Coordinated Motion**: During walking or running, balance pelvic, shoulder, and head bobs organically (typically 0–1 pixel bobbing at 32px scale); never move an entire torso horizontally or vertically as a rigid flat chunk.
+5. **Playback Evaluation**: Preview playback in real time at intended FPS; verify seamless looping for cycles.
 
-自动化仍需完成画师的观察与返工。没有查看结果时，只能报告执行了哪些操作，不能宣称造型或动画质量已通过。
+### Tile Design
+1. **Tiled Mode**: In Aseprite, use `View → Tiled Mode → Both Axes` to preview seamless repeating patterns in real time.
+2. **Repeating Rhythm**: Seamless wrapping is only the first step—ensure large repeating grids do not reveal distracting lines, repetitive high-contrast spots, or grid fatigue.
+3. **Transition Autotiles**: Build transitions (inner/outer corners, edges, centers) that cleanly interface with adjacent terrain.
+4. **Layer Decoupling**: Keep environmental props (grass tufts, pebbles, flowers) on transparent overlay layers separate from base ground tiles.
+
+---
+
+## 9. Save, Export, and Instruction Delivery
+
+- **Save Layered Source**: Save the master `.aseprite` file with organized layers and named animation tags.
+- **Export Formats**: Hide reference and test background layers, then export the 1:1 original resolution PNG. Export an enlarged preview (4× or 8× integer nearest neighbor) for inspection.
+- **Verify Export**: Open and inspect the actual exported PNGs to confirm pixel dimensions, alpha integrity, and cluster clarity.
+- **Instruction Style**: When teaching or explaining Aseprite operations, structure explanations as:
+  `Goal / Reason → Specific Tool & Action → What You Should Observe → How to Troubleshoot`.
+  Mention both common English and localized tool names when helpful, avoiding unverified shortcuts.
+
+---
+
+## MCP Tool Mapping to Artist Actions
+
+The following tool names illustrate typical MCP mapping; discover active tools and verify schemas dynamically before invoking.
+
+| Artist Action | MCP Mapping & Guidelines |
+| :--- | :--- |
+| **Pencil Blocking & Cleanup** | `draw_pixels_at`, line, rectangle, or polygon tools. Always specify target document, layer, and frame index explicitly. |
+| **Eyedropper & Palette** | `get_palette`, `set_palette`, and pixel inspection tools. Differentiate between single-cel raw pixels and composite render colors. |
+| **Region Shifting / Nudging** | `move_region`, `copy_region`. Check bounding boxes and ensure surrounding pixels are patched properly. |
+| **Layer Management** | Layer creation, renaming, ordering, visibility, and opacity tools. Retain editable layers; never flatten master files permanently for temporary previews. |
+| **Batch Drawing & Shading** | `run_lua_batch` with explicit coordinates and masks. Chunk batches into recognizable visual milestones for visible progress. |
+| **Animation Verification** | Frame duplication, frame duration, tag management, and `set_onion_skin`. Creating frames does not replace inspecting actual playback timing. |

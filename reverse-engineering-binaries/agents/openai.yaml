@@ -1,0 +1,4 @@
+interface:
+  display_name: "Reverse Engineer Binaries"
+  short_description: "Statically inspect compiled artifacts with Ghidra"
+  default_prompt: "Use $reverse-engineering-binaries to statically analyze this artifact and report reproducible evidence without executing it."

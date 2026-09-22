@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f2ee">
+    <title>Android App Prototype Starter</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="android-frame.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body data-prototype-contract="prototype-contract.json">
+    <header class="board-header">
+      <div>
+        <p class="eyebrow">ANDROID · INTERACTION MAP</p>
+        <h1>六屏原型起步板</h1>
+      </div>
+      <p>每台手机都有独立状态，可单独点击导航、子页、表单与弹窗。</p>
+    </header>
+
+    <main class="prototype-board" aria-label="Android 原型总览">
+      <section class="prototype-card">
+        <header><span>01</span><strong>首页</strong><small>总览与筛选</small></header>
+        <android-frame data-prototype-instance data-start-screen="home" aria-label="首页原型">
+          <div data-app-root></div>
+        </android-frame>
+      </section>
+      <section class="prototype-card">
+        <header><span>02</span><strong>项目</strong><small>列表与入口</small></header>
+        <android-frame data-prototype-instance data-start-screen="projects" aria-label="项目原型">
+          <div data-app-root></div>
+        </android-frame>
+      </section>
+      <section class="prototype-card">
+        <header><span>03</span><strong>统计</strong><small>周期切换</small></header>
+        <android-frame data-prototype-instance data-start-screen="stats" aria-label="统计原型">
+          <div data-app-root></div>
+        </android-frame>
+      </section>
+      <section class="prototype-card">
+        <header><span>04</span><strong>我的</strong><small>设置状态</small></header>
+        <android-frame data-prototype-instance data-start-screen="profile" aria-label="个人页原型">
+          <div data-app-root></div>
+        </android-frame>
+      </section>
+      <section class="prototype-card">
+        <header><span>05</span><strong>详情</strong><small>上下文操作</small></header>
+        <android-frame data-prototype-instance data-start-screen="detail" aria-label="详情页原型">
+          <div data-app-root></div>
+        </android-frame>
+      </section>
+      <section class="prototype-card">
+        <header><span>06</span><strong>记录</strong><small>表单与反馈</small></header>
+        <android-frame data-prototype-instance data-start-screen="entry" aria-label="记录表单原型">
+          <div data-app-root></div>
+        </android-frame>
+      </section>
+    </main>
+
+    <template id="app-shell-template">
+      <div class="app-shell">
+        <div class="screen-stack">
+          <section class="app-screen" data-screen="home">
+            <header class="topbar"><div><p class="kicker">今日概览</p><h2>早上好</h2></div><button class="icon-button" data-modal-open="filter" aria-label="打开筛选">⌁</button></header>
+            <div class="hero-panel">
+              <p>本月结余</p><strong class="hero-number">¥ 4,280</strong>
+              <div class="hero-meta"><span>收入 ¥8,640</span><span>支出 ¥4,360</span></div>
+            </div>
+            <div class="section-heading"><h3>最近项目</h3><button data-route-to="projects">查看全部</button></div>
+            <button class="project-row" data-route-to="detail">
+              <span class="project-mark">木</span><span><strong>日常生活</strong><small>8 月 · 17 笔</small></span><b>¥2,180</b>
+            </button>
+            <div class="pulse-card"><span class="pulse-dot"></span><div><strong>预算节奏稳定</strong><small>较上周减少 12%</small></div><span>↗</span></div>
+          </section>
+
+          <section class="app-screen" data-screen="projects" hidden>
+            <header class="topbar"><div><p class="kicker">分组管理</p><h2>项目</h2></div><button class="icon-button" data-prototype-feedback="已展示新建入口" aria-label="新建项目">＋</button></header>
+            <div class="project-grid">
+              <button class="project-tile featured" data-route-to="detail"><span>木</span><strong>日常生活</strong><small>¥2,180 · 17 笔</small></button>
+              <button class="project-tile" data-prototype-feedback="旅行项目已选中"><span>旅</span><strong>轻装旅行</strong><small>¥1,240 · 6 笔</small></button>
+              <button class="project-tile" data-prototype-feedback="学习项目已选中"><span>学</span><strong>自我成长</strong><small>¥940 · 4 笔</small></button>
+            </div>
+            <p class="inline-note">示例内容需替换成真实产品项目与素材。</p>
+          </section>
+
+          <section class="app-screen" data-screen="stats" hidden>
+            <header class="topbar"><div><p class="kicker">支出构成</p><h2>统计</h2></div><span class="month-chip">2026.08</span></header>
+            <div class="segmented" role="tablist" aria-label="统计周期">
+              <button data-tab-value="week" role="tab" aria-selected="false">周</button>
+              <button data-tab-value="month" role="tab" aria-selected="true" class="active">月</button>
+            </div>
+            <div class="donut" aria-label="支出占比图"><div><strong data-total>¥4,360</strong><small>总支出</small></div></div>
+            <ul class="legend">
+              <li><i class="coral"></i><span>餐饮</span><b>38%</b></li>
+              <li><i class="plum"></i><span>居住</span><b>31%</b></li>
+              <li><i class="olive"></i><span>出行</span><b>19%</b></li>
+              <li><i class="sand"></i><span>其他</span><b>12%</b></li>
+            </ul>
+          </section>
+
+          <section class="app-screen" data-screen="profile" hidden>
+            <header class="topbar"><div><p class="kicker">账户与偏好</p><h2>我的</h2></div><span class="avatar">禾</span></header>
+            <div class="profile-card"><strong>本月连续记录 18 天</strong><p>保持轻量、准确的记录习惯。</p><div class="streak"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div></div>
+            <div class="settings-list">
+              <label><span><strong>记账提醒</strong><small data-reminder-state>每天 21:00</small></span><input type="checkbox" data-reminder checked><i></i></label>
+              <button data-prototype-feedback="主题设置已展开"><span><strong>外观主题</strong><small>跟随系统</small></span><b>›</b></button>
+              <button data-prototype-feedback="数据设置已展开"><span><strong>数据与导出</strong><small>本地备份</small></span><b>›</b></button>
+            </div>
+          </section>
+
+          <section class="app-screen subpage" data-screen="detail" hidden>
+            <header class="topbar"><button class="icon-button" data-back-to="home" aria-label="返回首页">‹</button><div class="center-title"><p class="kicker">项目详情</p><h2>日常生活</h2></div><button class="icon-button" data-prototype-feedback="更多菜单已展开" aria-label="更多">•••</button></header>
+            <div class="detail-summary"><span class="project-mark large">木</span><div><small>本月支出</small><strong data-detail-total>¥2,180</strong></div></div>
+            <div class="section-heading"><h3>最近记录</h3><span>8 月</span></div>
+            <ul class="transactions" data-transaction-list>
+              <li><span>食</span><div><strong>午餐</strong><small>今天 12:30</small></div><b>- ¥38</b></li>
+              <li><span>居</span><div><strong>日用品</strong><small>昨天 19:10</small></div><b>- ¥126</b></li>
+              <li><span>行</span><div><strong>地铁</strong><small>8 月 16 日</small></div><b>- ¥6</b></li>
+            </ul>
+            <button class="primary-action" data-route-to="entry">记一笔</button>
+          </section>
+
+          <section class="app-screen subpage" data-screen="entry" hidden>
+            <header class="topbar"><button class="icon-button" data-back-to="detail" aria-label="返回详情">‹</button><div class="center-title"><p class="kicker">日常生活</p><h2>记录支出</h2></div><span class="icon-spacer"></span></header>
+            <form data-entry-form novalidate>
+              <label class="amount-field"><span>金额</span><div><b>¥</b><input name="amount" inputmode="decimal" placeholder="0.00" aria-label="金额"></div><small data-amount-error></small></label>
+              <fieldset><legend>分类</legend><div class="category-row"><label><input type="radio" name="category" value="餐饮" checked><span>食</span><small>餐饮</small></label><label><input type="radio" name="category" value="购物"><span>物</span><small>购物</small></label><label><input type="radio" name="category" value="出行"><span>行</span><small>出行</small></label></div></fieldset>
+              <label class="note-field"><span>备注</span><input name="note" placeholder="记录这笔消费" aria-label="备注"></label>
+              <button class="primary-action" type="submit">保存记录</button>
+            </form>
+          </section>
+        </div>
+
+        <nav class="app-bottom-nav" aria-label="主要导航">
+          <button data-nav-item data-nav-label="首页" data-route-to="home"><span aria-hidden="true">⌂</span>首页</button>
+          <button data-nav-item data-nav-label="项目" data-route-to="projects"><span aria-hidden="true">▦</span>项目</button>
+          <button data-nav-item data-nav-label="统计" data-route-to="stats"><span aria-hidden="true">◒</span>统计</button>
+          <button data-nav-item data-nav-label="我的" data-route-to="profile"><span aria-hidden="true">◉</span>我的</button>
+        </nav>
+
+        <div class="modal-backdrop" data-modal="filter" hidden>
+          <section class="bottom-sheet" role="dialog" aria-modal="true" aria-label="筛选记录">
+            <span class="sheet-handle"></span><div class="sheet-heading"><h3>筛选记录</h3><button data-modal-close="filter" aria-label="关闭筛选">×</button></div>
+            <div class="chip-row"><button class="active" data-prototype-feedback="已筛选全部记录">全部</button><button data-prototype-feedback="已筛选支出">支出</button><button data-prototype-feedback="已筛选收入">收入</button></div>
+            <button class="primary-action" data-modal-close="filter">应用筛选</button>
+          </section>
+        </div>
+        <div class="toast" role="status" aria-live="polite" hidden></div>
+      </div>
+    </template>
+  </body>
+</html>

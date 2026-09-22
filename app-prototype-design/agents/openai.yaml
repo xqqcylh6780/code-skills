@@ -1,0 +1,5 @@
+interface:
+  display_name: "App 原型设计"
+  short_description: "从真实产品结构生成多页面、可点击的移动 App 交互原型"
+  brand_color: "#D63F73"
+  default_prompt: "Use $app-prototype-design to turn this app idea or existing mobile codebase into a complete clickable prototype."

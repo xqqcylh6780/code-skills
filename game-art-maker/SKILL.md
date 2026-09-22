@@ -360,6 +360,24 @@ For isolated character / pet assets:
 
 Prefer transparent background.
 
+## Transparency Verification
+
+Do not judge transparency from the chat preview, thumbnail background, checkerboard display, or dark
+viewer canvas. These are presentation choices and may not represent pixels stored in the PNG.
+
+For every generated transparent asset:
+
+1. Inspect the saved file itself.
+2. Confirm that it has an Alpha channel.
+3. Confirm that pixels outside the subject, including the corners, have Alpha 0.
+4. Ignore RGB values stored under pixels whose Alpha is 0; those colors are invisible.
+5. If needed, composite the image over two contrasting solid colors for inspection without changing
+   the source file.
+
+Only report a transparency failure when the file has no Alpha channel or visible background pixels
+have nonzero Alpha. Once the Alpha test passes, do not remove the background, edit, or regenerate the
+asset solely because the preview looks black, white, colored, or checkerboard.
+
 Do NOT use:
 
 - checkerboard imitation

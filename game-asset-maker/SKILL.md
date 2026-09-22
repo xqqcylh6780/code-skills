@@ -56,6 +56,13 @@ This skill is NOT for:
 
 For characters, pets, turnarounds, and action consistency, use a character-focused skill instead.
 
+Route ambiguous items by intended use:
+
+- Use this skill when the object will exist in the game world, environment, scene, or a character's
+  hands.
+- Use `game-ui-icon-maker` when the deliverable is a compact HUD, inventory-slot, shop, toolbar, or
+  other interface icon designed primarily for small-size readability.
+
 ---
 
 # Core Goal
@@ -504,9 +511,13 @@ Do not expose internal prompt-building logic unless the user asks for the prompt
 
 If the user explicitly asks to generate an image:
 
-- generate it directly
+- use `imagegen` and generate it directly
 - use current-conversation reference images when available
 - do not ask unnecessary questions if the request is already clear
+- generate distinct requested assets separately when practical instead of relying on one crowded
+  sheet
+- inspect each result for structure, camera, style, cropping, unwanted extra objects, and actual
+  background transparency
 
 If the user asks only for:
 

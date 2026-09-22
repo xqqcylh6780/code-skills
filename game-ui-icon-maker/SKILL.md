@@ -64,7 +64,14 @@ This skill is NOT for:
 - Photoshop cleanup
 - Spine
 - Godot / Unity integration
-- pixel art unless explicitly requested elsewhere
+- pixel art; use `pixel-art-maker` when pixel output is requested
+
+Route ambiguous items by intended use:
+
+- Use this skill when an item, weapon, potion, currency, or resource is primarily displayed in a
+  HUD, inventory slot, shop, toolbar, or other interface context.
+- Use `game-asset-maker` when the object is primarily placed in the game world, environment, scene,
+  or a character's hands.
 
 ---
 
@@ -524,9 +531,14 @@ Do not expose the internal prompt structure unless the user asks for the prompt.
 
 If the user explicitly asks to generate an image:
 
-- generate it directly
+- use `imagegen` and generate it directly
 - use current-conversation references when available
 - keep the icon isolated unless the user requests a set or button
+- inspect the result at the intended small display size as well as full size
+
+For state variants or a coherent set, establish one approved base icon or style anchor first. Derive
+states from that base through an identity-preserving edit or reference workflow so geometry,
+padding, and visual weight do not drift between independently generated images.
 
 If the user asks only for:
 

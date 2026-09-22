@@ -1,0 +1,17 @@
+{
+  "platform": "android",
+  "screens": ["home", "projects", "stats", "profile", "detail", "entry"],
+  "primaryNavigation": [
+    { "id": "home", "label": "首页" },
+    { "id": "projects", "label": "项目" },
+    { "id": "stats", "label": "统计" },
+    { "id": "profile", "label": "我的" }
+  ],
+  "subpages": [
+    { "id": "detail", "backTo": "home" },
+    { "id": "entry", "backTo": "detail" }
+  ],
+  "modals": ["filter"],
+  "coreFlow": ["home", "detail", "entry"]
+}
+

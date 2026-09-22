@@ -1,84 +1,88 @@
-# 像素规格与质量检查
+# Pixel Specs & Quality Checklist
 
-只读取与当前任务有关的部分。用户明确指定的尺寸、色板、视角和交付格式优先于默认值。
+Consult this reference during creation and final verification. Specifications explicitly requested by the user (dimensions, palette, camera perspective, delivery format) override default recommendations.
 
-发现美术问题时，按“识别与剪影 → 比例与透视 → 结构分离 → 明暗与光源 → 材质细节 → 单像素清理”返工，不用增加细节掩盖造型问题。实际操作见 [画师工作流](artist-workflow.md)。尺寸、透明度和导出一致性仍需独立检查。
+When visual defects are detected, rework systematically:
+`Silhouette & Readability → Proportions & Perspective → Structural Separation → Values & Lighting → Material Clusters → Single-Pixel Edge Cleanup`.
+Never add surface texture to conceal structural flaws. See [Artist Workflow](artist-workflow.md) for execution techniques.
 
-## 通用规格
+---
 
-- 像素画布常用尺寸：16×16、24×24、32×32、48×48、64×64。
-- 未指定时使用 32×32；复杂角色或建筑可建议 48×48 或 64×64。
-- 正式素材优先透明 PNG，色彩模式使用 RGBA。
-- 所有缩放使用整数倍最近邻；禁止双线性、双三次和自动平滑。
-- 线条、色块和透明边界只能落在整数像素上。
-- 有限色板优先。一个小型素材通常不需要大量近似色。
+## 1. General Technical Specifications
 
-## 初始轮廓检查
+- **Standard Canvas Sizes**: `16×16`, `24×24`, `32×32`, `48×48`, `64×64`.
+- **Default Resolution**: Default to **32×32 px** when unspecified. Propose `48×48` or `64×64` only for complex characters or large structures.
+- **File Format**: 32-bit RGBA PNG with true binary alpha (0 or 255) for standard solid game assets.
+- **Scaling Rule**: Use **strictly integer-multiple Nearest-Neighbor** scaling (`200%`, `400%`, `800%`). Bilinear, Bicubic, Lanczos, and automatic anti-aliasing are strictly prohibited.
+- **Grid Discipline**: Every line, color cluster, and edge boundary must snap strictly to discrete integer pixel coordinates.
+- **Palette Discipline**: Use limited, intentional color ramps. Small sprites should not contain clusters of indiscernible, near-identical color values.
 
-- 外轮廓是否闭合，或是否有明确的开放原因。
-- 原始尺寸下能否一眼辨认主体，而不是只有放大后才能看懂。
-- 主要比例、姿态、重心、朝向是否清楚。
-- 1 像素线条是否存在无意的断点、双粗线或锯齿节奏不一致。
-- 是否误加了抗锯齿、灰色软边或半透明像素。
-- 是否为后续上色保留了清晰、可填充的区域。
+---
 
-## 最终效果检查
+## 2. Initial Outline Checklist
 
-- 与轮廓稿叠加比较时，主体外形、位置和比例是否一致。
-- 基础色是否能区分相邻部件；阴影、高光是否服从同一光源。
-- 像素簇是否成形，是否出现孤立噪点、照片纹理或过度抖色。
-- 最暗色是否只用在需要分离结构的位置，避免所有内部边界都变成粗黑线。
-- 原始尺寸和 2×/4×最近邻预览下是否都清晰。
-- 透明区域是否干净，没有白边、黑边或残留半透明像素。
+- [ ] **Silhouette Readability**: Is the subject immediately recognizable at **100% native zoom** without needing to zoom in?
+- [ ] **Clean Contours**: Are outlines drawn primarily with 1-pixel strokes without accidental double-pixel corners ("doubles")?
+- [ ] **Consistent Stair-Stepping**: Do line intervals change smoothly (e.g., `3-2-1-1-2-3`) rather than jumping erratically?
+- [ ] **Zero Anti-Aliasing**: Are edges completely free of feathered semi-transparent pixels or gray halo artifacts?
+- [ ] **Fillable Partitions**: Are interior planes (skin, garments, armor, hair) cleanly partitioned to allow paint-bucket or flood fills without leaks?
+- [ ] **Pose & Weight**: Are the center of gravity, ground contact anchor, and facing direction visually grounded?
 
-## 瓦片设计
+---
 
-### 基础地面
+## 3. Final Render Checklist
 
-中心瓦片的四边应连续。将同一瓦片按 3×3 平铺检查：
+- [ ] **Outline Alignment**: When superimposed over the outline draft, does the final render perfectly match the approved silhouette, proportions, and pose?
+- [ ] **Light Consistency**: Do all components (head, torso, limbs, props) adhere to the same universal light source?
+- [ ] **Cluster Cohesion**: Are highlights and shadows sculpted in cohesive pixel clusters rather than noisy, isolated single-pixel dots?
+- [ ] **No Pillow Shading**: Does shading delineate 3D planes facing away from light, rather than forming a soft ring around every border?
+- [ ] **Restricted Dithering**: Is dithering reserved strictly for subtle mid-tone transitions or specific stylistic textures, avoiding visual clutter?
+- [ ] **Edge Cleanliness**: Against both pure black (`#000000`) and pure white (`#FFFFFF`) test backdrops, is the transparent perimeter completely free of fringe halos or stray semi-transparent pixels?
+- [ ] **Dual-Scale Clarity**: Is the sprite crisp and readable at both 100% native size and 4×/8× enlarged previews?
 
-- 左边与右边在颜色、纹理密度和线条上能衔接；
-- 上边与下边能衔接；
-- 平铺后没有明显的十字线、周期性亮斑或单个抢眼重复点。
+---
 
-用户要求素材集或变体时，可准备 2–4 个轻微纹理变体以降低重复感，但不要改变碰撞与边界语义。只要单个瓦片时不额外扩展交付范围。
+## 4. Tile Design Checklist
 
-### 地形过渡
+### Base Ground Tiles
+- [ ] **4-Edge Continuity**: Does the left edge seamlessly match the right edge, and the top edge match the bottom edge?
+- [ ] **3×3 Tiling Test**: When rendered in a 3×3 repeating grid, does the surface appear continuous without harsh cross-seams?
+- [ ] **Grid Fatigue**: Does the repeating pattern avoid distracting bright spots, high-contrast repetitive marks, or identifiable recurring shapes?
+- [ ] **Variations**: When a tile set is requested, provide 2–4 subtle texture variations to break repetition while maintaining identical edge transitions.
 
-当一种地面过渡到另一种地面时，根据游戏需要提供：
+### Terrain Transitions (Autotiling Sets)
+When building transitions between distinct terrain types (e.g., grass into dirt), provide:
+- [ ] Center tile (full fill);
+- [ ] 4 straight cardinal edges (North, South, East, West);
+- [ ] 4 exterior convex corners (NE, NW, SE, SW);
+- [ ] 4 interior concave corners (inner NE, NW, SE, SW);
+- [ ] Special configurations (narrow paths, single-tile islands) if required by the game engine.
 
-- 中心；
-- 上、下、左、右直边；
-- 四个外角；
-- 四个内角；
-- 必要的窄通道、孤岛或对角变体。
+*Scope Rule*: Do not expand a request for a single basic tile into a complete 47-tile autotile set unless explicitly requested.
 
-不要在用户只要一个基础瓦片时擅自生成整套 47-tile 自动瓦片；先交付当前所需范围。
+### Environmental Props & Structures
+- [ ] **Layer Decoupling**: Are decorative overlays (grass tufts, flowers, rocks) saved on transparent backgrounds separate from the base terrain?
+- [ ] **Multi-Tile Footprint**: For multi-tile structures (e.g., a 2×2 house or 1×2 tree), are tile boundaries perfectly aligned with zero 1-pixel seam misalignments?
+- [ ] **Universal Lighting**: Do all props share the identical cast shadow angle, length ratio, and shadow color ramp?
 
-### 装饰与建筑
+---
 
-- 地面瓦片与装饰覆盖层分开输出。
-- 超过一个格子的建筑或植物需说明占用格数和锚点位置。
-- 相邻多格素材要在格线处保持连续，不能产生一像素错位。
-- 用统一的投影方向和阴影长度，避免同一场景中物体视角互相冲突。
+## 5. Stage Comparison Checklist
 
-## 阶段对照
+*(When the user requests a step-by-step progression review)*:
+- [ ] `outline`: Pure contour and structural ink lines;
+- [ ] `base-color`: Outline retained with flat local colors applied;
+- [ ] `final`: Complete render with shadows, highlights, and selective textures.
+- [ ] All three stages must be aligned horizontally on identical-sized canvas slices with equal spacing.
+- [ ] Individual PNG files remain the official production deliverables.
 
-需要展示制作过程时，阶段必须使用同一画布并精确对齐：
+---
 
-1. `outline`：外轮廓与必要结构线；
-2. `base-color`：轮廓不变，只加入基础色；
-3. `final`：在基础色上加入阴影、高光和有限细节。
+## 6. Final Delivery Verification
 
-独立文件是正式交付物。横向或纵向对照图只是预览，只有用户要求时才制作，并清楚标出阶段顺序。
-
-## 最终交付核对
-
-检查需要证据：用导出文件或工具返回的元数据核对宽高、帧数和色数；用像素读取或只读图片检查核对透明度；实际查看原尺寸和最近邻预览判断造型与边缘。默认硬边素材的 alpha 应为 0 或 255；有意设计的半透明特效单独说明，不把它误判为抗锯齿。图像生成提示词和一次“成功”返回不能替代这些检查。
-
-- 文件数与用户要求一致；用户说“一个一个给”时没有合并素材。
-- 文件名能反映主题、阶段和尺寸。
-- 图片没有文字、水印、装饰边框和非必要背景。
-- 精确尺寸、透明通道和像素边缘均已确认。
-- 通过 Aseprite 制作或承诺交付源文件时，源文件实际存在并包含约定的图层/帧；原尺寸导出与最终保存状态一致。其他路径的源文件缺口如实说明。
-- 如果生成模型无法可靠满足精确像素要求，应说明限制并按允许的编辑路径整理目标网格；最近邻缩放不能保证清理成功，不把普通高清插画冒充为像素素材。
+Quality checks must be backed by concrete verification evidence:
+1. **Metadata Audit**: Validate width, height, frame counts, and palette size using tool return data or image inspect functions.
+2. **Alpha Audit**: Confirm that alpha values for solid sprites are strictly binary (0 or 255). (If intentional semi-transparency is used for ghost effects or spells, state this explicitly).
+3. **Source Files**: When delivering Aseprite master files, ensure the `.aseprite` file exists on disk, contains the designated layers/frames, and matches the exported 1:1 PNGs.
+4. **Resampling Integrity**: If an AI image generation model was used, ensure downscaling was performed strictly via integer nearest-neighbor interpolation and that the resulting grid is clean. Never pass off downscaled smooth artwork as authentic pixel art.
+5. **Clean Presentation**: Ensure delivered assets contain no accidental watermarks, background canvas frames, or textual labels.
