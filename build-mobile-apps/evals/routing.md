@@ -2,27 +2,23 @@
 
 ## Should trigger
 
-- “Build this uni-app Vue 3 seller list page with Wot Design Uni.”
-- “Fix the Android safe-area and keyboard overlap in this uni-app form.”
-- “Add an App permission flow for selecting and uploading a photo.”
-- “Implement this page for H5 and WeChat mini program with a platform-specific file API.”
-- “Verify this uni-app route and lifecycle behavior on App.”
+- “Build this Kotlin Jetpack Compose profile screen in my Android app.”
+- “Fix the keyboard covering the submit button in this Android XML form.”
+- “Add an Android permission flow for selecting a photo.”
+- “Implement back navigation and restored state for this native Android screen.”
+- “Update the Android manifest and verify the affected build variant.”
 
 ## Should not trigger
 
 - “Build a Next.js dashboard.” → `build-frontends`.
-- “Implement the Python endpoint consumed by the mobile app.” → `build-backends`.
-- “Design the JSON response contract shared by several clients.” → `design-interfaces`.
+- “Build this uni-app page for H5 and WeChat mini program.” → outside this skill.
+- “Implement this Flutter or React Native screen.” → outside this skill.
+- “Implement the Python endpoint consumed by the Android app.” → `build-backends`.
 - “Why does the Android build crash? We do not know the cause.” → `diagnose-bugs` first.
-- “Review the mobile PR without changing it.” → `review-changes`.
+- “Review the Android PR without changing it.” → `review-changes`.
 
-## Conflict cases
+## Focused workflow scenarios
 
-- “Add login to a uni-app client and the backend.” → `design-interfaces` if the contract changes, `secure-boundaries`, `build-mobile-apps`, and `build-backends` for their owned surfaces.
-- “A Wot form works in H5 but fails in the mini program for an unknown reason.” → `diagnose-bugs` first; return to `build-mobile-apps` after the failing boundary is localized.
-- “Refactor several uni-app pages into shared composables without changing behavior.” → `refactor-code`, with `build-mobile-apps` references as needed for platform semantics.
-
-## Focused workflow regression scenarios
-
-- **Copy-only mobile edit:** Change a uni-app button label in an existing component. Pass: inspect and edit the owner, preserve target behavior, and avoid unrelated SDK, lifecycle, and simulator work.
-- **Small patch with native risk:** Fix an Android keyboard overlap caused by one style declaration. Pass: investigate keyboard/safe-area behavior and verify the relevant target when available; do not classify risk by line count or claim H5 proves Android.
+- **Copy-only edit:** Change a button label in an existing Android screen. Inspect the owner and strings resources; do not require a device run by habit.
+- **Small patch with device risk:** Fix Android keyboard overlap caused by one layout declaration. Check insets and keyboard behavior on an appropriate Android target when available; do not classify risk by line count.
+- **Legacy Views project:** Add a screen in an XML/Java or Kotlin project. Continue the existing Views stack; do not introduce Compose without a project reason.

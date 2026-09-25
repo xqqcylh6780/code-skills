@@ -1,8 +1,8 @@
 ---
 name: pixel-art-maker
 description: >
-  Create, modify, or guide the creation of pixel game assets, including tiles,
-  characters, outlines, animations, and sprite sheets. Supports precision drawing,
+  Create, modify, or guide the creation of pixel game assets, including scenes,
+  tiles, characters, props, UI icons, animations, and sprite sheets. Supports precision drawing,
   layered source files, and export verification via Aseprite MCP. Suitable for
   pixel art production, step-by-step tutorials, and asset specification alignment;
   not for general illustration or game logic programming.
@@ -21,7 +21,7 @@ Transform user descriptions into clean, editable, game-ready pixel assets. Prior
 - **Game Asset Set**: Establish project-wide baselines (tile size, character frame size, pivot/anchor points, animation directions, layer structure, palette, and export rules) before mass-producing individual assets.
 
 ### Default Baseline
-When individual asset specifications are not specified, default to **32×32 pixels**, **transparent background**, **limited palette**, **crisp hard edges**, and **no anti-aliasing**, choosing a clear perspective that best identifies the subject. For example, "draw a cat" should be executed directly without asking the user to confirm an outline first. Top-down orthographic characters may default to **32×48**. Reuse previously confirmed project specs without re-asking. Only ask a clarifying question if missing details would fundamentally break production or cause major rework.
+When specifications for a small standalone sprite are not provided, default to **32×32 pixels**, **transparent background**, **limited palette**, **crisp hard edges**, and **no anti-aliasing**, choosing a clear perspective that best identifies the subject. For example, "draw a cat" should be executed directly without asking the user to confirm an outline first. Top-down orthographic characters may default to **32×48**. Derive scene and UI dimensions from their intended use rather than applying the small-sprite default. Reuse previously confirmed project specs without re-asking. Only ask a clarifying question if missing details would fundamentally break production or cause major rework.
 
 ## 2. Choose the Production Path
 
@@ -40,6 +40,10 @@ When the user or project has configured an **Aseprite Live** workflow, keep the 
 ## 3. Pixel Game Projects
 
 When working on a complete pixel game, character animations, sprite sheets, or cohesive environment sets, refer to [Game Asset Specifications](references/game-asset-spec.md).
+- For a character requested in multiple directions or with animation, also follow [Directional Character Workflow](references/character-workflow.md). Establish one reusable character design before expanding views or actions; verify identity and alignment across the set. A single-pose request stays a single pose unless the user asks for more.
+- For a background or playable environment, follow [Scene Workflow](references/scene-workflow.md); distinguish a composed scene from reusable map parts before drawing.
+- For a prop with multiple states, directions, or actions, follow [Prop State Workflow](references/prop-state-workflow.md); keep its footprint and identity consistent across variants.
+- For a pixel UI icon set or interactive UI components, follow [Pixel UI Set Workflow](references/ui-set-workflow.md); check the family at its intended display size. A single icon request stays a single icon.
 - Reuse existing project specs whenever available.
 - For new projects lacking specs, propose a concise baseline table and confirm only decisions that block mass production.
 - **Scope Boundary**: This skill is strictly responsible for visual assets, animation frames, naming, slicing layout, and import parameters. Engine scripting (character controllers, movement physics, event handlers, tilemap loaders, combat logic) belongs to game development workflows, not this skill.
@@ -61,7 +65,7 @@ When actively drawing or demonstrating Aseprite operations, refer to [Artist Wor
 
 For tile-related tasks, follow the "Tile Design" section in [Pixel Specs & Quality Checklist](references/pixel-spec.md).
 
-- **Isolated Output by Default**: Deliver each tile type as an independent image; do not pack grass, dirt, props, and walls into a single unsliced sheet unless requested.
+- **Isolated Output by Default**: For standalone tile requests, deliver each tile type as an independent image; do not pack grass, dirt, props, and walls into a single unsliced sheet unless requested. For a scene request, deliver the composed scene and only the reusable parts requested.
 - **Tileset Sheets**: Create packed tilesets or overview sheets only when explicitly requested, while keeping individual source tiles available.
 - **Seamless Continuity**: Verify top-to-bottom and left-to-right edges for seamless ground tiles. For terrain transitions, provide clear sets (centers, edges, outer corners, inner corners, and variations).
 - **Layer Separation**: Separate decorative overlays (grass clumps, flowers, rocks, tree stumps) onto transparent background layers rather than baking them permanently into base terrain.
@@ -72,7 +76,7 @@ For tile-related tasks, follow the "Tile Design" section in [Pixel Specs & Quali
 - Use clean, 1-pixel hard edges. On small canvases, avoid mechanically outlining every internal crease in black.
 - Ensure the silhouette is immediately recognizable at 100% native zoom before drawing internal details.
 - Strictly avoid anti-aliasing, semi-transparent feathered edges, blur, smooth gradients, or stray single-pixel noise.
-- Use a transparent background for formal game assets. If an outline is difficult to see against a transparent canvas, provide an optional checkerboard preview without replacing the transparent master.
+- Use a transparent background for standalone sprites, props, and UI symbols that need compositing. A finished scene background may be opaque. If an outline is difficult to see against a transparent canvas, provide an optional checkerboard preview without replacing the transparent master.
 - When animating character movement, ground contacts and torso/pelvis weight shifts should move coherently; never shift half a sprite mechanically to simulate walking.
 
 ## 7. Final Art Rules
@@ -86,7 +90,7 @@ For tile-related tasks, follow the "Tile Design" section in [Pixel Specs & Quali
 ## 8. Delivery Format
 
 Default deliverables:
-- Standalone transparent PNG(s);
+- Native-resolution PNG(s), transparent where the asset needs compositing;
 - Original native pixel resolution;
 - Layered `.aseprite` source file (when using Aseprite MCP; if using other tools that cannot produce native source files, state this clearly—never rename a flat PNG to `.aseprite`);
 - An integer-scaled (nearest neighbor) enlarged preview for easy viewing;

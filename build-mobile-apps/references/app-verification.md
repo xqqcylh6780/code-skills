@@ -1,36 +1,19 @@
-# App Verification
+# Android App Verification
 
-Choose verification based on what can fail only on a target runtime.
+Choose checks for the changed behavior and the repository's existing test setup. Inspect Gradle tasks and hooks for side effects before running them.
 
-## Source/build checks
+## Source and build
 
-Useful for:
+Compile the relevant module and variant when practical. Run focused unit tests or lint for changed code where they add evidence. A successful build catches types, resources, manifest merging, and packaging errors; it does not prove lifecycle, permissions, layout, or device API behavior.
 
-- syntax/types;
-- route/config references;
-- imports;
-- platform compilation;
-- unit/module behavior.
+## UI and design
 
-They do not prove native permissions, safe-area layout, lifecycle, packaging, WebView behavior, or store/runtime configuration.
+For a supplied screenshot or design, compare an actual Android render at the intended screen size and text scale. Check system bars, display cutouts, scrolling, keyboard overlap, long or localized text, and touch targets when relevant. Note whether the render came from Compose Preview, an emulator, or a physical device; previews do not establish runtime behavior.
 
-## H5
+## Emulator or device
 
-Use browser/H5 for shared layout and network flows when applicable. It can provide fast feedback and Playwright automation, but label the evidence as H5/browser evidence.
+Use a suitable already running emulator/device, or start one when the active task authorizes it, for changes involving permission grants and denial, back navigation, process recreation, background/resume, camera/location/files/notifications, system insets, keyboard, native SDKs, or hardware behavior. Exercise the specific path and inspect relevant logs when diagnosing failures. Record API level, device type, build variant, and observed result.
 
-## Mini programs
+## Release and packaging
 
-Use the target platform devtool/simulator for platform component/API restrictions, package/subpackage behavior, permissions, and navigation differences.
-
-## Native App
-
-Use an emulator/device or the project's HBuilderX/native run path when the change depends on:
-
-- App lifecycle/background/resume;
-- native permissions;
-- keyboard/safe area/status bar;
-- camera/location/files/notifications;
-- native plugins/SDKs;
-- signing/build/package behavior.
-
-Record the target OS/runtime and do not generalize one platform result to all targets without reason.
+When the task changes manifest, permissions, min/target SDK, build variants, shrinking, signing, or packaging, check the affected variant and merged outputs where practical. A debug build does not establish that a release build or store submission works. Do not create signing credentials or publish as part of verification without authorization.

@@ -1,114 +1,40 @@
 ---
 name: build-mobile-apps
 description: >-
-  Build or modify uni-app, mobile, mini-program, or cross-platform app UI and flows. Trigger
-  when lifecycle, device APIs, permissions, safe areas, native packaging, HBuilderX, or
-  App/mini-program behavior matters. Use build-frontends for browser-only Web UI.
+  Build or modify native Android apps using the project's Kotlin or Java, Jetpack Compose
+  or Views stack. Use for Android screens, navigation, lifecycle, permissions, device APIs,
+  Gradle packaging, and device behavior. Excludes browser, uni-app, Flutter, and React Native work.
 ---
 
-# Build Mobile Apps
+# Build Native Android Apps
 
-Build the requested user path for the actual target platforms, preserving the repository's stack and component system. Treat platform lifecycle, navigation, network state, permissions, safe areas, packaging, and runtime verification as product behavior rather than browser details.
+Implement the requested Android user path in the repository's existing stack. Preserve its UI system, architecture, build variants, and supported Android versions. Do not introduce Compose, Views, new libraries, or architecture layers solely because this skill mentions them.
 
-## Activation Threshold
+## Scope and routing
 
-Use this skill when the requested surface targets a mobile/cross-platform application runtime or depends on platform APIs/packaging. For browser-only UI use `build-frontends`.
+- Use for native Android projects: Kotlin or Java with Android SDK, Jetpack Compose, or Android Views/XML.
+- Use `build-frontends` for browser pages. This skill does not route uni-app, Flutter, React Native, or mini-program work.
+- Use `design-interfaces` for shared API contracts and `build-backends` for server changes.
+- Use `secure-boundaries` when authentication, tokens, privileged deep links, sensitive local data, or untrusted files cross a trust boundary. Handle ordinary Android permission prompts and denial recovery here.
+- Use `diagnose-bugs` first when the cause of a build, crash, or device failure is unknown.
 
-This skill is framework-neutral at the workflow level. The bundled stack references initially focus on uni-app/Vue 3 and Wot Design Uni because they are common repository targets; they are not a mandate to migrate other mobile stacks.
+## Work size
 
-## Route Adjacent Work
+For a copy, color, spacing, or icon edit with no platform behavior, inspect the owning UI and make a focused change. A small diff involving insets, keyboard, back navigation, lifecycle, or permissions still needs platform-specific checking.
 
-- Browser-only web interface → `build-frontends`.
-- Public/shared API or event contract → `design-interfaces`.
-- Server behavior → `build-backends`.
-- Authentication, permissions, tokens, uploads, deep links with privileged effects, or sensitive local data → `secure-boundaries`.
-- Unknown runtime/build/device failure → `diagnose-bugs`.
-- Browser/H5 flow automation → `playwright` where it faithfully covers the target; do not claim H5 proves native App behavior.
-
-## Choose the work size
-
-For an isolated copy, spacing, color, icon, or template change with no lifecycle or platform-API
-impact, inspect the owning component and nearby conventions, make the edit, and use a focused
-check only when it adds evidence. Do not load platform references or require a simulator by habit.
-Safe-area, keyboard, navigation, permission, or lifecycle changes still require the relevant
-platform guidance and verification even when the patch is only one line.
-
-Use the workflow below for a new page, flow, material layout change, or platform behavior.
+For a new screen or flow, or a material behavior change, follow the workflow below. Read [references/android-native.md](references/android-native.md) for Android project and UI decisions. Read [references/mobile-engineering.md](references/mobile-engineering.md) when state, networking, permissions, or lifecycle behavior changes.
 
 ## Workflow
 
-### 1. Recover the app contract
+1. **Recover the project contract.** Inspect the app module, Gradle settings and version catalog, manifest, min/target SDK, build variants, nearby screens, navigation, theme/resources, state and data patterns, and relevant test entry points. Inspect script entry points and hooks before running them.
+2. **Define the affected Android behavior.** Identify supported API levels and form factors relevant to the request. Check whether configuration change, process recreation, app background/resume, system bars, keyboard, back navigation, or a denied permission can interrupt the flow.
+3. **Implement the complete requested path.** Follow the existing Compose or Views approach and reuse components. Keep UI state and business effects in the project's established layers. Cover applicable loading, empty, error, pending, and success states; handle one-time effects and cancellation where they matter.
+4. **Verify at the appropriate level.** Use [references/app-verification.md](references/app-verification.md). Run safe, scoped source/build/test checks where available. Compare an actual Android render with supplied design references when visual fidelity matters. Use an already available emulator/device or an explicitly authorized device run for behavior that compilation cannot prove. State what was actually verified.
 
-Inspect the smallest set of repository files that establishes:
+## External effects
 
-- framework/runtime and version conventions;
-- page/navigation configuration;
-- component/design system;
-- state/network/storage patterns;
-- target platforms;
-- conditional compilation;
-- app/page lifecycle use;
-- manifest/permission configuration;
-- package/build/test entry points;
-- nearby pages and user flow.
-
-For uni-app, read [references/uni-app.md](references/uni-app.md) when the task crosses routing, lifecycle, `uni.*` APIs, conditional compilation, App packaging, or mini-program behavior. Read [references/wot-design-uni.md](references/wot-design-uni.md) when that component library is already used or requested.
-
-### 2. Define platform scope before editing
-
-State the requested/verified targets. Do not silently claim parity across:
-
-```text
-H5
-App Android
-App iOS
-WeChat mini program
-other mini programs
-```
-
-Identify platform-specific constraints such as safe areas, keyboard behavior, permission prompts, native navigation, file paths, upload APIs, WebView differences, and app lifecycle transitions.
-
-### 3. Implement one complete mobile slice
-
-Build the primary user path end to end:
-
-- use repository-native navigation and component patterns;
-- separate remote data, persistent local state, app/session state, and transient presentation state;
-- represent loading, empty, error, disabled/pending, and success states;
-- handle back navigation and interrupted/re-entered flows where material;
-- account for safe-area and keyboard overlap on device-oriented screens;
-- use platform APIs behind a narrow adapter when behavior differs by target;
-- prefer conditional compilation only for real platform differences, not as a substitute for reusable design.
-
-Read [references/mobile-engineering.md](references/mobile-engineering.md) when the change affects state, networking, permissions, offline/retry, or lifecycle behavior.
-
-### 4. Preserve the component system
-
-Reuse the project's existing mobile UI library and theme before inventing custom components. Do not import browser-only component libraries into a uni-app/native target without verified support.
-
-For Wot Design Uni, prefer its established components and theme variables where they match the requested UI, while keeping application state and domain behavior outside presentation components.
-
-### 5. Verify on the strongest available target
-
-Use [references/app-verification.md](references/app-verification.md).
-
-Verification can widen as needed:
-
-1. source/type/lint/build checks;
-2. H5/browser check for shared layout/network behavior;
-3. mini-program simulator/devtool when that is the target;
-4. Android/iOS emulator/device or HBuilderX runtime when native APIs, permissions, packaging, safe area, keyboard, or lifecycle are material.
-
-Do not say “App verified” because only H5 rendered successfully.
-
-### 6. Respect packaging and external effects
-
-Do not install platform SDKs, create signing credentials, publish an app, request store submission, or change consequential platform permissions without user authorization. Inspect and prepare configuration first.
+Do not install SDKs or dependencies, create signing credentials, publish to a store, or add unrelated permissions as a shortcut. Preserve signing and release configuration unless the task explicitly requires a change. Follow the active workspace's execution and approval rules before launching Android Studio, an emulator, or a background process.
 
 ## Handoff
 
-Lead with the implemented mobile user path, supported/verified targets, component and navigation approach, platform-specific behavior, checks actually run, and anything that still requires a real device, native build, signing, or store environment.
-
-## Completion Criteria
-
-Mobile work is complete when the requested user path works in source and is verified on the strongest practical target for the changed behavior, relevant lifecycle/platform states are handled, and platform support claims match actual evidence rather than assumed cross-platform parity.
+Report the implemented user path, Android stack and variants affected, checks run, and any remaining device, signing, or release verification. Do not claim device behavior was tested from source inspection or a successful build alone.

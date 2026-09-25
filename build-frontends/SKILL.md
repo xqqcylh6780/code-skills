@@ -1,11 +1,11 @@
 ---
 name: build-frontends
 description: >-
-  Build or modify browser-based frontend UI in React, Vue, Next.js, Vite, HTML/CSS, or similar
-  web apps. Trigger for pages/components, screenshot or wireframe implementation,
-  CSS/layout/responsive fixes, forms and UI states, accessibility, redesign, visual polish, or
-  browser verification. Do not use for uni-app/native mobile, backend-only work, or browser
-  automation with no UI change.
+  Build, improve, fix, or review browser frontend pages and components. Use for requests such as
+  “做前端页面/网页”, “按截图或设计稿还原”, “页面不好看”, “调整布局或样式”, “交互有问题”,
+  “移动端适配/响应式”, or “检查页面效果”. Covers visual quality, UI states, accessibility,
+  and rendered browser verification in React, Vue, Next.js, Vite, HTML/CSS, and similar web apps.
+  Excludes uni-app/native apps, backend-only work, and unrelated browser scraping.
 ---
 # Build Frontends
 

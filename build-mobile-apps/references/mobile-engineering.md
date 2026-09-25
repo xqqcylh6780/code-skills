@@ -1,43 +1,21 @@
-# Mobile Engineering
+# Native Android Engineering
 
-Use this reference for lifecycle, state, networking, permissions, and device-oriented behavior independent of a specific framework.
+Use for Android lifecycle, state, networking, permissions, and device behavior. Follow the project's existing architecture and supported API levels. Check current [Android Developers guidance](https://developer.android.com/) for version-sensitive platform APIs.
 
-## State by lifetime
+## State and lifecycle
 
-Separate state by how long it should survive:
+Distinguish transient UI state, navigation state, state that must survive configuration change or process recreation, durable local data, and server-owned data. Use the project's ViewModel, saved state, repository, and persistence conventions where appropriate. Do not use local storage as the authoritative copy of server-owned data merely for screen convenience.
 
-- component/view transient state;
-- page/navigation state;
-- authenticated app/session state;
-- durable local preferences/cache;
-- server-owned durable domain state.
+Treat activity/fragment/composable lifecycle as a source of repeated entry. Avoid duplicate fetches, submissions, observers, and stale callbacks after navigation or background/resume. Keep long-running work cancellable and bound to the intended owner.
 
-Do not turn local storage into the authoritative copy of server-owned business state merely to make a screen convenient.
+## Networking and offline behavior
 
-## Lifecycle
+For a remote user flow, handle relevant loading, cancellation/timeout, no-network, retry, auth expiry, and duplicate-submit states. Preserve the project's existing client and error mapping. Avoid infinite retries; use server idempotency for consequential writes.
 
-Assume pages and apps can be backgrounded, resumed, recreated, revisited, or interrupted. Make repeated lifecycle hooks idempotent where practical and avoid duplicate fetch/submission effects on resume.
+## Permissions and device APIs
 
-## Networking
-
-Every remote flow should define:
-
-```text
-loading:
-timeout/cancellation behavior:
-retryability:
-offline/no-network state:
-auth expiry:
-duplicate submission behavior:
-user-visible recovery:
-```
-
-Avoid infinite automatic retries and fixed sleeps. Preserve server idempotency for consequential writes.
-
-## Permissions
-
-Request only capabilities needed for the user action, preferably near the action with a recoverable denial path. Platform permission grants are not application authorization.
+Declare only capabilities needed by the feature. Request runtime permissions close to the user action and offer a usable denial path. Account for Android version differences, revocation, and the system returning no result when the app is interrupted. A platform permission grant is not application authorization.
 
 ## Device UI
 
-Check safe areas, status/navigation bars, keyboard/input overlap, text scaling, tap target size, orientation assumptions, and long/localized content where relevant. Treat “fits in one screenshot” as insufficient evidence of usability.
+Check system bar and display cutout insets, gesture navigation, keyboard overlap, back behavior, text scaling, orientation, and long content when they affect the request. Use the app's existing Compose or Views patterns for these behaviors.

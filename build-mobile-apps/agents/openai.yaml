@@ -1,6 +1,6 @@
 interface:
-  display_name: "Build Mobile Apps"
-  short_description: "Build uni-app, mobile, and mini-program flows"
-  default_prompt: "Use $build-mobile-apps to implement this mobile or cross-platform app flow for the actual target runtime."
+  display_name: "Build Native Android Apps"
+  short_description: "Build native Android screens and app flows"
+  default_prompt: "Use $build-mobile-apps to implement this native Android app flow in the project's existing stack."
 policy:
   allow_implicit_invocation: true
