@@ -23,6 +23,8 @@ outcome; a frontend task does not automatically require a redesign, a browser se
 - Authentication, authorization, uploads, payments, secrets, or other trust boundaries -> `secure-boundaries`.
 - Performance measurement/optimization as the primary goal -> `performance-engineering`.
 - Browser automation without a frontend code change -> `playwright`.
+- Requested dependency version transition or upgrade assessment -> `upgrade-dependencies`;
+  use this skill for the resulting UI adaptations.
 
 When framework details matter, read [web-stack-routing.md](references/web-stack-routing.md) and preserve the
 stack already present in the repository.
@@ -75,6 +77,10 @@ specific evidence, not generic design advice.
   [nextjs-versioned-guidance.md](references/nextjs-versioned-guidance.md).
 - Existing or explicitly requested shadcn/ui integration:
   [shadcn-integration.md](references/shadcn-integration.md).
+- Vue reactive ownership, computed/watch decisions, or async watcher cleanup:
+  [vue-reactivity.md](references/vue-reactivity.md).
+- TypeScript runtime-data boundaries, narrowing, state variants, or generic relationships:
+  [typescript-boundaries.md](references/typescript-boundaries.md).
 - New visual identity, screenshot implementation, composition, typography, color, imagery, or motion:
   [visual-direction.md](references/visual-direction.md).
 - No established visual language and a real need to compare design directions:

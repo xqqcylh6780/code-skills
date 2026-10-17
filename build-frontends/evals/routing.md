@@ -25,6 +25,7 @@
 - “页面突然白屏，但不知道原因。” -> `diagnose-bugs` first when causality is unclear.
 - “只运行 Playwright 抓网页数据，不修改 UI。” -> `playwright`.
 - “给 PostgreSQL 查询加索引。” -> `database-engineering`.
+- “只评估 Vue 升级到指定版本的影响，不改文件。” -> `upgrade-dependencies` in assessment mode.
 
 ## Conflict cases
 
@@ -69,3 +70,15 @@
 - **Two picker instances:** A compound component refactor is requested. Pass: keep ownership per
   instance and verify controlled changes/keyboard behavior. Fail: share one global selection or
   mechanically remove ref forwarding based on a newer React example.
+- **Existing Vue conventions:** An Options API project needs a computed label and request cleanup.
+  Pass: preserve its API style, inspect the installed version, and verify rapid changes/unmount.
+  Fail: migrate to script setup or assume a newer watcher-cleanup API is available.
+- **Stale Vue response:** A known watcher race lets an older request overwrite the current result.
+  Pass: register cleanup before suspension and guard result/error/loading ownership.
+  Fail: cancel only on unmount or assume cancellation always prevents a stale state write.
+- **Unknown API data:** A TypeScript component consumes external JSON with optional fields.
+  Pass: validate the boundary and handle relevant variants with existing compiler settings.
+  Fail: use a double assertion, change strictness, or upgrade TypeScript to hide the error.
+- **Ordinary feature:** A React form needs a new field with existing dependencies.
+  Pass: implement and verify it within the current stack. Fail: start dependency modernization
+  merely because a dedicated upgrade skill exists.

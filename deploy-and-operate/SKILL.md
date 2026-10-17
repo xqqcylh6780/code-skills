@@ -28,6 +28,8 @@ Do not deploy merely because code is ready. Use `diagnose-bugs` first for an inc
 - Unknown production failure → `diagnose-bugs`.
 - Secrets, service identities, privileged deploy actions → `secure-boundaries`.
 - Pre-merge risk review → `review-changes`.
+- Existing dependency version transition or upgrade assessment → `upgrade-dependencies`;
+  release and rollout remain here when requested.
 
 ## Select the requested outcome
 

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Upgrade Dependencies"
+  short_description: "Plan and verify scoped dependency upgrades"
+  default_prompt: "Use $upgrade-dependencies to assess or implement the requested version transition, preserve the existing package manager, and verify compatibility within the authorized scope."

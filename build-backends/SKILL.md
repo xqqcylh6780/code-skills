@@ -36,6 +36,8 @@ Route adjacent work deliberately:
 - Use `database-engineering` when schema modeling, indexes, query plans, large migrations, database
   integrity, backup/restore, or database-level operations are themselves the task.
 - Use `diagnose-bugs` when the causal chain of an existing failure is unknown or disputed.
+- Use `upgrade-dependencies` when the requested outcome is an existing dependency version
+  transition or upgrade assessment; return here for consumer behavior adaptations.
 - Use `secure-boundaries` for authentication, authorization, sensitive data, untrusted input,
   uploads, webhooks, or privileged effects.
 - Use `test-behavior-first` for requested TDD, a reproduced defect's regression guard, a material

@@ -51,7 +51,15 @@ to locate relevant installed documentation before relying on remembered caching/
 - Keep props/events and two-way binding explicit; avoid duplicating derived state across refs/stores.
 - Respect scoped styling and existing design-token/theme mechanisms.
 
+For a reactive ownership, computed/watch, or async cleanup issue, read
+[Vue reactivity](vue-reactivity.md). Check the installed version before using compiler-dependent
+props destructuring or cleanup APIs.
+
 ## Framework-agnostic rule
+
+For a TypeScript boundary, state variant, or generic relationship that affects correctness, read
+[TypeScript boundaries](typescript-boundaries.md). Do not load it for plain JavaScript tasks or
+change compiler flags merely to match a newer example.
 
 For an existing shadcn/ui project, use [shadcn integration](shadcn-integration.md) only when the
 component/configuration decision needs it. Its presence is not a reason to install shadcn/ui.

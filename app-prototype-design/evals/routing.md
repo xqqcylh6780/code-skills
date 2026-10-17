@@ -12,7 +12,7 @@
 
 - 实现生产 Kotlin 页面。 → build-mobile-apps
 - 修改现有 Web 后台。 → build-frontends
-- 制作游戏角色立绘。 → game-art-maker
+- 制作游戏角色立绘。 → illustration/image-generation workflow; outside mobile prototype scope.
 - 实现支付服务端。 → build-backends
 - 只解释 Java 内存模型。 → programming-language-deep-learning
 

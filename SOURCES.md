@@ -91,6 +91,14 @@ skills.sh was used for discovery; live upstream sources were checked before auth
 - `database-engineering/references/postgresql-patterns.md`: [PostgreSQL RLS](https://www.postgresql.org/docs/current/ddl-rowsecurity.html), [index ordering](https://www.postgresql.org/docs/current/indexes-ordering.html), [EXPLAIN](https://www.postgresql.org/docs/current/using-explain.html), [Supabase connection options](https://supabase.com/docs/guides/database/connecting-to-postgres).
 - `resolve-git-conflicts/SKILL.md`: [Git merge](https://git-scm.com/docs/git-merge), [rebase](https://git-scm.com/docs/git-rebase), [index stages](https://git-scm.com/docs/git-ls-files), [ours/theirs](https://git-scm.com/docs/git-checkout). The skill is locally authored; it does not adopt the discovery candidate's blanket staging/commit or never-abort rules.
 
+## Additional coverage pass, 2026-10-18
+
+These are original local guidance and examples; no third-party skill package or source file was imported.
+
+- `build-frontends/references/vue-reactivity.md`: [Vue reactivity fundamentals](https://vuejs.org/guide/essentials/reactivity-fundamentals.html), [computed](https://vuejs.org/guide/essentials/computed.html), [watchers](https://vuejs.org/guide/essentials/watchers.html).
+- `build-frontends/references/typescript-boundaries.md`: [TypeScript narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html), [generics](https://www.typescriptlang.org/docs/handbook/2/generics.html).
+- `upgrade-dependencies/`: [npm clean install](https://docs.npmjs.com/cli/commands/npm-ci), [pip install](https://pip.pypa.io/en/stable/cli/pip_install/), [Maven dependency mechanism](https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html), [Gradle dependency locking](https://docs.gradle.org/current/userguide/dependency_locking.html). Package-specific release and migration evidence must still be checked for each requested upgrade.
+
 ## Refresh policy
 
 Framework references should prefer stable principles over volatile version-specific claims. Before making a recommendation that depends on a current API, security default, deprecation, platform capability, or provider behavior, verify the current official source rather than treating this repository as the final authority.

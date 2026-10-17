@@ -88,6 +88,7 @@ uni-app / HBuilderX / Flutter / React Native / mini program -> existing project/
 | --- | --- |
 | [`diagnose-bugs`](diagnose-bugs/SKILL.md) | Reproduce, isolate, explain, and repair failures with an unknown or disputed causal chain. |
 | [`refactor-code`](refactor-code/SKILL.md) | Improve internal structure while preserving observable behavior. |
+| [`upgrade-dependencies`](upgrade-dependencies/SKILL.md) | Assess or implement scoped dependency version transitions, preserve package-manager conventions, and verify compatibility and lockfile changes. |
 | [`performance-engineering`](performance-engineering/SKILL.md) | Measure, profile, benchmark, optimize, and capacity-test performance. |
 | [`review-changes`](review-changes/SKILL.md) | Review diffs, commits, branches, or PRs for concrete correctness and risk issues. |
 | [`resolve-git-conflicts`](resolve-git-conflicts/SKILL.md) | Explain or resolve merge/rebase/cherry-pick conflicts while preserving both intents and unrelated local work; complete the operation only within existing authority. |
