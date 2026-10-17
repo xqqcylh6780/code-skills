@@ -35,7 +35,14 @@ Write a compact internal screen-and-flow inventory before designing. Use [refere
 
 If the user has already selected a direction, supplied a clear reference, or is iterating an existing prototype, continue that direction without reopening selection.
 
-If a new prototype has no visual direction, create two or three genuinely different, rendered direction samples using the same product facts and assets. A direction sample must be visible UI, not only palette names or prose. Keep it to one representative screen per direction, show the user, and wait for selection before expanding the full prototype.
+For a new prototype without a visual reference, choose one direction from the product's audience,
+content, and platform, briefly state the assumption, and continue to a complete first slice.
+Missing aesthetic preferences alone do not require a question or a separate approval step.
+
+When the user asks to compare directions, provide the requested rendered alternatives using the
+same product facts and assets. Keep samples to a representative screen per direction unless the
+request needs more. Wait for selection only when the user reserves that choice; if they ask you
+to choose or complete the prototype, make the choice and continue within the requested scope.
 
 Never treat a user correction such as “less warm,” “remove blue,” or a renamed project as a request to restart the design direction. Apply it consistently across tokens, charts, states, and dark mode.
 
@@ -96,3 +103,9 @@ Lead with the finished artifact and its exact location. State:
 - viewports and interactions actually verified;
 - whether production app code was changed;
 - any native behavior still requiring implementation or device validation.
+
+## Maintaining this workflow
+
+For changes to direction selection, scope, or interaction verification, use the task prompts and
+artifact-based criteria in [evals/behavior.md](evals/behavior.md). They are maintenance evaluations,
+not steps to run during ordinary prototype work. Record what actually executed and its limits.

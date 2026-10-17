@@ -21,3 +21,11 @@
 - 原型基于现有 App：保留真实导航和素材，不修改生产源码。
 - 只修改已有原型颜色：沿用选定方向，不重开视觉方向评审。
 - 实现生产 Android 页面并验证：由 build-mobile-apps 负责，不以 HTML 原型充当实现。
+- 新原型没有视觉参考：从产品和平台选择一个合理方向并继续，不因偏好缺失强制暂停。
+- 明确要求两个方向、由用户挑选：交付可见的方向样本，保留选择点，不提前扩展整套页面。
+- 要求比较后由代理选择并完成：说明选择并继续实现，不再要求用户重复确认。
+
+## Execution evaluation
+
+Use [behavior.md](behavior.md) for realistic tasks and artifact checks when changing these rules.
+Routing examples and metadata validation alone do not demonstrate agent behavior.
