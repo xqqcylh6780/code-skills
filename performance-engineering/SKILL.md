@@ -1,10 +1,9 @@
 ---
 name: performance-engineering
 description: >-
-  Measure and improve software performance against an explicit workload or target. Trigger for
-  profiling, benchmarking, latency/throughput, memory/CPU, database or cache performance,
-  load/capacity testing, frontend performance, or regression comparison. Do not optimize
-  speculatively without evidence.
+  Measure and improve latency, throughput, CPU/memory, queries, caches, or capacity through
+  profiling and benchmarks against an explicit workload. Excludes speculative optimization without
+  evidence.
 ---
 
 # Performance Engineering

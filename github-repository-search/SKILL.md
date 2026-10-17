@@ -1,10 +1,8 @@
 ---
 name: github-repository-search
 description: >-
-  Find, compare, and evaluate GitHub repositories for libraries, frameworks, templates,
-  examples, tools, or alternatives. Trigger when current repository evidence, maintenance,
-  licensing, fit, or shortlist comparison matters. Do not use for implementing code in the
-  user's current repository.
+  Find and compare GitHub libraries, frameworks, templates, tools, and alternatives using current
+  maintenance, license, and fit evidence. Excludes implementing the current repository.
 ---
 
 # GitHub Repository Search

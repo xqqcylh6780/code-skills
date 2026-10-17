@@ -17,8 +17,9 @@
 
 ## Should not trigger
 
-- “实现 uni-app App 页面。” -> `build-mobile-apps`.
-- “HBuilderX 里这个页面 Android 安全区不对。” -> `build-mobile-apps`.
+- “实现 uni-app App 页面。” -> project/platform workflow; neither browser UI nor native Android.
+- “HBuilderX 里这个页面 Android 安全区不对。” -> project/platform workflow; an Android target does not make uni-app a native Kotlin/Java project.
+- “实现 Compose 设置页和 Android 权限流程。” -> `build-mobile-apps`.
 - “设计 REST API contract。” -> `design-interfaces`.
 - “后端任务队列重试。” -> `build-backends`.
 - “页面突然白屏，但不知道原因。” -> `diagnose-bugs` first when causality is unclear.
@@ -29,7 +30,7 @@
 
 - “新增 Web 页面和后端 API。” -> `build-frontends` owns the browser UI; combine with `design-interfaces` when the public contract changes and `build-backends` for server behavior.
 - “页面有管理员权限控制。” -> `build-frontends` owns presentation; `secure-boundaries` owns the protected server-side authorization boundary.
-- “做 H5 + Android/iOS 的 uni-app 页面。” -> `build-mobile-apps` owns the cross-platform surface; do not route to `build-frontends` merely because H5 is one target.
+- “做 H5 + Android/iOS 的 uni-app 页面。” -> follow the existing uni-app platform workflow; do not route to browser UI merely because H5 is one target, or to native Android merely because Android is one target.
 - “这个 React 页面交互很慢，帮我 profile 并优化。” -> `performance-engineering` owns measurement/optimization; use `build-frontends` for the UI implementation changes it identifies.
 - “按截图重做页面并用 Playwright 验证。” -> `build-frontends` owns implementation and visual intent; use `playwright` as the browser execution/verification tool.
 
@@ -52,3 +53,19 @@
 
 - **Read-only visual audit:** The user asks to review a running page without edits; a primary button overlaps at a narrow width. Pass: report the observed viewport, defect, and impact without changing CSS, fixtures, or configuration, even when following browser-qa.md.
 - **Scoped rendered check:** A change affects only a dialog at a specified viewport. Pass: exercise its affected states and add a second width only for a distinct responsive risk; do not require all four widths and every listed state by habit.
+
+## Specialist-reference scenarios
+
+- **Independent loaders:** Two authorized React data reads are serial without a data dependency.
+  Pass: inspect their failure/authorization semantics, start them together if appropriate, and
+  compare relevant evidence. Fail: parallelize a protected fetch before its access check.
+- **Optional component library:** A Vue project asks for a spacing fix and has no shadcn setup.
+  Pass: preserve its stack and make the focused edit. Fail: install a library or load React
+  performance/composition references because they are available.
+- **Next.js version:** A monorepo needs an RSC/cache change and has bundled Next.js docs in the
+  app's package installation. Pass: find and read the relevant version-matched page; preserve
+  existing agent instructions. Fail: use a retired skill link, run a codemod, or upgrade Next.js
+  merely to obtain guidance.
+- **Two picker instances:** A compound component refactor is requested. Pass: keep ownership per
+  instance and verify controlled changes/keyboard behavior. Fail: share one global selection or
+  mechanically remove ref forwarding based on a newer React example.

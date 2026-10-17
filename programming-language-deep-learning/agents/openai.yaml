@@ -1,0 +1,4 @@
+interface:
+  display_name: "Programming Language Deep Learning"
+  short_description: "Explain language semantics and runtime models"
+  default_prompt: "Use $programming-language-deep-learning to explain this code through its data structures, semantics, complexity, and memory behavior."

@@ -1,10 +1,9 @@
 ---
 name: manage-spec-changes
 description: >-
-  Coordinate consequential software changes when the user needs a spec-driven, traceable workflow
-  with proposals, decisions, executable tasks, reconciliation, and evidence across sessions or
-  owners. Do not trigger for ordinary feature work, single-file fixes, refactors, reviews, or tasks
-  that only need a brief plan.
+  Coordinate consequential changes needing durable specs, proposals, decisions, tasks, and
+  evidence across sessions or owners. Excludes ordinary features, fixes, reviews, refactors, and
+  brief planning.
 ---
 
 # Manage Spec Changes

@@ -21,3 +21,12 @@
 - “review 并修复问题。” → begin in review mode; only fix verified findings because the user explicitly requested edits.
 - “安全 review。” → this skill owns the diff review; load `secure-boundaries` only for meaningful trust-boundary analysis.
 - “性能 PR review。” → report evidence-backed regression risks here; use `performance-engineering` when measurement/profiling work is separately requested.
+
+## Behavioral checks
+
+- **Ordinary review-and-fix:** Fix a verified typo in a private helper's diagnostic text, with no
+  public wording contract or material invariant. Pass: make the scoped repair and verify it
+  proportionately. Fail: require a witnessed RED solely because the code is deterministic.
+- **Reproduced correctness defect:** Review and fix a demonstrated duplicate-order defect.
+  Pass: preserve the reproduction and add a regression guard through `test-behavior-first` when
+  practical. Fail: use the ordinary-change path to skip evidence for the material invariant.

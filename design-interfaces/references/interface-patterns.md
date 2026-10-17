@@ -43,6 +43,10 @@ Treat props and events as a public interface:
 
 Do not add a prop for every incidental implementation choice. Prefer a smaller semantic API that supports the intended composition patterns.
 
+For a React implementation of that contract, read the relevant
+[component composition guidance](../../build-frontends/references/react-composition.md). Keep
+compatibility decisions here and framework-specific implementation examples in that reference.
+
 ## Commands and CLIs
 
 Define:

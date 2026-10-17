@@ -77,6 +77,20 @@ This file records external material used as reference or incorporated into the r
 
 The InsForge source is used as an organizational reference for progressive disclosure and skill/reference separation, not as a platform dependency of this repository.
 
+## Specialist references added 2026-10-18
+
+The following files are original local summaries and illustrative examples, informed by the
+listed official documentation. No upstream skill package, script, or code file was imported.
+skills.sh was used for discovery; live upstream sources were checked before authoring.
+
+- `build-frontends/references/react-performance.md`: [React Server Components](https://react.dev/reference/rsc/server-components), [cache](https://react.dev/reference/react/cache), [lazy](https://react.dev/reference/react/lazy), [memo](https://react.dev/reference/react/memo).
+- `build-frontends/references/react-composition.md`: [React state structure](https://react.dev/learn/choosing-the-state-structure), [context](https://react.dev/learn/passing-data-deeply-with-context).
+- `build-frontends/references/nextjs-versioned-guidance.md`: [Next.js AI agents](https://nextjs.org/docs/app/guides/ai-agents), [next-skills retirement/migration](https://github.com/vercel-labs/next-skills). Local availability and the installed version remain authoritative; no codemod or framework upgrade is implied.
+- `build-frontends/references/shadcn-integration.md`: [components.json](https://ui.shadcn.com/docs/components-json), [theming](https://ui.shadcn.com/docs/theming).
+- `playwright/references/advanced-testing.md`: [auth](https://playwright.dev/docs/auth), [fixtures](https://playwright.dev/docs/test-fixtures), [network mocks](https://playwright.dev/docs/mock), [visual comparisons](https://playwright.dev/docs/test-snapshots), [traces](https://playwright.dev/docs/trace-viewer).
+- `database-engineering/references/postgresql-patterns.md`: [PostgreSQL RLS](https://www.postgresql.org/docs/current/ddl-rowsecurity.html), [index ordering](https://www.postgresql.org/docs/current/indexes-ordering.html), [EXPLAIN](https://www.postgresql.org/docs/current/using-explain.html), [Supabase connection options](https://supabase.com/docs/guides/database/connecting-to-postgres).
+- `resolve-git-conflicts/SKILL.md`: [Git merge](https://git-scm.com/docs/git-merge), [rebase](https://git-scm.com/docs/git-rebase), [index stages](https://git-scm.com/docs/git-ls-files), [ours/theirs](https://git-scm.com/docs/git-checkout). The skill is locally authored; it does not adopt the discovery candidate's blanket staging/commit or never-abort rules.
+
 ## Refresh policy
 
 Framework references should prefer stable principles over volatile version-specific claims. Before making a recommendation that depends on a current API, security default, deprecation, platform capability, or provider behavior, verify the current official source rather than treating this repository as the final authority.

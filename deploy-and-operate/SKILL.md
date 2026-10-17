@@ -1,10 +1,9 @@
 ---
 name: deploy-and-operate
 description: >-
-  Build, release, deploy, verify, observe, roll back, or recover software in a target runtime.
-  Trigger for Docker, CI/CD, configuration/secrets, migration rollout, health/readiness, smoke
-  tests, release safety, rollback, incident recovery, or production operations. Do not use for
-  ordinary feature implementation.
+  Build release artifacts, configure Docker/CI/CD, deploy, verify health, roll back, or recover a
+  runtime. Use for release/operations work; ordinary feature verification stays with
+  implementation skills.
 ---
 
 # Deploy and Operate
@@ -29,6 +28,26 @@ Do not deploy merely because code is ready. Use `diagnose-bugs` first for an inc
 - Unknown production failure → `diagnose-bugs`.
 - Secrets, service identities, privileged deploy actions → `secure-boundaries`.
 - Pre-merge risk review → `review-changes`.
+
+## Select the requested outcome
+
+- **Plan/review only:** inspect current delivery configuration and available evidence; provide
+  the proposed sequence, health gates, stop conditions, and recovery actions. Do not edit files,
+  build/publish artifacts, start services, or change a live environment merely to prove the plan.
+- **Artifact/configuration changes:** make the requested edits or build the requested artifact
+  using inspected, permitted commands. Artifact readiness does not authorize publication or rollout.
+- **Execution:** perform only the authorized actions against the established target. Reuse clear
+  authorization already supplied in the session; ask only for a missing material decision or an
+  action outside that authority. A skill transition alone is not an approval gate.
+
+Before running a build, CI job, deploy wrapper, or smoke check, inspect the relevant entrypoint and
+hooks for dependency installation, publication, service startup, database writes, and migrations.
+Workspace restrictions still apply to indirect effects: under a read-only database policy, provide
+the migration/repair SQL for the user and separate that operator step from executable release work.
+Do not trigger a pipeline that bundles a prohibited step merely because deployment was requested.
+
+Apply only the workflow sections needed for the selected outcome. Configuration-only work does
+not require a live staging deployment, and plan-only work does not require observed runtime health.
 
 ## Workflow
 
@@ -142,4 +161,9 @@ Report the artifact/release identity, target, rollout state, checks actually run
 
 ## Completion Criteria
 
-Delivery is complete only when the requested target state is reached or a concrete deployment plan is delivered, the relevant health and behavior are verified with actual evidence, configuration/data compatibility is understood, and rollback or recovery remains explicit. Stop immediately on an unexplained material failure and route to `diagnose-bugs` rather than stacking deployment guesses.
+Plan completion requires a concrete sequence, understood compatibility, proposed health gates,
+stop conditions, and recovery steps; label runtime checks as proposed. Artifact/configuration
+completion requires the requested files/artifact and relevant permitted checks, without implying
+deployment. Execution completion requires evidence that the authorized target state and relevant
+health gates were reached. Report blocked or operator-owned steps explicitly. Stop on an unexplained
+material execution failure and use `diagnose-bugs` instead of stacking deployment guesses.

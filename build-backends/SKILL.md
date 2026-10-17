@@ -1,10 +1,9 @@
 ---
 name: build-backends
 description: >-
-  Build or modify server-side product behavior in Python, Java, or the repository's existing
-  backend stack. Trigger for handlers, services, jobs, persistence, transactions, queues,
-  caching, integrations, retries, idempotency, concurrency, or observability. Use database-
-  engineering when the database itself is the primary task.
+  Implement server behavior: handlers, services, jobs, integrations, persistence, transactions,
+  retries, caching, and concurrency. Preserve the backend stack; use database-engineering for
+  database-primary work.
 ---
 
 # Build Backends
@@ -50,6 +49,17 @@ Route adjacent work deliberately:
 - Use `performance-engineering` when measurement, profiling, throughput, latency, resource, or
   capacity improvement is itself the primary outcome.
 
+## Choose the work size
+
+For a localized change with an established contract, inspect the owning handler/service and its
+nearest callers and tests. Implement the change and run the focused check that proves it. Load
+stack references only for an unresolved framework decision; do not inventory unrelated queues,
+caches, migrations, telemetry, or deployment configuration.
+
+For a new behavior or a change to consistency, failure handling, or external effects, follow the
+workflow below. Apply only the concerns on the affected path. Existing project layers may be
+sufficient; a vertical slice does not require creating a repository, adapter, or service class.
+
 ## Workflow
 
 ### 1. Establish the local boundary
@@ -76,9 +86,10 @@ failure/retry behavior, and important side effects. Make explicit:
 - Transaction and consistency boundaries, ordering, duplicate handling, and eventual consistency.
 - Timeouts, cancellation, retry and backoff rules, idempotency scope, and observability signals.
 
-If a behavior changes an observable contract, pause for `design-interfaces`; do not smuggle a new
-contract into private implementation work. If the expected behavior is unclear because of a
-failure, diagnose it before editing.
+If a behavior changes a public/shared contract, use `design-interfaces` for the affected contract
+decisions within the same authorized task, then continue implementation. A skill handoff does not
+require a separate approval when the requirement and authority are already clear. If the expected
+behavior is unclear because of a failure, diagnose it before editing.
 
 ### 3. Implement one vertical slice
 
@@ -103,22 +114,24 @@ failure, diagnose it before editing.
   Redact secrets and unnecessary personal data; make saturation, retries, and terminal failures
   actionable.
 
-Read [references/backend-quality.md](references/backend-quality.md) for layering, error and
-integration patterns, observability, and verification seams. Read
+Read [references/backend-quality.md](references/backend-quality.md) when layering, error and
+integration patterns, observability, or verification seams need a decision. Read
 [references/data-and-operations.md](references/data-and-operations.md) for persistence,
 transactions, application-owned schema changes, queues, caching, concurrency, idempotency, and
-recovery.
+recovery only when the change affects those concerns.
 
 Detect the repository's existing backend language and stack before loading framework guidance. Preserve
 that stack unless the user explicitly requests a migration.
 
-For Python backends, start with [Python backend](references/stacks/python-backend.md), then load only
-the relevant narrower references such as [FastAPI](references/stacks/fastapi.md),
+When Python framework/runtime guidance is needed, start with
+[Python backend](references/stacks/python-backend.md), then load only the relevant narrower
+references such as [FastAPI](references/stacks/fastapi.md),
 [Pydantic](references/stacks/pydantic.md), [SQLAlchemy](references/stacks/sqlalchemy.md), or
 [Alembic](references/stacks/alembic.md).
 
-For Java backends, start with [Java backend](references/stacks/java-backend.md), then load only the
-technologies actually present: [Spring Boot](references/stacks/spring-boot.md),
+When Java framework/runtime guidance is needed, start with
+[Java backend](references/stacks/java-backend.md), then load only the technologies actually
+present: [Spring Boot](references/stacks/spring-boot.md),
 [Spring Security](references/stacks/spring-security.md),
 [JPA/Hibernate](references/stacks/jpa-hibernate.md), [MyBatis](references/stacks/mybatis.md),
 [Flyway/Liquibase](references/stacks/flyway-liquibase.md),

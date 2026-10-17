@@ -6,6 +6,11 @@ Use this reference when the refactor changes module ownership or dependency dire
 
 A module should own behavior and state that change for the same reason. Prefer moving policy toward the module that owns the invariant rather than creating a generic `utils` layer.
 
+Judge a proposed module by what its callers gain from its interface. Imagine removing it: if
+policy or orchestration would spread across callers, the module is carrying useful complexity;
+if only a forwarding call disappears, prefer the simpler structure. Keep the interface small
+enough that callers can use the capability without learning its internal steps.
+
 ## Dependencies
 
 Map the current direction before moving code:

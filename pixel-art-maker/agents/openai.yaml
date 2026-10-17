@@ -1,7 +1,0 @@
-interface:
-  display_name: "Pixel Art Maker"
-  short_description: "Create pixel game assets with Aseprite precision drawing, layered source files, and export verification"
-  default_prompt: "Use $pixel-art-maker to create the requested pixel assets; choose between Aseprite MCP or image generation based on task requirements, inspect and deliver actual files, and maintain strict scope."
-
-policy:
-  allow_implicit_invocation: true

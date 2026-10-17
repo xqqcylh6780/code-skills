@@ -1,10 +1,9 @@
 ---
 name: shape-project
 description: >-
-  Turn a materially ambiguous product, project, or feature into an execution-ready brief.
-  Trigger for vague scope, competing approaches, unclear requirements, acceptance criteria,
-  staged delivery, or work that needs a first vertical slice. Do not invoke for small,
-  already-specific implementation tasks.
+  Turn ambiguous ideas or consequential features into a scoped brief, acceptance criteria, and
+  first implementation slice. Use for unclear requirements or competing approaches; skip small,
+  specific changes.
 ---
 
 # Shape Project
@@ -98,6 +97,11 @@ In **Discover** or **Reframe** mode, read [references/discovery-questions.md](re
 In **Kickoff** mode, assume the user’s requirements are useful input. Check completeness and contradictions without restarting discovery from zero. Concentrate on decisions required to begin safely.
 
 In **Review** mode, preserve the plan’s intent while testing its premises, omissions, dependencies, and evidence. Do not rewrite the plan merely to impose a different style.
+
+When a domain term affects scope, ownership, state, or acceptance criteria, check its meaning
+against existing project context and code. Resolve a vague or conflicting term with one concrete
+scenario that distinguishes the interpretations, then use the chosen term consistently in the
+brief and criteria. Do not create a separate glossary for a small change.
 
 ### 5. Challenge the Framing and Scope
 
@@ -233,7 +237,8 @@ Route downstream work deliberately:
 | Consequential change requiring durable proposal, specification, task, decision, and evidence tracking across sessions or owners | `manage-spec-changes` |
 | Public API, schema, command, event, configuration, or shared boundary | `design-interfaces` |
 | Browser-only web page, component, workflow, responsiveness, or visual system | `build-frontends` |
-| Mobile/uni-app page, app lifecycle, device API, or cross-platform application flow | `build-mobile-apps` |
+| Native Android Kotlin/Java screen, lifecycle, permission, device API, or packaging | `build-mobile-apps` |
+| uni-app, Flutter, React Native, or mini-program application flow | Follow that project's platform workflow; these build skills do not cover it |
 | Server-side service, domain, job, persistence, or integration behavior | `build-backends` |
 | Database schema, indexes, query plans, migration, integrity, or recovery as the primary task | `database-engineering` |
 | Authentication, authorization, untrusted input, sensitive data, or privileged effects | `secure-boundaries` |

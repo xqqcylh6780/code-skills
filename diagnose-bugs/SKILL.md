@@ -1,10 +1,9 @@
 ---
 name: diagnose-bugs
 description: >-
-  Diagnose failures whose cause is unknown or disputed. Trigger for failing tests/builds,
-  incorrect or intermittent runtime behavior, incidents, integration failures, environment-
-  specific bugs, races, or regressions when the causal chain is not yet proven. Once the cause
-  is known, route to the relevant implementation skill.
+  Diagnose unknown or disputed causes of failing tests/builds, runtime errors, races, intermittent
+  failures, and regressions. Establish evidence before repair; known causes go to implementation
+  skills.
 ---
 
 # Diagnose Bugs

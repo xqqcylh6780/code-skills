@@ -1,10 +1,8 @@
 ---
 name: database-engineering
 description: >-
-  Design, change, analyze, migrate, or operate relational databases. Trigger for schema design,
-  constraints, indexes, SQL/query plans, migrations/backfills, locking/transactions, data
-  integrity, backup/restore, or database-first performance work. Use build-backends for ordinary
-  application persistence code.
+  Design or diagnose relational schemas, indexes, SQL/query plans, migrations, integrity, locking,
+  and recovery. Use build-backends for ordinary application persistence.
 ---
 
 # Database Engineering
@@ -25,6 +23,22 @@ Do not use it just because `build-backends` needs to add one application-owned c
 - Authentication, authorization, tenancy, secrets, or sensitive data → `secure-boundaries`.
 - Rollout of a migration across deployed versions → `deploy-and-operate`.
 - Behavior-preserving application cleanup around the data layer → `refactor-code`.
+
+## Select the outcome and execution boundary
+
+- **Analysis/design:** inspect existing schemas, queries, captured plans, and permitted read-only
+  evidence; deliver the proposed SQL, compatibility stages, and verification plan. Do not require
+  a live schema change, migration rehearsal, or restore to finish a design-only task.
+- **Source changes:** when requested, edit schema/migration/query/test files and run permitted
+  static checks. Writing a migration file is separate from applying it to a database.
+- **Database operations:** obey the active workspace's execution policy before task-level
+  authorization. If database access is read-only, leave all state-changing SQL and operations for
+  the user to execute, including on local/test targets; do not seek ordinary approval as a bypass.
+
+Inspect runners, fixture setup, migration hooks, and diagnostic statements before using them.
+Calling an operation a test, dry run, transaction rollback, or rehearsal does not establish that
+it is read-only. Use existing evidence or a safe static alternative when the required execution
+is prohibited, and disclose the resulting verification limit.
 
 ## Workflow
 
@@ -115,7 +129,9 @@ For backup, restore, repair, or destructive maintenance, identify:
 
 Read [references/operations-and-recovery.md](references/operations-and-recovery.md).
 
-Never execute production migrations, repairs, restores, destructive statements, or privilege changes without explicit authorization and a verified target.
+Execute operations only if the workspace permits that class of action and the action/target are
+authorized. Under a read-only database policy, prepare migrations, repairs, restores, and privilege
+changes as reviewed SQL/procedures for the user instead of executing them through any wrapper.
 
 ### 7. Verify the smallest meaningful evidence
 
@@ -135,4 +151,8 @@ Lead with the data invariant and database outcome. Include the changed schema/ac
 
 ## Completion Criteria
 
-Database work is complete only when the target invariant and access paths are explicit, the migration or operational procedure is compatible and recoverable, the relevant database behavior has been verified with appropriate evidence, and unauthorized state-changing steps are clearly left for review rather than implied complete.
+Design/analysis is complete when the target invariant, access paths, compatibility/recovery
+requirements, and proposed verification are explicit. Requested source changes also need relevant
+permitted checks; operational completion requires evidence from the actually authorized execution.
+Distinguish inspected or measured behavior from unexecuted SQL and proposed rehearsals. A blocked
+database operation is a verification limit, not a reason to withhold a complete design or SQL patch.

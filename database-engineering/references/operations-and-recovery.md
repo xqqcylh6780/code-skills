@@ -4,6 +4,11 @@ Use this reference for backup, restore, repair, reconciliation, and database-lev
 
 ## Before a state-changing operation
 
+First check the active workspace policy. If database access is read-only, the steps below describe
+the operator's runbook: prepare SQL/procedures and proposed verification, but do not execute a
+restore, repair, backfill, permission change, or mutating rehearsal through a script or test.
+Writing an authorized migration/runbook file does not authorize applying it.
+
 Confirm:
 
 - exact environment/cluster/database;

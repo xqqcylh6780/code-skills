@@ -27,7 +27,12 @@ latency sensitivity:
 
 ## Plans and measurements
 
-Use the engine's plan tooling (`EXPLAIN` or equivalent) and representative statistics. For plans that execute the query, verify safety before running writes or expensive scans.
+Use the engine's plan tooling (`EXPLAIN` or equivalent) and representative statistics. Determine
+whether the selected options actually execute the statement, including functions and nested
+effects, before running it. A plan request does not authorize writes or expensive scans. Under a
+read-only database policy, do not execute a mutating statement through plan tooling, even inside
+a transaction intended for rollback. Use a permitted non-executing plan or an existing captured
+plan and identify whether row counts/timings are estimated or measured.
 
 Check:
 

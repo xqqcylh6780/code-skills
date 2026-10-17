@@ -1,10 +1,9 @@
 ---
 name: refactor-code
 description: >-
-  Improve internal code structure while preserving observable behavior. Trigger for extraction,
-  decomposition, moving responsibilities, dependency cleanup, reducing duplication, clarifying
-  boundaries, or legacy-code restructuring when behavior should not change. Route behavior
-  changes to the relevant build/design skill.
+  Improve internal structure through extraction, decomposition, dependency cleanup, or
+  deduplication while preserving observable behavior. Route behavior changes to
+  implementation/interface skills.
 ---
 
 # Refactor Code
@@ -23,7 +22,9 @@ If behavior must change, route to the relevant build or interface skill. If exis
 - New product behavior → `build-frontends`, `build-mobile-apps`, or `build-backends`.
 - Unknown defect → `diagnose-bugs`.
 - Security boundary redesign → `secure-boundaries`.
-- Strict regression-first proof when valuable → `test-behavior-first`.
+- Requested TDD, a reproduced defect's regression guard, a material invariant with a practical
+  test seam, or repository-required test-first proof → `test-behavior-first`. Characterization
+  tests protecting unchanged behavior do not require manufacturing a new RED cycle.
 - Read-only assessment → `review-changes`.
 
 ## Workflow
@@ -54,6 +55,10 @@ Read [references/refactoring-loop.md](references/refactoring-loop.md).
 Do not weaken tests to make a refactor pass. If baseline behavior is already failing, separate that fact and do not silently repair it inside the refactor.
 
 ### 3. Identify ownership and seams
+
+For a broad refactor without a named target, use recurring recent changes and demonstrated
+maintenance friction to choose where to inspect first. Do not sweep dormant modules solely
+because they look imperfect.
 
 Find the smallest structural issue that creates change cost:
 

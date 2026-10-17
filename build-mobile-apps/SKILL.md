@@ -1,9 +1,9 @@
 ---
 name: build-mobile-apps
 description: >-
-  Build or modify native Android apps using the project's Kotlin or Java, Jetpack Compose
-  or Views stack. Use for Android screens, navigation, lifecycle, permissions, device APIs,
-  Gradle packaging, and device behavior. Excludes browser, uni-app, Flutter, and React Native work.
+  Build native Android apps in Kotlin/Java with Compose or Views: screens, navigation, lifecycle,
+  permissions, device APIs, and Gradle packaging. Excludes browser, uni-app, Flutter, and React
+  Native.
 ---
 
 # Build Native Android Apps

@@ -44,10 +44,13 @@ Global constraints:
 Out of scope:
 Compatibility and migration posture:
 Verification strategy:
+Review focus: material input classes or failure modes implied by the requirements but not yet covered
 ```
 
 Copy exact project-wide values—versions, limits, names, formats, copy, platform requirements—into
 global constraints so later tasks do not reinterpret them.
+Keep the review focus short. Add a task-owned check for each material case it reveals; omit the
+field when the acceptance criteria and task checks already cover the relevant risks.
 
 ## Task sizing
 
@@ -99,6 +102,10 @@ Rollback or recovery:
 Include code or pseudocode only when it resolves an otherwise ambiguous algorithm, contract, or
 wiring decision. Do not fill the plan with code that an implementer can derive safely from existing
 project patterns.
+For a test step, name the behavior and independent expected result. For an implementation step,
+record the file, interface, invariant, and any exact value the requirements fix; include a function
+body only when those decisions still leave a material algorithm ambiguous. For verification, give
+the command or scenario and the evidence that means it passed.
 
 ## Cross-task consistency
 
@@ -110,6 +117,10 @@ Before handoff, check:
 4. The test described for each task can actually reach its implementation.
 5. Migration, mixed-version operation, rollout, rollback, and cleanup are ordered when relevant.
 6. No task silently expands a non-goal or contradicts a global constraint.
+7. Material inputs and failures implied by the requirements, including those absent from explicit
+   examples, have an owning task and verification step or are named as residual risks.
+8. The plan's length is proportionate to the brief: remove repeated code and explanatory steps
+   that make no decision without replacing them with vague placeholders.
 
 Fix inconsistencies in the plan before execution. Do not rely on an implementer to reconcile two
 conflicting task descriptions.

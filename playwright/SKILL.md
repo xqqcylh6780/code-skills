@@ -1,10 +1,8 @@
 ---
 name: "playwright"
 description: >-
-  Automate, inspect, or verify real browser workflows with Playwright. Trigger for navigation,
-  forms, screenshots, responsive checks, interaction testing, browser reproduction, or explicit
-  Playwright tests. Do not use when source-only reasoning is sufficient or when a non-browser
-  runtime is the real target.
+  Use Playwright for real-browser navigation, forms, screenshots, responsive/interaction checks,
+  reproductions, or tests. Excludes source-only analysis and non-browser runtimes.
 ---
 
 # Playwright Browser Automation
@@ -22,6 +20,11 @@ Choose by the requested outcome, then availability:
 4. Use the bundled wrapper only after the user authorizes any required `npx` download.
 
 Do not add Playwright, browser binaries, or another dependency merely to complete a check. Report the missing prerequisite and request authorization first.
+
+Before a repository runner or its configured `webServer` starts, inspect relevant scripts, global
+setup, and fixtures for installs, seeds, migrations, database writes, or live submissions. Reuse
+that assessment while those inputs remain unchanged. A test runner does not bypass workspace
+execution rules; use existing test state or report the blocked check when setup is prohibited.
 
 ## Define the target flow
 
@@ -88,6 +91,8 @@ Read `references/testing.md` before generating or modifying Playwright tests.
 - Do not sign in, purchase, publish, send messages, upload files, accept consent, or submit consequential forms without explicit authorization for that action and target.
 - An explicit request to implement, modify, debug, or browser-verify a frontend authorizes the
   repository's existing development server when it is needed for the requested verification.
+  Reuse a suitable running server and existing scoped authorization; do not ask again solely
+  because the page is unavailable. Start only an inspected command whose effects are permitted.
   Otherwise do not start a server, desktop application, or background process. Close anything
   started for the task when verification finishes unless the user asks to keep it running.
 - Do not silently install packages or browser binaries. Explain the missing dependency and wait for approval.

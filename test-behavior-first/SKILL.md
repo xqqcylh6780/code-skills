@@ -1,10 +1,9 @@
 ---
 name: test-behavior-first
 description: >-
-  Implement behavior with a witnessed red-green-refactor loop. Trigger when the user requests
-  TDD, a reproduced defect needs a regression test, a material invariant has a practical test
-  seam, or repository policy requires test-first work. Do not force TDD onto every ordinary code
-  change or pure refactor.
+  Use witnessed red-green-refactor for requested TDD, a reproduced defect needing regression
+  coverage, a material invariant with a practical test seam, or test-first policy. Excludes
+  routine changes and pure refactors.
 ---
 
 # Test Behavior First
@@ -31,6 +30,8 @@ behavior.
 
 - Discover the repository's real test contract before choosing commands or locations.
 - Derive expected values independently from the implementation.
+- Before writing a test, name a plausible production defect it should catch; test an observable
+  outcome rather than a source-text change or a decision that cannot fail accidentally.
 - Test through a stable public seam, not private call structure.
 - Require a meaningful RED; compilation, setup, fixture, or environment failures do not prove missing behavior.
 - Keep GREEN minimal without intentionally poor design.

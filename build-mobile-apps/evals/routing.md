@@ -17,6 +17,12 @@
 - “Why does the Android build crash? We do not know the cause.” → `diagnose-bugs` first.
 - “Review the Android PR without changing it.” → `review-changes`.
 
+## Conflict cases
+
+- Android UI plus a Python endpoint: `build-mobile-apps` owns the native screen and `build-backends` owns server behavior; use `design-interfaces` only for changed shared contracts.
+- An unknown Android crash: `diagnose-bugs` establishes the cause before this skill implements the repair.
+- An Android-looking HTML phone demo: `app-prototype-design` owns a requested clickable prototype; do not treat it as native implementation.
+
 ## Focused workflow scenarios
 
 - **Copy-only edit:** Change a button label in an existing Android screen. Inspect the owner and strings resources; do not require a device run by habit.

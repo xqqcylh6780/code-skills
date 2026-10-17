@@ -1,0 +1,4 @@
+interface:
+  display_name: "Resolve Git Conflicts"
+  short_description: "Resolve Git conflicts without losing local work"
+  default_prompt: "Use $resolve-git-conflicts to inspect the current conflict, preserve both change intents and unrelated work, and complete only the authorized operation."

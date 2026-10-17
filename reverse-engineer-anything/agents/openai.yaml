@@ -1,0 +1,4 @@
+interface:
+  display_name: "Reverse Engineer Anything"
+  short_description: "Investigate shipped artifacts with REA"
+  default_prompt: "Use $reverse-engineer-anything to investigate the supplied target with scoped artifact evidence and existing REA tools."

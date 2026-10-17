@@ -1,0 +1,4 @@
+interface:
+  display_name: "Jev Coding Decisions"
+  short_description: "Use Jev for bounded coding judgments"
+  default_prompt: "Use $jev-coding-decisions to assess whether these repeated semantic judgments would benefit from Jev; check data-sharing authorization before API calls."

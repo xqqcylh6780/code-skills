@@ -27,9 +27,16 @@ workspace config) rather than silently switching package managers.
 - Keep server/cache state in the project's established data-fetching layer when one exists.
 - Use stable identity keys for reorderable data and clean up subscriptions/timers/listeners.
 
+For a concrete performance decision, read [React performance](react-performance.md). For a
+shared/compound component or controlled-state API, read [React composition](react-composition.md).
+Do not load either for an unrelated copy or spacing edit.
+
 ## Next.js
 
 Identify the router before editing.
+
+For version-dependent APIs, use [Next.js version-matched guidance](nextjs-versioned-guidance.md)
+to locate relevant installed documentation before relying on remembered caching/RSC defaults.
 
 - Do not convert Pages Router to App Router or the reverse for an ordinary feature.
 - Respect existing server/client component boundaries; do not add `use client` broadly just to access one browser API.
@@ -45,6 +52,9 @@ Identify the router before editing.
 - Respect scoped styling and existing design-token/theme mechanisms.
 
 ## Framework-agnostic rule
+
+For an existing shadcn/ui project, use [shadcn integration](shadcn-integration.md) only when the
+component/configuration decision needs it. Its presence is not a reason to install shadcn/ui.
 
 When a pattern is version-sensitive or uncertain, inspect the installed package version and current official
 framework documentation before changing architecture. The existence of this reference never authorizes a framework

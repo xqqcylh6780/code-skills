@@ -1,11 +1,9 @@
 ---
 name: reverse-engineering-binaries
 description: >-
-  Perform static reverse engineering of APK, DEX, ELF, PE, Mach-O, firmware, and other compiled
-  artifacts using Ghidra, PyGhidra, or read-only binary inspection. Trigger for binary triage,
-  decompilation, disassembly, native-library inspection, suspicious compiled behavior, or
-  source-to-binary verification. Do not use for ordinary source review, dynamic execution, or app
-  prototype design.
+  Statically inspect/decompile APK, DEX, ELF, PE, Mach-O, or firmware with Ghidra/PyGhidra or
+  read-only tools. Use for compiled behavior and source-to-binary checks; excludes sample
+  execution, source review, and prototypes.
 ---
 
 # Reverse Engineer Binaries

@@ -74,6 +74,10 @@ Check clipping, overflow, unreadable text, hidden controls, and unintended horiz
 - Missing or stale element reference: capture a new snapshot.
 - Incorrect page state: verify the URL, selected tab, session name, and authentication state.
 - Browser or package missing: stop and request authorization before installation.
-- Local page unavailable: report that the application is not running; do not start it without authorization.
+- Local page unavailable: reuse a suitable running server. An explicit request to implement,
+  modify, debug, or browser-verify a frontend already authorizes its existing development server
+  when needed; inspect the command/hooks and proceed if their effects are permitted. Otherwise
+  report the missing runtime and request only the missing authority. Do not stop a user's server
+  or run a seed/migration hook to obtain a page.
 - Flaky timing: wait for a user-visible condition or network state instead of adding a fixed sleep.
 

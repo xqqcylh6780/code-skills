@@ -1,11 +1,9 @@
 ---
 name: build-frontends
 description: >-
-  Build, improve, fix, or review browser frontend pages and components. Use for requests such as
-  “做前端页面/网页”, “按截图或设计稿还原”, “页面不好看”, “调整布局或样式”, “交互有问题”,
-  “移动端适配/响应式”, or “检查页面效果”. Covers visual quality, UI states, accessibility,
-  and rendered browser verification in React, Vue, Next.js, Vite, HTML/CSS, and similar web apps.
-  Excludes uni-app/native apps, backend-only work, and unrelated browser scraping.
+  Build, fix, or review browser UI in React, Vue, Next.js, or HTML/CSS. Use for
+  做网页、截图还原、页面不好看、布局样式、交互、响应式 and accessibility. Includes rendered verification; excludes
+  uni-app/native apps and scraping.
 ---
 # Build Frontends
 
@@ -16,8 +14,10 @@ outcome; a frontend task does not automatically require a redesign, a browser se
 ## Route Before Editing
 
 - Browser-only React/Vue/Next/Vite/HTML/CSS UI -> stay in this skill.
-- uni-app, native/mobile packaging, mini programs, device APIs, permissions, safe areas, or app lifecycle ->
-  `build-mobile-apps`.
+- Native Android Kotlin/Java, Compose/Views, lifecycle, permissions, or packaging -> `build-mobile-apps`.
+- uni-app, Flutter, React Native, and mini-program implementation are outside these two build skills.
+  Follow the actual project's conventions and relevant platform guidance; do not apply Android or browser
+  assumptions merely because one deployment target is mobile or H5.
 - Unknown-cause UI/runtime failure -> `diagnose-bugs` first.
 - Public/shared API or reusable contract change -> `design-interfaces`.
 - Authentication, authorization, uploads, payments, secrets, or other trust boundaries -> `secure-boundaries`.
@@ -67,6 +67,14 @@ specific evidence, not generic design advice.
   [frontend-engineering.md](references/frontend-engineering.md).
 - React/Vue/Next/Vite detection and stack-preservation rules:
   [web-stack-routing.md](references/web-stack-routing.md).
+- React request waterfalls, server deduplication, bundle cost, or measured render problems:
+  [react-performance.md](references/react-performance.md).
+- Reusable React components, coordinated parts, or controlled-state API decisions:
+  [react-composition.md](references/react-composition.md).
+- Next.js routing, RSC, cache, metadata, or hydration APIs that depend on the installed version:
+  [nextjs-versioned-guidance.md](references/nextjs-versioned-guidance.md).
+- Existing or explicitly requested shadcn/ui integration:
+  [shadcn-integration.md](references/shadcn-integration.md).
 - New visual identity, screenshot implementation, composition, typography, color, imagery, or motion:
   [visual-direction.md](references/visual-direction.md).
 - No established visual language and a real need to compare design directions:

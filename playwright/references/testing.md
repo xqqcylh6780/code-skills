@@ -40,6 +40,10 @@ test('shows the saved profile name', async ({ page }) => {
 
 Use project fixtures instead of hard-coded credentials or production data. Never commit storage state, cookies, tokens, or screenshots containing secrets.
 
+For session/fixture isolation, controlled network failures, visual baselines, or trace-led flaky
+test diagnosis, read the relevant section of [advanced-testing.md](advanced-testing.md). Keep
+ordinary tests on the existing path instead of adding all these mechanisms by default.
+
 ## Verification
 
 Run the narrowest existing command that covers the changed test. Do not start the application or alter test data unless the user has authorized that operation.

@@ -1,6 +1,9 @@
 ---
 name: app-prototype-design
-description: Create or refine high-fidelity clickable mobile app prototypes from an app idea, existing Android/iOS/cross-platform codebase, screenshots, or supplied assets. Use for app prototype, mobile mockup, interaction demo, screen-flow design, or HTML phone prototype requests. Do not use for implementing the production native app itself.
+description: >-
+  Create clickable mobile app prototypes from ideas, code, screenshots, or assets. Use for mobile
+  mockups, screen flows, interaction demos, and HTML phone prototypes; not production native-app
+  implementation.
 ---
 
 # App Prototype Design

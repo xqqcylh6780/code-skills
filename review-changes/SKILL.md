@@ -1,10 +1,8 @@
 ---
 name: review-changes
 description: >-
-  Review diffs, commits, branches, PRs, or completed changes for concrete correctness and risk
-  issues. Trigger for code review, regression review, pre-merge review, or review-and-fix when
-  explicitly requested. Default to read-only findings; do not replace implementation or
-  unknown-cause debugging.
+  Review diffs, commits, branches, or PRs for concrete correctness and regression risks. Default
+  read-only; fix only when requested. Excludes new implementation and unknown-cause debugging.
 ---
 
 # Review Changes
@@ -168,9 +166,11 @@ Do not pad the report with praise, generic recommendations, or invented minor is
 
 Only enter this mode when the user explicitly requests fixes. Confirm each finding against current
 code before editing, implement one coherent repair at a time, and run focused verification after
-each material fix. Use `diagnose-bugs` when a finding's cause is uncertain, `test-behavior-first`
-for deterministic behavior changes, `secure-boundaries` for trust-boundary repairs, and
-`design-interfaces` for observable contract changes.
+each material fix. Use `diagnose-bugs` when a finding's cause is uncertain. Use
+`test-behavior-first` for requested TDD, a reproduced defect's regression guard, a material
+invariant with a practical test seam, or a repository-required test-first proof; deterministic
+code alone does not require strict RED/GREEN. Use `secure-boundaries` for trust-boundary repairs
+and `design-interfaces` for public/shared contract changes.
 
 Do not silently expand a review into refactoring, dependency upgrades, migrations, or interface
 redesign.

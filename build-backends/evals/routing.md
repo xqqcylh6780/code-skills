@@ -32,6 +32,14 @@
 
 ## Behavioral checks
 
+- **Localized change:** Adjust one established internal mapping in an existing Spring service.
+  Pass: inspect the owner and direct callers/tests, preserve existing layers, and run a focused
+  check. Load framework guidance only for an unresolved decision. Fail: inventory queues and
+  deployment files or add repositories/adapters without a changed requirement.
+- **Contract handoff:** Add an explicitly requested optional response field following the existing
+  API convention. Pass: establish the delta and consumer compatibility, then implement and verify
+  within the same task. Fail: stop for permission solely because another skill is consulted.
+
 - **Ordinary feature verification:** “按已有格式调整内部列表的显示文本，补测试并构建确认。”
   Fixture: no changed public contract, material invariant, or test-first policy; a safe local build
   exists. Pass: stay in backend implementation with focused tests/build. Fail: invoke strict TDD

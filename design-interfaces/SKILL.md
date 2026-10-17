@@ -1,10 +1,8 @@
 ---
 name: design-interfaces
 description: >-
-  Design or change a public/shared observable contract. Trigger for HTTP/GraphQL APIs, events,
-  jobs, CLI/config schemas, library/module APIs, reusable component APIs, adapters, errors,
-  pagination, compatibility, deprecation, or migration semantics. Do not use for private
-  implementation details alone.
+  Design or evolve public/shared API, event, CLI, config, library, or component contracts: inputs,
+  errors, compatibility, and migration. Excludes private implementation details.
 ---
 
 # Design Interfaces
@@ -18,6 +16,23 @@ contract, or when an existing observable behavior must evolve safely. A handler,
 configuration value, schema, or function is not automatically a shared interface. For ordinary
 private implementation work, follow repository conventions without producing a separate contract
 design deliverable.
+
+## Select the outcome and work size
+
+- **Design/advice only:** specify the affected contract, examples, consumer impact, and proposed
+  checks. Do not edit implementation or create tests merely to complete the design.
+- **Design and implementation:** settle the contract decisions needed for the requested change,
+  update its authoritative artifact, and continue into the implementation skill without asking
+  again for an already-authorized change.
+
+For a small compatible extension following an established convention, inspect the current contract
+and actual consumers, define the delta and absence/default/error semantics that change, then use a
+representative example and focused compatibility check. Skip unrelated sections below; a new
+optional field does not by itself need an ADR, versioning plan, or separate design document.
+
+Use the broader workflow for a new interface, breaking change, or material semantic ambiguity.
+Record decisions in the project's existing types/schema/specification instead of duplicating them
+across new artifacts. A breaking change still needs explicit consumer and migration analysis.
 
 ## Design Principles
 
@@ -165,9 +180,13 @@ to `build-backends`, `build-frontends`, `build-mobile-apps`, or `database-engine
 
 ### 11. Prove and Document the Contract
 
-Add contract tests for inputs, outputs, errors, authorization, side effects, retries, compatibility, and state transitions that matter.
+For implementation work, add or update contract tests for inputs, outputs, errors, authorization,
+side effects, retries, compatibility, and state transitions that change. For design-only work,
+provide the proposed examples and checks without creating or modifying tests.
 
-Update the authoritative artifact in the same change: type definitions, schema, OpenAPI/GraphQL description, CLI help, configuration schema, event schema, examples, or protocol documentation.
+When edits are requested, update the authoritative artifact in the same change: type definitions,
+schema, OpenAPI/GraphQL description, CLI help, configuration schema, event schema, examples, or
+protocol documentation. For advice-only requests, identify the artifact and proposed delta.
 
 Verify a representative real consumer when generated types, SDKs, serialization, or cross-language behavior could differ from the source schema.
 
@@ -185,16 +204,22 @@ Verify a representative real consumer when generated types, SDKs, serialization,
 
 ## Handoff
 
-Update the authoritative contract artifact and lead with the consumer-visible outcome. Summarize
+For requested edits, update the authoritative contract artifact; for advice only, describe the
+proposed delta. Lead with the consumer-visible outcome. Summarize
 only the relevant owners, inputs, guarantees, errors, state and side effects, authorization,
 compatibility classification, migration plan, examples, verification, and unresolved risks. Do
 not manufacture sections for concerns that do not apply.
 
 Route implementation deliberately: server behavior to `build-backends`, browser UI to
-`build-frontends`, mobile or uni-app behavior to `build-mobile-apps`, database-primary work to
-`database-engineering`, and changed trust boundaries to `secure-boundaries`. A design-only request
-ends after the contract and handoff are complete.
+`build-frontends`, native Android Kotlin/Java behavior to `build-mobile-apps`, database-primary work
+to `database-engineering`, and changed trust boundaries to `secure-boundaries`. For uni-app,
+Flutter, React Native, or mini programs, follow that project's platform workflow rather than
+forcing a browser/native-Android skill. A design-only request ends after the contract and handoff
+are complete.
 
 ## Completion Criteria
 
-Completion requires an explicit contract, understood consumer impact, consistent error and evolution semantics, representative examples, boundary tests, and synchronized types or documentation.
+Design completion requires an explicit contract delta, understood consumer impact, consistent
+error/evolution semantics, representative examples, and a verification plan. Implementation also
+requires synchronized contract artifacts and relevant boundary-test evidence, or a disclosed
+verification limitation. Match the detail to the changed boundary.

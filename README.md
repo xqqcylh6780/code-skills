@@ -51,7 +51,8 @@ For routing:
 
 ```text
 React / Vue / Next.js / Vite / HTML-CSS browser UI -> build-frontends
-uni-app / HBuilderX / App / mini program / device APIs -> build-mobile-apps
+Native Android / Kotlin / Java / Compose / Views -> build-mobile-apps
+uni-app / HBuilderX / Flutter / React Native / mini program -> existing project/platform workflow
 ```
 
 ## Skill map
@@ -62,13 +63,14 @@ uni-app / HBuilderX / App / mini program / device APIs -> build-mobile-apps
 | --- | --- |
 | [`shape-project`](shape-project/SKILL.md) | Turn ambiguous ideas or large changes into an execution-ready brief and first vertical slice. |
 | [`design-interfaces`](design-interfaces/SKILL.md) | Design or evolve public/shared HTTP, GraphQL, event, job, module, configuration, or adapter contracts. |
+| [`manage-spec-changes`](manage-spec-changes/SKILL.md) | Coordinate consequential changes requiring durable specifications, decisions, tasks, and evidence across sessions or owners. |
 
 ### Implementation
 
 | Skill | Use it for |
 | --- | --- |
 | [`build-frontends`](build-frontends/SKILL.md) | Build, fix, polish, and proportionately verify React/Vue/Next/Vite and other browser-based web interfaces. |
-| [`build-mobile-apps`](build-mobile-apps/SKILL.md) | Build cross-platform/mobile application surfaces, initially focused on uni-app/Vue 3. |
+| [`build-mobile-apps`](build-mobile-apps/SKILL.md) | Build native Android applications in Kotlin/Java using Compose or Views. |
 | [`build-backends`](build-backends/SKILL.md) | Implement server-side product behavior, services, jobs, integrations, persistence, retries, caching, and observability. |
 | [`database-engineering`](database-engineering/SKILL.md) | Design, change, diagnose, or operate relational database structures and query behavior when the database itself is the task. |
 
@@ -88,6 +90,7 @@ uni-app / HBuilderX / App / mini program / device APIs -> build-mobile-apps
 | [`refactor-code`](refactor-code/SKILL.md) | Improve internal structure while preserving observable behavior. |
 | [`performance-engineering`](performance-engineering/SKILL.md) | Measure, profile, benchmark, optimize, and capacity-test performance. |
 | [`review-changes`](review-changes/SKILL.md) | Review diffs, commits, branches, or PRs for concrete correctness and risk issues. |
+| [`resolve-git-conflicts`](resolve-git-conflicts/SKILL.md) | Explain or resolve merge/rebase/cherry-pick conflicts while preserving both intents and unrelated local work; complete the operation only within existing authority. |
 
 ### Delivery and operations
 
@@ -100,7 +103,16 @@ uni-app / HBuilderX / App / mini program / device APIs -> build-mobile-apps
 | Skill | Use it for |
 | --- | --- |
 | [`github-repository-search`](github-repository-search/SKILL.md) | Find and compare GitHub repositories using current evidence. |
-| [`pixel-art-maker`](pixel-art-maker/SKILL.md) | Create and verify pixel-art game assets and Aseprite-oriented workflows. |
+| [`jev-coding-decisions`](jev-coding-decisions/SKILL.md) | Use TypeSafe Jev for bounded semantic judgments, subject to data-sharing authorization. |
+| [`programming-language-deep-learning`](programming-language-deep-learning/SKILL.md) | Explain programming languages through semantics, data structures, memory, complexity, and runtime models. |
+| [`reverse-engineer-anything`](reverse-engineer-anything/SKILL.md) | Investigate shipped artifacts and permitted runtime evidence with existing REA capabilities. |
+| [`reverse-engineering-binaries`](reverse-engineering-binaries/SKILL.md) | Statically inspect and decompile compiled artifacts without executing the sample. |
+
+### Prototypes and visual assets
+
+| Skill | Use it for |
+| --- | --- |
+| [`app-prototype-design`](app-prototype-design/SKILL.md) | Build high-fidelity clickable mobile prototypes while preserving the real product's screens and navigation. |
 
 ## Typical routing
 
@@ -114,13 +126,13 @@ public/shared contract changes?
         ↓
 implementation boundary
         ├─ web UI      → build-frontends
-        ├─ mobile/app  → build-mobile-apps
+        ├─ native Android → build-mobile-apps
         ├─ server      → build-backends
         └─ database    → database-engineering
         ↓
 trust boundary? → secure-boundaries
         ↓
-high-value test seam? → test-behavior-first
+requested TDD, reproduced regression, material invariant, or test-first policy? → test-behavior-first
         ↓
 unknown failure? → diagnose-bugs
         ↓
@@ -151,7 +163,7 @@ Refactoring                 → skill
 FastAPI                     → build-backends reference
 SQLAlchemy                  → build-backends / database reference
 PostgreSQL                  → database reference
-Wot Design Uni              → build-mobile-apps reference
+Android Compose / Views     → build-mobile-apps reference
 Docker                      → deploy-and-operate reference
 ```
 

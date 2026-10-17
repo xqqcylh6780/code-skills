@@ -1,10 +1,9 @@
 ---
 name: secure-boundaries
 description: >-
-  Design, implement, or review controls at a meaningful trust boundary. Trigger for
-  authentication, authorization, tenancy, secrets, sensitive data, uploads, SSRF,
-  webhooks/payments, crypto, privileged effects, or untrusted/model output. Do not run a full
-  security workflow for ordinary low-risk code.
+  Design, implement, or assess auth, tenancy, secrets, uploads, SSRF, payments/webhooks, crypto,
+  or untrusted/model-output controls at meaningful trust boundaries. Excludes routine low-risk
+  work.
 ---
 
 # Secure Boundaries

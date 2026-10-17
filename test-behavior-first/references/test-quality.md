@@ -36,6 +36,12 @@ Prefer many small tests, enough medium contract tests to validate boundaries, an
 
 ## Build independent expectations
 
+Before writing a test, name the production change that should make it fail and why that change
+would be a bug. If only a renamed symbol, changed constant, altered source text, or removed mock
+would fail it, assert the behavior that depends on that decision instead. Run scripts and commands
+against controlled inputs and check their output or effects; searching their source for a string
+does not prove behavior. Human-facing prose does not need a test solely to satisfy this check.
+
 Good sources of expected values:
 
 - Product specification or acceptance criterion.
@@ -167,6 +173,10 @@ Classify before editing:
 Change the test only when the desired public behavior changed or the test never represented that behavior correctly. Preserve a previously valid regression guard when refactoring implementation.
 
 ## Review suite quality
+
+For each important behavior, mentally try a realistic wrong branch, missing side effect, empty
+result, or skipped validation. If the tests would still pass, strengthen the relevant observable
+assertion or record the gap; do not add a test that merely mirrors implementation text.
 
 Look for:
 
