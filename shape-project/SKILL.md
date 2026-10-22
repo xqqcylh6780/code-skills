@@ -99,9 +99,15 @@ In **Kickoff** mode, assume the user’s requirements are useful input. Check co
 In **Review** mode, preserve the plan’s intent while testing its premises, omissions, dependencies, and evidence. Do not rewrite the plan merely to impose a different style.
 
 When a domain term affects scope, ownership, state, or acceptance criteria, check its meaning
-against existing project context and code. Resolve a vague or conflicting term with one concrete
-scenario that distinguishes the interpretations, then use the chosen term consistently in the
-brief and criteria. Do not create a separate glossary for a small change.
+against the applicable glossary/context map, project context, and code. Distinguish current
+implementation from intended behavior; a conflict may be a requested change rather than a naming
+mistake. Use one concrete scenario to separate interpretations and ask only if the answer changes
+a material outcome that available evidence cannot settle. Present the supported recommendation.
+
+Use resolved terms consistently in the brief and criteria. When documentation updates are in
+scope, synchronize the existing glossary as meanings settle; keep behavioral rules in the brief
+or specification. For advice-only work, propose the wording without writing files. Do not create
+a separate glossary for a small change or keep interviewing once the next slice is unambiguous.
 
 ### 5. Challenge the Framing and Scope
 

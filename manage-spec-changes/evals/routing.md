@@ -18,12 +18,33 @@
 
 ## Conflict cases
 
+- “只维护现有术语表和一条已确认的架构决定，不需要规格流程。” → use the bounded language/decision reference; do not create a new manifest or run the full lifecycle.
+
 - “设计并实现新的登录方式。” → use `shape-project` first only when product behavior is materially ambiguous; activate `manage-spec-changes` when the accepted change crosses contracts, security, migration, rollout, or sessions.
 - “完整 acceptance criteria 已经给出，直接实现一个局部功能。” → use the relevant build skill; do not create lifecycle artifacts merely because tests or several files are involved.
 - “规划一次大表迁移并分阶段上线。” → `manage-spec-changes` owns durable requirements, sequencing, and evidence; `database-engineering` owns schema, locking, backfill, and integrity mechanics.
 - “修复鉴权漏洞并验证。” → security skills own diagnosis and remediation; add `manage-spec-changes` only when coordination, compatibility, rollout, or persistent traceability is material.
 
 ## Focused workflow regression scenarios
+
+- **Incremental authorized vocabulary:** A documentation task settles Customer and BillingAccount
+  in separate discussion rounds. Pass: update their existing authoritative definitions as each
+  settles and preserve context boundaries. Fail: defer every write to a final summary or create a
+  competing glossary tree.
+- **ADR threshold:** A reversible button-color preference and a confirmed storage migration are
+  discussed. The migration has costly reversal, non-obvious context, and evaluated alternatives.
+  Pass: record only the migration as an ADR under the established convention, unless project policy
+  requires more. Fail: create one ADR per answer or invent alternatives to justify the preference.
+- **Non-ADR obligation survives:** The accepted requirement is per-account ordering, a retry cap
+  of three, and no external notification on rejection. No separate ADR is warranted. Pass: preserve
+  all three as testable obligations in the owning specification and link them to downstream work.
+  Fail: leave them only in chat, put them into vocabulary definitions, or weaken the numeric/negative rules.
+- **Different contexts:** Billing uses account for a payer; identity uses it for a login principal.
+  Pass: follow the existing context map, clarify the affected boundary, and retain both valid meanings.
+  Fail: globally rename or overwrite one context to enforce a universal definition.
+- **Superseded decision:** An accepted ADR already documents the old trade-off. Pass: preserve it
+  and link the new accepted choice with the repository's supersession convention. Fail: erase the
+  old rationale or mark an unaccepted proposal as accepted.
 
 - **Resume instead of duplicate:** An active change already covers the same outcome under a different title. Pass: resume it, preserve stable requirement IDs, and do not create a second change directory.
 - **Compact lifecycle:** A borderline change needs persistence but no material architecture decision. Pass: create a compact proposal and only the downstream artifacts that will actually be used.

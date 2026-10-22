@@ -99,6 +99,15 @@ These are original local guidance and examples; no third-party skill package or 
 - `build-frontends/references/typescript-boundaries.md`: [TypeScript narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html), [generics](https://www.typescriptlang.org/docs/handbook/2/generics.html).
 - `upgrade-dependencies/`: [npm clean install](https://docs.npmjs.com/cli/commands/npm-ci), [pip install](https://pip.pypa.io/en/stable/cli/pip_install/), [Maven dependency mechanism](https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html), [Gradle dependency locking](https://docs.gradle.org/current/userguide/dependency_locking.html). Package-specific release and migration evidence must still be checked for each requested upgrade.
 
+## Domain-language and decision guidance, 2026-10-20
+
+The additions to `shape-project` and `manage-spec-changes` are locally authored workflow guidance
+informed by Matt Pocock's [domain-modeling skill](https://github.com/mattpocock/skills/blob/main/skills/engineering/domain-modeling/SKILL.md)
+and [grill-with-docs documentation](https://github.com/mattpocock/skills/blob/main/docs/engineering/grill-with-docs.md).
+No upstream package, script, template, or skill text was imported. The adaptation preserves bounded
+clarification, advice-only behavior, existing project conventions, and explicit documentation scope.
+It also keeps accepted behavioral obligations in specifications even when no ADR qualifies.
+
 ## Refresh policy
 
 Framework references should prefer stable principles over volatile version-specific claims. Before making a recommendation that depends on a current API, security default, deprecation, platform capability, or provider behavior, verify the current official source rather than treating this repository as the final authority.

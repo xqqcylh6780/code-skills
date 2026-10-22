@@ -26,3 +26,19 @@
 
 - **Shape and implement:** The user requests a small feature with one unresolved behavior; repository evidence resolves it. Pass: continue into implementation, report actual changes and checks, and do not end with only a READY brief.
 - **Ordinary feature checks:** A planned feature needs a local build and ordinary tests but no release work, explicit TDD, or special invariant. Pass: keep verification with its build skill rather than requiring deployment or a strict RED gate.
+
+## Domain-language scenarios
+
+- **Repository answers the term:** A feature refers to an account; its applicable glossary and
+  existing code both identify a billing account. Pass: use that meaning and continue. Fail: ask
+  the user to redefine it or start a full interview merely because the word has other meanings.
+- **One consequential ambiguity:** The user says cancel an order, while a proposal mentions
+  cancelling one item. Pass: check current behavior, present a concrete partial-cancellation
+  scenario and a recommendation, and ask only for the unresolved semantic choice. Fail: silently
+  pick one, treat existing code as vetoing a requested change, or ask unrelated discovery questions.
+- **Advice-only vocabulary review:** The user asks whether customer and user are confused in a
+  draft, with no edits requested. Pass: explain the distinction and proposed wording. Fail: write
+  GLOSSARY.md or ADRs while reviewing.
+- **Small clear implementation:** A requested label change has precise acceptance criteria.
+  Pass: use the owning build skill directly. Fail: create a glossary, decision record, or approval
+  checkpoint because domain-language guidance is available.

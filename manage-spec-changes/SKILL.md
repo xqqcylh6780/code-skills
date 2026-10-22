@@ -74,6 +74,11 @@ When the need is borderline, use a **compact change**: one `proposal.md` contain
 requirements, and acceptance scenarios; add `tasks.md` or `evidence.md` only if they will actually be
 used. Do not create empty placeholders.
 
+For recurring domain terminology or decisions whose rationale needs to survive the change, read
+[domain-language-and-decisions.md](references/domain-language-and-decisions.md). Maintaining a
+glossary or decision record alone does not require the full lifecycle or a new change manifest;
+finish that bounded documentation task without manufacturing proposal/spec/task artifacts.
+
 ## Locate the Change Store
 
 Before creating anything:
