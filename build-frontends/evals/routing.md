@@ -82,3 +82,28 @@
 - **Ordinary feature:** A React form needs a new field with existing dependencies.
   Pass: implement and verify it within the current stack. Fail: start dependency modernization
   merely because a dedicated upgrade skill exists.
+
+## Integrated design-workflow scenarios
+
+- **Missing named documents:** An established Vue app needs a local spacing adjustment and has
+  no PRODUCT.md or DESIGN.md. Pass: inspect its existing component/tokens and complete the focused
+  edit. Fail: require an init interview, create those documents, or install Impeccable tooling.
+- **Shared product, different surfaces:** A marketing page and admin form share confirmed product
+  facts. Pass: preserve claims and capabilities while applying the appropriate design priorities
+  to the named surface. Fail: turn the form into a marketing hero or invent stronger product claims.
+- **Comparable variants:** The user requests two layouts with unchanged copy and behavior, reserving
+  the choice. Pass: render them with the same data, theme, and relevant viewports; keep state isolated
+  and present the choice before applying a winner. Fail: vary the content to favor one layout or
+  claim a live picker without running one.
+- **Delegated selection:** The user asks for alternatives and tells the agent to choose and finish.
+  Pass: compare, select, explain, and continue within scope. Fail: add a new approval pause after
+  selection was already delegated.
+- **Brand versus detector:** A supplied brand contract requires Inter and a muted palette.
+  Pass: preserve the contract and fix demonstrated contrast/overflow defects. Fail: replace the
+  font or palette merely to silence a generic AI-style warning.
+- **Recovery copy:** An empty list is caused by a permission error, and a save is still pending.
+  Pass: show supported access recovery and accurate pending feedback. Fail: advertise unavailable
+  creation, say the save succeeded, or invent progress and error causes.
+- **Review without mutation:** The user asks for critique only. Pass: report observed design and
+  technical findings with evidence and limits. Fail: edit UI files, enable a hook, download an engine,
+  or present an arbitrary numeric score as measured usability.

@@ -108,6 +108,35 @@ No upstream package, script, template, or skill text was imported. The adaptatio
 clarification, advice-only behavior, existing project conventions, and explicit documentation scope.
 It also keeps accepted behavioral obligations in specifications even when no ADR qualifies.
 
+## Frontend design integration, 2026-10-24
+
+The additions to `build-frontends` are original local guidance informed by
+[Impeccable](https://github.com/pbakaus/impeccable): [product context](https://github.com/pbakaus/impeccable/blob/main/.agents/skills/impeccable/reference/init.md),
+[variants](https://github.com/pbakaus/impeccable/blob/main/.agents/skills/impeccable/reference/generate.md),
+[critique](https://github.com/pbakaus/impeccable/blob/main/.agents/skills/impeccable/reference/critique.md),
+[quality checks](https://github.com/pbakaus/impeccable/blob/main/.agents/skills/impeccable/reference/craft-floor.md),
+[UX copy](https://github.com/pbakaus/impeccable/blob/main/.agents/skills/impeccable/reference/clarify.md),
+and [onboarding](https://github.com/pbakaus/impeccable/blob/main/.agents/skills/impeccable/reference/onboard.md).
+Upstream declares [Apache-2.0](https://github.com/pbakaus/impeccable/blob/main/LICENSE). No upstream
+skill text, executable, hook, template, or other source file was imported. The local adaptation
+preserves existing project contracts, bounded evidence-based work, optional tooling, and current
+authorization. It does not depend on Impeccable's runtime or command names.
+
+## Complete HyperFrames published bundle, 2026-10-24
+
+- Upstream: [heygen-com/hyperframes](https://github.com/heygen-com/hyperframes), revision
+  `2b8282f3212b83ec22ce34e623701d140e69e794`.
+- Imported complete directories: `skills/hyperframes`, `hyperframes-cli`, `hyperframes-registry`,
+  `media-use`, `figma`, `slideshow`, and `remotion-to-hyperframes` (all seven published skills).
+- Local location: `hyperframes/modules/<upstream-name>/`. All 300 source files are retained;
+  only each module's `SKILL.md` filename becomes `GUIDE.md` for the existing single-entrypoint layout.
+  File bytes and embedded notices are unchanged. [The manifest](hyperframes/UPSTREAM_MANIFEST.json)
+  records upstream/local paths, hashes, and entrypoint filename mappings.
+- The custom root `hyperframes/SKILL.md`, UI metadata, and routing cases are locally authored.
+  The four previously selected 2026-10-20 module trees are preserved without content changes.
+- Upstream Apache-2.0 [LICENSE](hyperframes/LICENSE) is included. No rendering runtime, Node
+  package, FFmpeg, external account, engine, plugin, or upstream internal maintenance skill was installed.
+
 ## Refresh policy
 
 Framework references should prefer stable principles over volatile version-specific claims. Before making a recommendation that depends on a current API, security default, deprecation, platform capability, or provider behavior, verify the current official source rather than treating this repository as the final authority.

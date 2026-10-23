@@ -1,0 +1,4 @@
+interface:
+  display_name: "HyperFrames"
+  short_description: "Complete video skills and interactive motion references"
+  default_prompt: "Use $hyperframes to choose the relevant bundled guide and complete the requested motion or video task within the existing project stack and execution scope."

@@ -114,6 +114,7 @@ uni-app / HBuilderX / Flutter / React Native / mini program -> existing project/
 | Skill | Use it for |
 | --- | --- |
 | [`app-prototype-design`](app-prototype-design/SKILL.md) | Build high-fidelity clickable mobile prototypes while preserving the real product's screens and navigation. |
+| [`hyperframes`](hyperframes/SKILL.md) | Route to all seven official HyperFrames video, media, registry, Figma, slideshow, and migration skills, plus four preserved interactive-motion modules, through one local entrypoint. |
 
 ## Typical routing
 

@@ -86,6 +86,8 @@ specific evidence, not generic design advice.
 - No established visual language and a real need to compare design directions:
   [style-directions.md](references/style-directions.md).
 - Existing or requested `DESIGN.md`: [design-md.md](references/design-md.md).
+- Product facts versus visual direction, or explicitly requested comparable UI alternatives:
+  [design-context-and-variants.md](references/design-context-and-variants.md).
 - Major redesign that still feels generic: [taste-critique.md](references/taste-critique.md).
 - User explicitly asks to polish/simplify/amplify/quiet/harden/typeset/animate/adapt:
   [refinement-passes.md](references/refinement-passes.md).

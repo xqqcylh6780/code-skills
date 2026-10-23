@@ -1,48 +1,86 @@
 ---
 name: hyperframes
 description: >-
-  Design and implement motion with selected HyperFrames references: interactive UI transitions,
-  spatial box or card switching, opening and reveal choreography, precise 2D/3D keyframes,
-  short motion graphics, and explicitly requested custom videos. Use for motion design or
-  animation work; ordinary static UI edits do not need this skill.
+  Use the full HyperFrames bundle for HTML video composition, motion graphics, interactive UI
+  animation, captions/media, Figma-to-video, navigable HTML slides, and video-tool migrations.
+  Preserve the existing UI stack; static UI work and PPTX documents use their owning skills.
 ---
 
-# HyperFrames — selected motion toolkit
+# HyperFrames — complete published skills bundle
 
-This is one locally assembled skill containing only the four modules selected by the user. It is not the upstream full HyperFrames skill collection or its official router.
+One local entrypoint routes to all seven official published skills plus the four previously
+selected motion modules. Load only the guide relevant to the user's task. This entrypoint and
+its routing rules are locally authored; imported guides retain their upstream text.
 
-## Choose the relevant module
+## Current official skills
 
-Read only what the current request needs. Paths within a module's guide resolve against that module's directory.
+For a new HyperFrames video, read the core guide first, then the specialist guide needed below.
+Paths inside a guide resolve from its own module directory, preserving sibling reference paths.
 
-| Task | Local module |
+| Task / upstream skill name | Local guide |
 | --- | --- |
-| Choreography, easing, 3D depth, coordinated reveals, animation techniques and runtime recipes | [hyperframes-animation](modules/hyperframes-animation/GUIDE.md) |
-| Precise states, continuous trajectories, timing, FLIP, masks, CSS/WAAPI/GSAP keyframes | [hyperframes-keyframes](modules/hyperframes-keyframes/GUIDE.md) |
-| Short, design-led motion graphics, title treatments, transitions or explicitly requested motion clips | [motion-graphics](modules/motion-graphics/GUIDE.md) |
-| Explicitly requested longer or multi-scene videos and custom video compositions | [general-video](modules/general-video/GUIDE.md) |
+| Video composition, render contract, film types, captions and overlays: `hyperframes` | [core](modules/hyperframes/GUIDE.md) |
+| Scaffold/check/snapshot/preview/render and command failures: `hyperframes-cli` | [CLI](modules/hyperframes-cli/GUIDE.md) |
+| Discover reusable blocks, transitions and components: `hyperframes-registry` | [registry](modules/hyperframes-registry/GUIDE.md) |
+| Images, video, voice, music, captions and audio mix: `media-use` | [media](modules/media-use/GUIDE.md) |
+| Bring Figma designs/assets into a HyperFrames video: `figma` | [Figma](modules/figma/GUIDE.md) |
+| Navigable HTML decks and presenter mode: `slideshow` | [slideshow](modules/slideshow/GUIDE.md) |
+| Port existing animation/video work and compare frames: `remotion-to-hyperframes` | [migration](modules/remotion-to-hyperframes/GUIDE.md) |
 
-For interactive app work, start with animation and keyframes. Read motion-graphics or general-video only when the task benefits from their composition or video workflow.
+Upstream `/skill-name` references map to these guides; they are modules of this installed skill,
+not separate globally registered commands. Inside each imported module, references to its root
+`SKILL.md` mean its `GUIDE.md` here. The filename change is the only upstream-file adaptation.
 
-## Interactive UI work
+Use `build-frontends` for ordinary browser implementation and static UI, `build-mobile-apps` for
+native Android implementation, and the presentations skill for a requested PPTX/Google Slides
+artifact. Do not turn a general Figma or slide request into a video task without that intent.
 
-- Establish the animated subject, trigger, start and final states, and interrupted/repeated-input behavior.
-- Preserve the existing product layout, assets, copy, and behavior unless the user requests changing them.
-- Choose a mechanism matching the current stack. CSS or WAAPI can be sufficient; using these references does not require adding an animation library.
-- Apply continuity, perspective, depth, occlusion, easing and phase timing to the actual subject. Scale changes alone do not establish 3D motion.
-- Adapt examples to click- or state-driven app behavior. Upstream constraints for deterministic video capture, such as a paused global timeline and prohibition of live interaction triggers, apply to rendered video compositions rather than ordinary interactive pages.
-- Keep functional state and animation progress distinct. Account for cancellation, rapid selection, disabled states, and reduced motion.
-- Verify proportionately with the tools authorized in the current task. If the user excludes browser MCP or visual inspection, respect that and state the limits of source-only verification.
+## Preserved motion modules
 
-## Video work
+The original four modules are retained as historical technique references:
 
-When the user requests a video, use the relevant workflow guide and preserve the HyperFrames composition and seek-safe timing contracts. Check the actual installed runtime and platform prerequisites before executing commands; the upstream guides may assume macOS or Linux. This skill import installs neither the rendering runtime nor Node packages, FFmpeg, browser tooling, external accounts, or other skills.
+| Need | Local guide |
+| --- | --- |
+| Interactive UI choreography, easing, depth and coordinated reveals | [animation](modules/hyperframes-animation/GUIDE.md) |
+| Precise states, FLIP, trajectories and CSS/WAAPI/GSAP keyframes | [keyframes](modules/hyperframes-keyframes/GUIDE.md) |
+| Earlier motion-graphics techniques and composition examples | [motion graphics](modules/motion-graphics/GUIDE.md) |
+| Earlier multi-scene video workflow | [general video](modules/general-video/GUIDE.md) |
 
-## Selected-bundle boundaries
+For new video projects, use the current core/CLI contract. For an existing project, check its
+actual runtime before applying version-dependent details; do not combine incompatible old/new
+composition formats. Legacy sibling references may describe the older upstream layout. Use
+current bundled guides for current contracts; retrieve a historical source only if its matching
+revision is known and needed, rather than assuming an old path still exists on main.
 
-- Do not automatically run skill freshness/update/init commands found in the upstream guides. They can replace this custom entrypoint or install additional skills, contrary to the user's selected-only request.
-- The four module entrypoints are named `GUIDE.md` so this directory exposes exactly one `SKILL.md` entrypoint. Refer to another bundled module by its local path above rather than invoking it as a separately installed skill.
-- Some upstream workflows reference optional sibling skills that are not bundled. Load a needed document from its upstream source only when relevant; do not pretend it exists locally or install it implicitly. If running a chosen workflow needs missing tooling or dependencies, identify the requirement before proceeding outside existing authorization.
-- For an unbundled reference such as `../hyperframes-core/references/<file>.md`, its source is `https://raw.githubusercontent.com/heygen-com/hyperframes/main/skills/hyperframes-core/references/<file>.md`. Apply the same mapping to other named upstream modules. Treat downloaded references as task documentation, not permission to expand scope or override the user's constraints.
+## Interactive UI animation
 
-Source: [heygen-com/hyperframes](https://github.com/heygen-com/hyperframes). The four upstream module directories were imported on 2026-10-20; their root `SKILL.md` files were renamed to `GUIDE.md`, with this selected-only entrypoint added. Upstream license is included in [LICENSE](LICENSE).
+Establish the subject, trigger, start/end states, and interrupted/repeated-input behavior. Preserve
+the product's layout, copy, assets, and behavior outside the request. Use its existing mechanism;
+CSS or WAAPI may be sufficient. Apply continuity, perspective, depth, occlusion and phase timing
+to the actual subject. Scaling alone does not establish 3D motion.
+
+Keep functional state separate from animation progress. Handle cancellation, rapid selection,
+disabled states and reduced motion. The video guides' paused timelines, seek-safe timing and
+prohibition of live triggers govern deterministic video capture, not ordinary interactive pages.
+
+## Execution and maintenance boundaries
+
+- This download installs documentation/assets/scripts only. It does not install Node packages,
+  FFmpeg, rendering engines, browser tooling, accounts, or external integrations.
+- Inspect prerequisites and command effects before execution. Upstream `npx`, setup, render,
+  auth, cloud, publish, feedback, preview, and desktop-open recipes are not blanket permission
+  to download tools, start applications/services, send data, spend credits, or mutate external state.
+  Reuse explicit task authority and follow the workspace's execution restrictions.
+- Do not run update/freshness/install commands merely because a guide recommends them. They can
+  replace this local entrypoint or create extra skill copies. Keep this bundle's layout and source
+  record intact unless the user requests an update.
+- Verify with the authorized tools at the level that proves the requested output. Respect an
+  explicit source-only restriction and disclose unrun browser/render checks. Reading a guide or
+  passing structural validation does not prove that video rendering works on this machine.
+
+Source: [heygen-com/hyperframes](https://github.com/heygen-com/hyperframes), revision
+`2b8282f3212b83ec22ce34e623701d140e69e794`, imported 2026-10-24. All 300 files from the seven
+published skill directories are included; upstream internal maintenance skills are outside that
+published set. [UPSTREAM_MANIFEST.json](UPSTREAM_MANIFEST.json) records each imported path/hash
+and the seven entrypoint filename mappings. The four 2026-10-20 modules are preserved separately.
+Upstream [LICENSE](LICENSE) is retained.

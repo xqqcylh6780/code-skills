@@ -40,6 +40,10 @@ Resolve the target before editing:
 
 Treat “everything else stays the same” literally. If the requested result requires a new font, palette, dependency, primitive, or information architecture, explain the expansion and obtain authorization before proceeding.
 
+When product facts conflict with a visual document, or the user asks for comparable alternatives,
+read [design-context-and-variants.md](design-context-and-variants.md). Keep existing brand choices
+unless the requested work replaces them; a generic anti-pattern warning is not sufficient reason.
+
 ## Separate evaluation from editing
 
 Use the right evaluation pass; do not blend their outputs.
@@ -56,6 +60,11 @@ Critique is rendered-experience judgment. It assesses:
 - Persona and context fit.
 
 Critique from screenshots and real interaction. Support each conclusion with visible evidence. Do not present a source-code smell as a visual defect unless it affects the rendered experience.
+
+For a substantial combined review, make an initial assessment of the rendered task before reading
+detector output, then corroborate or revise it with technical evidence. Keep observations distinct
+from hypotheses, and do not manufacture a total score without an agreed rubric. Use existing
+delegation policy when independent checks add value; a two-agent process is not a prerequisite.
 
 ### Audit
 
@@ -188,6 +197,18 @@ Optimize time to first value, not completion of a tutorial:
 - Design empty states around what will appear, why it matters, and how to create the first useful item.
 - Measure activation through meaningful product outcomes rather than modal completion.
 
+Choose the empty-state action from the actual cause:
+
+| State | Useful next step |
+| --- | --- |
+| No first item yet | Offer the existing create/import path when the user can use it. |
+| Search/filter excludes everything | Explain the active restriction and offer to change or clear it. |
+| Missing permission | Explain access recovery without exposing protected content or offering an unusable create action. |
+| Load failure | Preserve available work and offer a supported retry or alternative. |
+
+Respect dismissals and returning users using the product's existing persistence conventions.
+Do not add analytics, a tour library, or new tracking storage just to improve an onboarding message.
+
 ### Clarify
 
 Audit visible language by function:
@@ -200,6 +221,12 @@ Audit visible language by function:
 - Permission messages explain the missing capability without exposing sensitive details.
 
 Preserve factual claims, legal meaning, and established voice. Test localization expansion and avoid embedding meaning only in punctuation, capitalization, or idiom.
+
+Read the action and its outcome together. Destructive controls should identify the affected object
+and consequence. A failed or pending save must not read as saved; show progress only when the
+operation provides it, and name a cause only when known. Keep labels visible and errors associated
+with their fields. Use complete translatable messages so names, numbers, and plurals can be reordered.
+Verify the changed copy in its actual error, empty, or permission state, not just in a string file.
 
 ### Typeset
 
